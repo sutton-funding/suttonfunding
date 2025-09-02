@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sutton Funding</title>
+    <link rel="icon" type="image/png" href="sutton2.png">
+    <link rel="shortcut icon" type="image/png" href="sutton2.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        :root {
+            --navy: #000433;
+            --gold: #C2841A;
+            --white: #ffffff;
+            --light-grey: #f8f9fa;
+            --medium-grey: #6c757d;
+            --dark-grey: #343a40;
+            --border-grey: #e9ecef;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-grey);
+            background: var(--light-grey);
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 30, 40, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            left: 0;
+            right: 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 120px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-grey);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .cta-button {
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: #d4941f;
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--white);
+            padding: 180px 2rem 60px;
+            margin-top: 0;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--medium-grey);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4rem;
+            overflow: visible;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--navy);
+            padding: 1rem 2rem;
+            border: 2px solid var(--navy);
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #d4941f;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .trustpilot-badge {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+.trustpilot-badge img {
+    height: 35px;       /* whatever size you want */
+    width: auto;
+    margin-right: 6px;  /* add spacing between the logo and text */
+    vertical-align: middle; /* keeps it lined up with the text */
+}
+
+
+        .hero-image {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 30, 40, 0.1);
+            margin-top: 2rem;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--navy);
+            color: var(--white);
+            padding: 4rem 2rem;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(194, 132, 26, 0.1) 0%, transparent 70%);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--white);
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            text-align: center;
+        }
+
+        .about-heart {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .about-heart svg {
+            width: 60px;
+            height: 60px;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .about-text p {
+            color: var(--medium-grey);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 2rem;
+            background: var(--light-grey);
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--medium-grey);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-grey);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 30, 40, 0.1);
+            border-color: var(--gold);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 10px 10px 0 0;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            color: var(--white);
+        }
+
+        .service-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--medium-grey);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            color: var(--dark-grey);
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .process-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .process-image {
+            position: relative;
+        }
+
+        .process-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 30, 40, 0.15);
+        }
+
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .step-number {
+            background: var(--gold);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: var(--navy);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .step-content p {
+            color: var(--medium-grey);
+            line-height: 1.6;
+        }
+
+        /* Qualification Calculator Section */
+        .qualification-calc {
+            padding: 5rem 2rem;
+            background: var(--navy);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qualification-calc::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(194, 132, 26, 0.1) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .qualification-calc .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .qualification-calc .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .qualification-calc .section-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .qualification-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .qualification-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .slider-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        .slider-container {
+            margin-bottom: 2rem;
+        }
+
+        .revenue-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+            margin-bottom: 1rem;
+        }
+
+        .revenue-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: 3px solid var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .revenue-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: 3px solid var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .current-revenue {
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .qualification-info {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        .amount-section {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .amount-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .qualification-amount {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            line-height: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .amount-range {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .qualify-cta {
+            background: var(--gold);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .qualify-cta:hover {
+            background: #d4941f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(194, 132, 26, 0.4);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--light-grey);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--gold);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--gold);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            color: var(--dark-grey);
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-info h4 {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: var(--medium-grey);
+            font-size: 0.9rem;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background: var(--navy);
+            color: var(--white);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(194, 132, 26, 0.1) 0%, transparent 70%);
+        }
+
+        .final-cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .final-cta .btn-primary {
+            background: var(--gold);
+            font-size: 1.2rem;
+            padding: 1.2rem 2.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--white);
+            padding: 3rem 2rem 1rem;
+            border-top: 1px solid var(--border-grey);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--medium-grey);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            background: var(--navy);
+            padding: 2rem 1rem;
+            text-align: center;
+            color: var(--white);
+            margin: 0 -100vw;
+            width: 200vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -100vw;
+            margin-right: -100vw;
+        }
+
+        .footer-bottom p {
+            max-width: 100vw;
+            margin: 0 auto;
+            padding: 0 2rem;
+            box-sizing: border-box;
+            word-wrap: break-word;
+        }
+
+        .footer-bottom a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--gold);
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--navy);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-links.show {
+            display: flex;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 30, 40, 0.1);
+            border-top: 1px solid var(--border-grey);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .process-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .qualification-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav {
+                padding: 1rem;
+                position: relative;
+            }
+
+            .nav-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.95rem;
+            }
+
+            .logo img {
+                height: 80px;
+            }
+
+            .hero {
+                padding: 160px 1rem 40px;
+            }
+
+            .hero-container {
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+                line-height: 1.3;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+                padding: 1rem 1.5rem;
+            }
+
+            .trustpilot-badge {
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 1.5rem;
+            }
+
+            .hero-image img {
+                height: 300px;
+            }
+
+            .stats {
+                padding: 3rem 1rem;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.2rem;
+            }
+
+            .about {
+                padding: 3rem 1rem;
+            }
+
+            .about-content {
+                margin-top: 2rem;
+            }
+
+            .about-heart svg {
+                width: 45px;
+                height: 45px;
+            }
+
+            .about-text h3 {
+                font-size: 1.6rem;
+            }
+
+            .services {
+                padding: 3rem 1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .service-card {
+                padding: 2rem;
+            }
+
+            .process {
+                padding: 3rem 1rem;
+            }
+
+            .process-content {
+                gap: 2rem;
+            }
+
+            .process-image {
+                order: -1;
+            }
+
+            .process-image img {
+                height: 250px;
+            }
+
+            .qualification-calc {
+                padding: 3rem 1rem;
+            }
+
+            .qualification-content {
+                gap: 2rem;
+            }
+
+            .qualification-amount {
+                font-size: 2.8rem;
+            }
+
+            .slider-section h3 {
+                font-size: 1.5rem;
+            }
+
+            .amount-section h3 {
+                font-size: 1.5rem;
+            }
+
+            .testimonials {
+                padding: 3rem 1rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+
+            .final-cta {
+                padding: 3rem 1rem;
+            }
+
+            .final-cta h2 {
+                font-size: 2rem;
+            }
+
+            .final-cta p {
+                font-size: 1.1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .section-header p {
+                font-size: 1.1rem;
+            }
+
+            .footer {
+                padding: 2rem 1rem 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                padding: 0.75rem;
+            }
+
+            .nav-right {
+                gap: 0.5rem;
+            }
+
+            .cta-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .mobile-menu-btn {
+                padding: 0.25rem;
+                font-size: 1.5rem;
+            }
+
+            .logo img {
+                height: 70px;
+            }
+
+            .hero {
+                padding: 160px 1rem 30px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .hero-image img {
+                height: 250px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-item {
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .about-text h3 {
+                font-size: 1.5rem;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            .service-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .process-step {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .step-content {
+                text-align: center;
+            }
+
+            .qualification-amount {
+                font-size: 2.5rem;
+            }
+
+            .revenue-slider {
+                height: 10px;
+            }
+
+            .revenue-slider::-webkit-slider-thumb {
+                width: 28px;
+                height: 28px;
+            }
+
+            .revenue-slider::-moz-range-thumb {
+                width: 28px;
+                height: 28px;
+            }
+
+            .testimonial-card::before {
+                font-size: 3rem;
+                top: -5px;
+                left: 15px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .final-cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="sutton-new.png" alt="Sutton Funding" />
+            </div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                </ul>
+                <a href="#apply" class="cta-button">Get Funded</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Fast Business Funding When You Need It Most</h1>
+                <p>Smart and transparent terms, fast approvals and no hard credit pulls – just the funding you need to grow.</p>
+                <div class="hero-buttons">
+                    <a href="#apply" class="btn-primary">Apply Now</a>
+                    <a href="#process" class="btn-secondary">Learn More</a>
+                </div>
+                <div class="trustpilot-badge">
+                    <img src="tpilotlogo.png" alt="Trustpilot" />
+                    <span>Proudly rated 4.8/5</span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="sutton-hero-new.jpg" alt="Happy business owner">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">$300M+</div>
+                <div class="stat-label">Funded to Businesses</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24hrs</div>
+                <div class="stat-label">Approval Time</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10,000+</div>
+                <div class="stat-label">Happy Clients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">93%</div>
+                <div class="stat-label">Approval Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="section-header">
+                 <div class="about-heart">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="#C2841A" stroke-width="2"/>
+                </svg>
+            </div>
+                <h2>Our Mission At Sutton Funding</h2>
+            </div>
+           
+            <div class="about-content">
+                <div class="about-text">
+                    <p>At Sutton Funding, we believe that every business deserves access to the capital they need to grow and succeed. We understand that traditional banks often fail to meet the unique needs of small and medium-sized businesses.</p>
+                    <p>That's why we've built a modern, technology-driven platform that delivers fast, flexible funding solutions with transparent terms and exceptional customer service. Our team of experts works tirelessly to understand your business and provide the right funding solution for your specific needs.</p>
+                    <p>Since our founding, we've helped thousands of businesses across various industries achieve their goals by providing them with the working capital they need when they need it most.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-container">
+            <div class="section-header">
+                <h2>Funding Solutions for Every Business</h2>
+                <p>We offer flexible funding options tailored to your business needs..</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                            </svg>
+                        </div>
+                        <h3>Merchant Cash Advance</h3>
+                    </div>
+                    <p>Quick access to funds based on your monthly revenue, not your credit.</p>
+                    <ul class="service-features">
+                        <li>Same-day funding available</li>
+                        <li>Fixed payment schedule</li>
+                        <li>No collateral required</li>
+                        <li>Bad credit accepted</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M13 3L6 14h5l-1 7 7-11h-5l1-7z"/>
+                            </svg>
+                        </div>
+                        <h3>Bridge Financing</h3>
+                    </div>
+                    <p>Short-term financing to bridge the gap between immediate funding needs and long-term financing solutions.</p>
+                    <ul class="service-features">
+                        <li>Fast approval process</li>
+                        <li>Short-term solution</li>
+                        <li>Flexible terms available</li>
+                        <li>Quick access to capital</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-13h-2v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                        </div>
+                        <h3>Line Of Credit</h3>
+                    </div>
+                    <p>Access capital when you need it with a flexible line of credit. Only pay for what you use with revolving credit options.</p>
+                    <ul class="service-features">
+                        <li>Draw funds as needed</li>
+                        <li>Only pay on used amount</li>
+                        <li>Revolving credit line</li>
+                        <li>Flexible repayment terms</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 14V6c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM3 6h14v2H3V6zm0 4h14v4H3v-4zm16 4V9h4v9c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V9h4v5h12z"/>
+                            </svg>
+                        </div>
+                        <h3>Term Loan</h3>
+                    </div>
+                    <p>Traditional term loans with longer repayment schedules and competitive rates for established businesses with strong credit.</p>
+                    <ul class="service-features">
+                        <li>Fixed payment schedule</li>
+                        <li>Competitive interest rates</li>
+                        <li>Longer repayment terms</li>
+                        <li>Build business credit</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                            </svg>
+                        </div>
+                        <h3>Credit Card Processing</h3>
+                    </div>
+                    <p>Complete payment processing solutions with competitive rates and advanced features to help your business accept payments efficiently.</p>
+                    <ul class="service-features">
+                        <li>Low processing rates</li>
+                        <li>Modern POS systems</li>
+                        <li>Online payment gateway</li>
+                        <li>24/7 customer support</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                            </svg>
+                        </div>
+                        <h3>Equipment Financing</h3>
+                    </div>
+                    <p>Upgrade your equipment and technology with competitive rates and terms that won't strain your cash flow.</p>
+                    <ul class="service-features">
+                        <li>100% financing available</li>
+                        <li>Equipment serves as collateral</li>
+                        <li>Tax benefits available</li>
+                        <li>Quick approval process</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="process-container">
+            <div class="section-header">
+                <h2>Simple 3-Step Process</h2>
+                <p>No impact on your credit, no obligation once approved</p>
+            </div>
+            <div class="process-content">
+                <div class="process-image">
+                    <img src="3-steps-pic.jpg" alt="Professional working on laptop">
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Apply Online</h3>
+                            <p>Complete our application in just 5 minutes. No lengthy paperwork or complex forms required.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Get Approved</h3>
+                            <p>Receive approval within 24 hours. Our team reviews your application quickly and efficiently using advanced technology.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Receive Funds</h3>
+                            <p>Get your funds deposited directly into your account within 1-2 business days of approval. No waiting around.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="process-cta" style="text-align: center; margin-top: 3rem;">
+                <a href="#apply" class="btn-primary">Apply Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qualification Calculator Section -->
+    <section class="qualification-calc" id="qualify">
+        <div class="qualification-container">
+            <div class="section-header">
+                <h2>See What You Qualify For</h2>
+                <p>Get an instant estimate of your funding potential.</p>
+            </div>
+            <div class="qualification-content">
+                <div class="slider-section">
+                    <h3>Monthly Gross Revenue</h3>
+                    <div class="slider-container">
+                        <input type="range" min="5000" max="1000000" value="50000" class="revenue-slider" id="revenueSlider">
+                        <div class="slider-labels">
+                            <span>$5K</span>
+                            <span>$1M</span>
+                        </div>
+                        <div class="current-revenue" id="currentRevenue">$50,000 / month</div>
+                    </div>
+                    <div class="qualification-info">
+                        <p>This estimate is based on monthly revenue and typical industry standards.</p>
+                    </div>
+                </div>
+                <div class="amount-section">
+                    <h3>You May Qualify For</h3>
+                    <div class="qualification-amount" id="qualificationAmount">$150,000</div>
+                    <a href="#apply" class="qualify-cta">Get Pre-Qualified</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="testimonials-container">
+            <div class="section-header">
+                <h2>What Our Clients Say</h2>
+                <p>Hear it from other businesses we've helped grow</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Sutton Funding helped us secure $150,000 in working capital when our bank said no. The process was incredibly fast and transparent. We were able to take on a major contract that doubled our revenue.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Sarah Mitchell</h4>
+                            <p>CEO, Mitchell Manufacturing</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        The equipment financing through Sutton allowed us to upgrade our entire production line. The terms were excellent and the approval process was seamless. Highly recommended!
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>David Chen</h4>
+                            <p>Owner, Chen's Bakery Chain</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        As a startup, finding funding was challenging until we found Sutton. They understood our vision and provided the capital we needed to launch successfully. Game changer!
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Maria Rodriguez</h4>
+                            <p>Founder, TechStart Solutions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="apply">
+        <div class="final-cta-content">
+            <h2>Ready to Grow Your Business?</h2>
+            <p>Join thousands of successful businesses that have trusted Sutton Funding with their growth.</p>
+            <a href="#" class="btn-primary">Apply for Funding Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Sutton Funding</h3>
+                <p>Empowering businesses with fast, flexible funding solutions. Your success is our mission.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <p><a href="#services">Merchant Cash Advance</a></p>
+                <p><a href="#services">Bridge Financing</a></p>
+                <p><a href="#services">Line Of Credit</a></p>
+                <p><a href="#services">Term Loan</a></p>
+                <p><a href="#services">Credit Card Processing</a></p>
+                <p><a href="#services">Equipment Financing</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <p><a href="#about">About Us</a></p>
+                <p><a href="#process">How It Works</a></p>
+                <p><a href="#">Success Stories</a></p>
+                <p><a href="#footer">Contact</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📞 (877) 578-8866</p>
+                <p>✉️ info@suttonfunding.com</p>
+                <p>📍 261 Madison Ave, 10th Flr, #1058<br>
+New York, NY 10016</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Sutton Funding. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#ffffff';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Service card hover effects
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Revenue slider functionality
+        const revenueSlider = document.getElementById('revenueSlider');
+        const currentRevenue = document.getElementById('currentRevenue');
+        const qualificationAmount = document.getElementById('qualificationAmount');
+
+        function updateQualification() {
+            const revenue = parseInt(revenueSlider.value);
+            
+            // Format revenue display
+            currentRevenue.textContent = `${(revenue / 1000).toFixed(0)}K / month`;
+            
+            // Calculate qualification amount (typically 3x monthly revenue)
+            const baseMultiplier = 3;
+            const qualAmount = revenue * baseMultiplier;
+            
+            // Format and display amount
+            qualificationAmount.textContent = `${(qualAmount / 1000).toFixed(0)}K`;
+        }
+
+        if (revenueSlider) {
+            revenueSlider.addEventListener('input', updateQualification);
+            updateQualification(); // Initialize on page load
+        }
+
+        // Mobile menu functionality
+        function initializeMobileMenu() {
+            const nav = document.querySelector('.nav-right');
+            const navLinks = document.querySelector('.nav-links');
+            
+            // Check if mobile menu button already exists
+            if (document.querySelector('.mobile-menu-btn')) return;
+            
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.className = 'mobile-menu-btn';
+            mobileMenuBtn.innerHTML = '☰';
+            mobileMenuBtn.setAttribute('aria-label', 'Toggle mobile menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('show');
+                // Change icon
+                if (navLinks.classList.contains('show')) {
+                    mobileMenuBtn.innerHTML = '✕';
+                } else {
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+            
+            nav.appendChild(mobileMenuBtn);
+            
+            // Close mobile menu when a link is clicked
+            navLinks.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    navLinks.classList.remove('show');
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!nav.contains(e.target)) {
+                    navLinks.classList.remove('show');
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+        }
+
+        // Initialize mobile menu on load
+        initializeMobileMenu();
+        
+        // Reinitialize on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const navLinks = document.querySelector('.nav-links');
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                if (navLinks) navLinks.classList.remove('show');
+                if (mobileMenuBtn) mobileMenuBtn.innerHTML = '☰';
+            }
+        });
+
+        // Form validation (if forms are added later)
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Lazy loading for images
+        const images = document.querySelectorAll('img');
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.style.opacity = '1';
+                    img.style.transform = 'scale(1)';
+                }
+            });
+        });
+
+        images.forEach(img => {
+            img.style.opacity = '0.8';
+            img.style.transform = 'scale(0.95)';
+            img.style.transition = 'all 0.6s ease';
+            imageObserver.observe(img);
+        });
+    </script>
+</body>
+</html>
