@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Sutton Funding</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="bridge-favicon.png">
+    <link rel="shortcut icon" type="image/png" href="bridge-favicon.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        :root {
+            --navy: #000433;
+            --gold: #C2841A;
+            --white: #ffffff;
+            --light-grey: #f8f9fa;
+            --medium-grey: #6c757d;
+            --dark-grey: #343a40;
+            --border-grey: #e9ecef;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-grey);
+            background: var(--light-grey);
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 30, 40, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            left: 0;
+            right: 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 120px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-grey);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .cta-button {
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: #d4941f;
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 140px;
+            padding: 2rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 30, 40, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--medium-grey);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .last-updated {
+            background: var(--light-grey);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--gold);
+        }
+
+        .last-updated strong {
+            color: var(--navy);
+        }
+
+        .content-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .content-section h2 {
+            color: var(--navy);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-grey);
+        }
+
+        .content-section h3 {
+            color: var(--navy);
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            margin-top: 1.5rem;
+            font-weight: 600;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            color: var(--dark-grey);
+        }
+
+        .content-section ul, .content-section ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+            color: var(--dark-grey);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(194, 132, 26, 0.1) 0%, rgba(194, 132, 26, 0.05) 100%);
+            border: 1px solid rgba(194, 132, 26, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-info {
+            background: var(--navy);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--light-grey);
+            border: 1px solid var(--border-grey);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .toc h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: var(--dark-grey);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .toc a:hover {
+            color: var(--gold);
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--navy);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-links.show {
+            display: flex;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 30, 40, 0.1);
+            border-top: 1px solid var(--border-grey);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav {
+                padding: 1rem;
+                position: relative;
+            }
+
+            .nav-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .logo img {
+                height: 80px;
+            }
+
+            .main-content {
+                margin-top: 120px;
+                padding: 1.5rem;
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.3rem;
+            }
+
+            .toc {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                margin-top: 110px;
+                padding: 1rem;
+                margin-left: 0.5rem;
+                margin-right: 0.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo img {
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="sutton-new.png" alt="Sutton Funding" />
+            </div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+
+                </ul>
+                <a href="https://suttonfunding.fillout.com/applynow" class="cta-button">Get Funded</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Privacy Policy</h1>
+            <p>Your privacy and data security are our top priorities. Learn how we protect and use your information.</p>
+        </div>
+
+        <div class="last-updated">
+            <strong>Version:</strong> 1.0.22
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#information-collection">2. Information We Collect</a></li>
+                <li><a href="#information-use">3. How We Use Your Information</a></li>
+                <li><a href="#information-sharing">4. Information Sharing and Disclosure</a></li>
+                <li><a href="#data-security">5. Data Security</a></li>
+                <li><a href="#cookies">6. Cookies and Tracking Technologies</a></li>
+                <li><a href="#your-rights">7. Your Privacy Rights</a></li>
+                <li><a href="#third-party-links">8. Third-Party Links and Services</a></li>
+                <li><a href="#children-privacy">9. Children's Privacy</a></li>
+                <li><a href="#california-privacy">10. California Privacy Rights</a></li>
+                <li><a href="#international-users">11. International Users</a></li>
+                <li><a href="#changes">12. Changes to This Privacy Policy</a></li>
+                <li><a href="#contact">13. Contact Information</a></li>
+            </ul>
+        </div>
+
+        <section class="content-section" id="introduction">
+            <h2>1. Introduction</h2>
+            <p>Welcome to Sutton Funding ("we," "our," or "us"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us in any way.</p>
+            
+            <div class="highlight-box">
+                <h4>Important Note</h4>
+                <p>By using our services or providing us with your information, you consent to the collection, use, and disclosure of your information as described in this Privacy Policy. If you do not agree with our practices, please do not use our services or provide us with your personal information.</p>
+            </div>
+        </section>
+
+        <section class="content-section" id="information-collection">
+            <h2>2. Information We Collect</h2>
+            
+            <h3>Personal Information</h3>
+            <p>We may collect various types of personal information, including but not limited to:</p>
+            <ul>
+                <li><strong>Contact Information:</strong> Name, email address, phone number, mailing address</li>
+                <li><strong>Business Information:</strong> Business name, industry, revenue, years in business, tax ID number</li>
+                <li><strong>Financial Information:</strong> Bank account information, credit history, financial statements, transaction history</li>
+                <li><strong>Government-Issued Identification:</strong> Social Security number, driver's license, passport information</li>
+                <li><strong>Employment Information:</strong> Job title, employer information, income details</li>
+            </ul>
+
+            <h3>Automatically Collected Information</h3>
+            <p>When you visit our website or use our services, we automatically collect certain information:</p>
+            <ul>
+                <li>IP address and device identifiers</li>
+                <li>Browser type and version</li>
+                <li>Operating system information</li>
+                <li>Pages visited and time spent on our website</li>
+                <li>Referring website or source</li>
+                <li>Click patterns and user preferences</li>
+            </ul>
+
+            <h3>Information from Third Parties</h3>
+            <p>We may receive information about you from third-party sources, including:</p>
+            <ul>
+                <li>Credit reporting agencies</li>
+                <li>Financial institutions</li>
+                <li>Public databases and records</li>
+                <li>Marketing partners and lead generation companies</li>
+                <li>Social media platforms (if you connect your accounts)</li>
+            </ul>
+        </section>
+
+        <section class="content-section" id="information-use">
+            <h2>3. How We Use Your Information</h2>
+            
+            <p>We use your information for various legitimate business purposes, including:</p>
+
+            <h3>Service Provision</h3>
+            <ul>
+                <li>Processing and evaluating funding applications</li>
+                <li>Providing financing and related services</li>
+                <li>Managing your account and customer relationship</li>
+                <li>Processing payments and transactions</li>
+                <li>Providing customer support and responding to inquiries</li>
+            </ul>
+
+            <h3>Legal and Regulatory Compliance</h3>
+            <ul>
+                <li>Verifying your identity and preventing fraud</li>
+                <li>Complying with applicable laws and regulations</li>
+                <li>Reporting to regulatory authorities as required</li>
+                <li>Maintaining records as required by law</li>
+            </ul>
+
+            <h3>Business Operations</h3>
+            <ul>
+                <li>Improving our services and website functionality</li>
+                <li>Conducting market research and analytics</li>
+                <li>Developing new products and services</li>
+                <li>Marketing and promotional activities (with your consent)</li>
+                <li>Risk assessment and management</li>
+            </ul>
+        </section>
+
+        <section class="content-section" id="information-sharing">
+            <h2>4. Information Sharing and Disclosure</h2>
+            
+            <p>We may share your information in the following circumstances:</p>
+
+            <h3>Service Providers</h3>
+            <p>We work with third-party service providers who assist us in operating our business. These may include:</p>
+            <ul>
+                <li>Payment processors and financial institutions</li>
+                <li>Credit reporting and verification services</li>
+                <li>Technology and hosting providers</li>
+                <li>Marketing and analytics companies</li>
+                <li>Legal and professional service providers</li>
+            </ul>
+
+            <h3>Business Partners</h3>
+            <p>We may share information with trusted business partners, including:</p>
+            <ul>
+                <li>Lending partners and investors</li>
+                <li>Insurance providers</li>
+                <li>Referral partners</li>
+            </ul>
+
+            <h3>Legal Requirements</h3>
+            <p>We may disclose your information when required by law or to:</p>
+            <ul>
+                <li>Comply with legal processes or court orders</li>
+                <li>Respond to government requests or regulatory inquiries</li>
+                <li>Protect our rights, property, or safety</li>
+                <li>Prevent fraud or illegal activities</li>
+                <li>Enforce our terms of service</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>No Sale of Personal Information</h4>
+                <p>We do not sell your personal information to third parties for their marketing purposes. Any sharing of information is done in accordance with this Privacy Policy and applicable laws.</p>
+            </div>
+        </section>
+
+        <section class="content-section" id="data-security">
+            <h2>5. Data Security</h2>
+            
+            <p>We implement robust security measures to protect your personal information:</p>
+
+            <h3>Technical Safeguards</h3>
+            <ul>
+                <li>SSL/TLS encryption for data transmission</li>
+                <li>Secure servers and databases with encryption at rest</li>
+                <li>Multi-factor authentication for account access</li>
+                <li>Regular security assessments and penetration testing</li>
+                <li>Firewalls and intrusion detection systems</li>
+            </ul>
+
+            <h3>Administrative Safeguards</h3>
+            <ul>
+                <li>Limited access to personal information on a need-to-know basis</li>
+                <li>Employee training on data privacy and security</li>
+                <li>Background checks for employees with access to sensitive data</li>
+                <li>Regular review and updating of security policies</li>
+            </ul>
+
+            <h3>Physical Safeguards</h3>
+            <ul>
+                <li>Secure facilities with controlled access</li>
+                <li>Surveillance systems and security personnel</li>
+                <li>Secure disposal of physical documents</li>
+            </ul>
+
+            <p>While we strive to protect your information, no method of transmission or storage is 100% secure. We cannot guarantee absolute security, but we continuously work to enhance our security measures.</p>
+        </section>
+
+        <section class="content-section" id="cookies">
+            <h2>6. Cookies and Tracking Technologies</h2>
+            
+            <p>We use cookies and similar tracking technologies to enhance your experience on our website:</p>
+
+            <h3>Types of Cookies We Use</h3>
+            <ul>
+                <li><strong>Essential Cookies:</strong> Necessary for basic website functionality</li>
+                <li><strong>Performance Cookies:</strong> Help us understand how visitors use our website</li>
+                <li><strong>Functionality Cookies:</strong> Remember your preferences and settings</li>
+                <li><strong>Marketing Cookies:</strong> Used to deliver relevant advertisements</li>
+            </ul>
+
+            <h3>Managing Cookies</h3>
+            <p>You can control cookies through your browser settings. However, disabling certain cookies may affect your ability to use some features of our website.</p>
+
+            <h3>Third-Party Analytics</h3>
+            <p>We use third-party analytics services, such as Google Analytics, to help us understand website usage patterns. These services may use cookies and similar technologies to collect information about your visits.</p>
+        </section>
+
+        <section class="content-section" id="your-rights">
+            <h2>7. Your Privacy Rights</h2>
+            
+            <p>Depending on your location, you may have certain rights regarding your personal information:</p>
+
+            <h3>General Rights</h3>
+            <ul>
+                <li><strong>Access:</strong> Request information about the personal data we hold about you</li>
+                <li><strong>Correction:</strong> Request correction of inaccurate or incomplete information</li>
+                <li><strong>Deletion:</strong> Request deletion of your personal information (subject to legal requirements)</li>
+                <li><strong>Portability:</strong> Request a copy of your data in a portable format</li>
+                <li><strong>Objection:</strong> Object to certain uses of your personal information</li>
+                <li><strong>Restriction:</strong> Request restriction of processing in certain circumstances</li>
+            </ul>
+
+            <h3>Marketing Communications</h3>
+            <p>You can opt out of marketing communications at any time by:</p>
+            <ul>
+                <li>Clicking the unsubscribe link in our emails</li>
+                <li>Contacting us directly</li>
+                <li>Updating your communication preferences in your account</li>
+            </ul>
+
+            <h3>Exercising Your Rights</h3>
+            <p>To exercise any of these rights, please contact us using the information provided in the "Contact Information" section below. We will respond to your request within the timeframe required by applicable law.</p>
+        </section>
+
+        <section class="content-section" id="third-party-links">
+            <h2>8. Third-Party Links and Services</h2>
+            
+            <p>Our website may contain links to third-party websites or services. This Privacy Policy does not apply to those third-party sites or services. We encourage you to review the privacy policies of any third-party sites you visit.</p>
+
+            <h3>Social Media Integration</h3>
+            <p>If you interact with us through social media platforms, your interactions may be governed by the privacy policies of those platforms in addition to this Privacy Policy.</p>
+        </section>
+
+        <section class="content-section" id="children-privacy">
+            <h2>9. Children's Privacy</h2>
+            
+            <p>Our services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children under 18. If we become aware that we have collected personal information from a child under 18, we will take steps to delete such information promptly.</p>
+        </section>
+
+        <section class="content-section" id="california-privacy">
+            <h2>10. California Privacy Rights</h2>
+            
+            <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA):</p>
+
+            <h3>Right to Know</h3>
+            <p>You have the right to request information about the categories and specific pieces of personal information we have collected about you, as well as information about our data practices.</p>
+
+            <h3>Right to Delete</h3>
+            <p>You have the right to request deletion of your personal information, subject to certain exceptions.</p>
+
+            <h3>Right to Non-Discrimination</h3>
+            <p>We will not discriminate against you for exercising your privacy rights.</p>
+
+            <h3>Authorized Agent</h3>
+            <p>You may designate an authorized agent to make requests on your behalf. We may require verification of the agent's authority.</p>
+        </section>
+
+        <section class="content-section" id="international-users">
+            <h2>11. International Users</h2>
+            
+            <p>If you are accessing our services from outside the United States, please be aware that your information may be transferred to, stored, and processed in the United States, where our servers are located and our central database is operated.</p>
+
+            <p>By using our services, you consent to the transfer of your information to the United States. We will take appropriate measures to ensure that your personal information receives an adequate level of protection.</p>
+        </section>
+
+        <section class="content-section" id="changes">
+            <h2>12. Changes to This Privacy Policy</h2>
+            
+            <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. We will notify you of any material changes by:</p>
+            <ul>
+                <li>Posting the updated Privacy Policy on our website</li>
+                <li>Sending you an email notification (if we have your email address)</li>
+                <li>Providing notice through our services</li>
+            </ul>
+
+            <p>Your continued use of our services after any changes to this Privacy Policy constitutes your acceptance of those changes.</p>
+        </section>
+
+        <section class="content-section" id="contact">
+            <h2>13. Contact Information</h2>
+            
+            <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us:</p>
+
+            <div class="contact-info">
+                <h3>Contact Usr</h3>
+                <p><strong>Sutton Funding</strong></p>
+                <p>261 Madison Ave, 10th Floor, #1058</p>
+                <p>New York, NY 10016</p>
+                <p>Phone: <a href="tel:8775788866">(877) 578-8866</a></p>
+                <p>Email: <a href="mailto:privacy@suttonfunding.com">info@suttonfunding.com</a></p>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for table of contents links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#ffffff';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Mobile menu functionality
+        function initializeMobileMenu() {
+            const nav = document.querySelector('.nav-right');
+            const navLinks = document.querySelector('.nav-links');
+            
+            // Check if mobile menu button already exists
+            if (document.querySelector('.mobile-menu-btn')) return;
+            
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.className = 'mobile-menu-btn';
+            mobileMenuBtn.innerHTML = '☰';
+            mobileMenuBtn.setAttribute('aria-label', 'Toggle mobile menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('show');
+                // Change icon
+                if (navLinks.classList.contains('show')) {
+                    mobileMenuBtn.innerHTML = '✕';
+                } else {
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+            
+            nav.appendChild(mobileMenuBtn);
+            
+            // Close mobile menu when a link is clicked
+            navLinks.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    navLinks.classList.remove('show');
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!nav.contains(e.target)) {
+                    navLinks.classList.remove('show');
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+        }
+
+        // Initialize mobile menu on load
+        initializeMobileMenu();
+        
+        // Reinitialize on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const navLinks = document.querySelector('.nav-links');
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                if (navLinks) navLinks.classList.remove('show');
+                if (mobileMenuBtn) mobileMenuBtn.innerHTML = '☰';
+            }
+        });
+    </script>
+</body>
+</html>
