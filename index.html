@@ -211,13 +211,12 @@
             gap: 1rem;
         }
 
-.trustpilot-badge img {
-    height: 35px;       /* whatever size you want */
-    width: auto;
-    margin-right: 6px;  /* add spacing between the logo and text */
-    vertical-align: middle; /* keeps it lined up with the text */
-}
-
+        .trustpilot-badge img {
+            height: 35px;
+            width: auto;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
 
         .hero-image {
             position: relative;
@@ -1605,23 +1604,32 @@ New York, NY 10016</p>
             });
         });
 
-        // Revenue slider functionality
+        // Revenue slider functionality - UPDATED TO SHOW CURRENCY FORMAT
         const revenueSlider = document.getElementById('revenueSlider');
         const currentRevenue = document.getElementById('currentRevenue');
         const qualificationAmount = document.getElementById('qualificationAmount');
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
 
         function updateQualification() {
             const revenue = parseInt(revenueSlider.value);
             
             // Format revenue display
-            currentRevenue.textContent = `${(revenue / 1000).toFixed(0)}K / month`;
+            currentRevenue.textContent = `${formatCurrency(revenue)} / month`;
             
             // Calculate qualification amount (typically 3x monthly revenue)
             const baseMultiplier = 3;
             const qualAmount = revenue * baseMultiplier;
             
-            // Format and display amount
-            qualificationAmount.textContent = `${(qualAmount / 1000).toFixed(0)}K`;
+            // Format and display amount in full currency format
+            qualificationAmount.textContent = formatCurrency(qualAmount);
         }
 
         if (revenueSlider) {
