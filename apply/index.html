@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply Now - Sutton Funding</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="bridge-favicon.png">
+    <link rel="shortcut icon" type="image/png" href="bridge-favicon.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        :root {
+            --navy: #000433;
+            --gold: #C2841A;
+            --white: #ffffff;
+            --light-grey: #f8f9fa;
+            --medium-grey: #6c757d;
+            --dark-grey: #343a40;
+            --border-grey: #e9ecef;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-grey);
+            background: var(--light-grey);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 30, 40, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            left: 0;
+            right: 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 120px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-grey);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .back-button {
+            background: var(--navy);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #001155;
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 180px 2rem 60px;
+            min-height: 100vh;
+        }
+
+        .application-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 30, 40, 0.1);
+            overflow: hidden;
+            border: 1px solid var(--border-grey);
+        }
+
+        .application-header {
+            background: linear-gradient(135deg, var(--navy) 0%, #001155 100%);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .application-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(194, 132, 26, 0.1) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .application-header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .application-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .application-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .application-form-container {
+            padding: 2rem;
+            background: var(--white);
+        }
+
+        .form-embed-container {
+            background: var(--light-grey);
+            border-radius: 10px;
+            padding: 1rem;
+            border: 1px solid var(--border-grey);
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-message {
+            color: var(--medium-grey);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        /* Trust Indicators */
+        .trust-indicators {
+            background: var(--navy);
+            color: var(--white);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .trust-indicators::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(194, 132, 26, 0.1) 0%, transparent 70%);
+        }
+
+        .trust-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .trust-item {
+            padding: 1rem;
+        }
+
+        .trust-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .trust-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .trust-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Process Steps */
+        .process-preview {
+            padding: 3rem 2rem;
+            background: var(--white);
+            border-top: 1px solid var(--border-grey);
+        }
+
+        .process-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .process-title h2 {
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .process-title p {
+            color: var(--medium-grey);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .step-number {
+            background: var(--gold);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin: 0 auto 1rem;
+        }
+
+        .process-step h3 {
+            color: var(--navy);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            color: var(--medium-grey);
+            font-size: 0.95rem;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--navy);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-links.show {
+            display: flex;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 30, 40, 0.1);
+            border-top: 1px solid var(--border-grey);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav {
+                padding: 1rem;
+                position: relative;
+            }
+
+            .nav-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .back-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.95rem;
+            }
+
+            .logo img {
+                height: 80px;
+            }
+
+            .main-content {
+                padding: 160px 1rem 40px;
+            }
+
+            .application-header {
+                padding: 2rem 1rem;
+            }
+
+            .application-header h1 {
+                font-size: 2rem;
+            }
+
+            .application-header p {
+                font-size: 1.1rem;
+            }
+
+            .application-form-container {
+                padding: 1rem;
+            }
+
+            .trust-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .process-preview {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                padding: 0.75rem;
+            }
+
+            .nav-right {
+                gap: 0.5rem;
+            }
+
+            .back-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .logo img {
+                height: 70px;
+            }
+
+            .main-content {
+                padding: 160px 1rem 30px;
+            }
+
+            .application-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .application-header p {
+                font-size: 1rem;
+            }
+
+            .trust-content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .trust-item {
+                padding: 0.5rem;
+            }
+
+            .trust-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="sutton-new.png" alt="Sutton Funding" />
+            </div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#process">Process</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                </ul>
+                <a href="index.html" class="back-button">Back to Home</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="application-container">
+            <!-- Application Header -->
+            <div class="application-header">
+                <div class="application-header-content">
+                    <h1>Apply for Business Funding</h1>
+                    <p>Complete your application in just 5 minutes. No impact on your credit score and no obligation to accept our offer.</p>
+                </div>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="trust-indicators">
+                <div class="trust-content">
+                    <div class="trust-item">
+                        <div class="trust-icon">🔒</div>
+                        <h3>Secure & Encrypted</h3>
+                        <p>Your information is protected with bank-level security</p>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">⚡</div>
+                        <h3>Fast Approval</h3>
+                        <p>Get approved within 24 hours</p>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">📊</div>
+                        <h3>No Credit Impact</h3>
+                        <p>Soft credit check only - no impact on your score</p>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">💰</div>
+                        <h3>No Obligation</h3>
+                        <p>Free to apply with no commitment required</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Form Container -->
+            <div class="application-form-container">
+                <div class="form-embed-container">
+                    <div style="width:100%;height:500px;" data-fillout-id="8MHgmHfNMpus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
+                    <script src="https://server.fillout.com/embed/v1/"></script>
+                </div>
+            </div>
+
+            <!-- Process Preview -->
+            <div class="process-preview">
+                <div class="process-title">
+                    <h2>What Happens Next?</h2>
+                    <p>Here's what you can expect after submitting your application</p>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3>Review & Verification</h3>
+                        <p>Our team reviews your application and may contact you for additional information</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3>Approval Decision</h3>
+                        <p>Receive your approval decision within 24 hours via email or phone</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3>Funding</h3>
+                        <p>Once you accept our offer, funds are deposited within 1-2 business days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#ffffff';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Mobile menu functionality
+        function initializeMobileMenu() {
+            const nav = document.querySelector('.nav-right');
+            const navLinks = document.querySelector('.nav-links');
+            
+            // Check if mobile menu button already exists
+            if (document.querySelector('.mobile-menu-btn')) return;
+            
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.className = 'mobile-menu-btn';
+            mobileMenuBtn.innerHTML = '☰';
+            mobileMenuBtn.setAttribute('aria-label', 'Toggle mobile menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('show');
+                // Change icon
+                if (navLinks.classList.contains('show')) {
+                    mobileMenuBtn.innerHTML = '✕';
+                } else {
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+            
+            nav.appendChild(mobileMenuBtn);
+            
+            // Close mobile menu when a link is clicked
+            navLinks.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    navLinks.classList.remove('show');
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!nav.contains(e.target)) {
+                    navLinks.classList.remove('show');
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+            });
+        }
+
+        // Initialize mobile menu on load
+        initializeMobileMenu();
+        
+        // Reinitialize on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const navLinks = document.querySelector('.nav-links');
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                if (navLinks) navLinks.classList.remove('show');
+                if (mobileMenuBtn) mobileMenuBtn.innerHTML = '☰';
+            }
+        });
+
+        // Form load detection
+        window.addEventListener('load', function() {
+            // Check if form is loaded after a short delay
+            setTimeout(function() {
+                const formContainer = document.querySelector('[data-fillout-id]');
+                if (formContainer && formContainer.innerHTML.trim() === '') {
+                    // If form hasn't loaded, show a message
+                    const loadingMsg = document.createElement('div');
+                    loadingMsg.className = 'loading-message';
+                    loadingMsg.innerHTML = 'Loading application form...';
+                    formContainer.appendChild(loadingMsg);
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
