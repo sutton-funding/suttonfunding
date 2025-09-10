@@ -11,17 +11,9 @@
     <link rel="apple-touch-icon" href="/bridge-favicon.png">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            max-width: 100vw;
-        }
+        html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }
 
         :root {
             --navy: #000433;
@@ -62,34 +54,14 @@
             width: 100%;
         }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex-shrink: 0;
-        }
+        .nav-right { display: flex; align-items: center; gap: 2rem; flex-shrink: 0; }
 
-        .logo img {
-            height: 120px;
-            width: auto;
-        }
+        .logo img { height: 120px; width: auto; }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark-grey);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
+        .nav-links a { text-decoration: none; color: var(--dark-grey); font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--gold); }
 
         .back-button {
             background: var(--navy);
@@ -103,75 +75,23 @@
             text-decoration: none;
             display: inline-block;
         }
-
-        .back-button:hover {
-            background: #001155;
-            transform: translateY(-1px);
-        }
+        .back-button:hover { background: #001155; transform: translateY(-1px); }
 
         /* Main Content */
-        .main-content {
-            padding: 180px 2rem 60px;
-            min-height: 100vh;
-            background: var(--white);
-        }
+        .main-content { padding: 180px 2rem 60px; min-height: 100vh; background: var(--white); }
 
-        .application-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--white);
-        }
+        .application-container { max-width: 800px; margin: 0 auto; background: var(--white); }
 
         /* Application Header */
-        .application-header {
-            text-align: center;
-            padding: 2rem 0 3rem;
-            background: var(--white);
-        }
-
-        .application-header h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: var(--navy);
-            line-height: 1.3;
-        }
-
-        .application-header p {
-            font-size: 1rem;
-            color: var(--medium-grey);
-            max-width: 400px;
-            margin: 0 auto;
-        }
+        .application-header { text-align: center; padding: 2rem 0 3rem; background: var(--white); }
+        .application-header h1 { font-size: 2rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--navy); line-height: 1.3; }
+        .application-header p { font-size: 1rem; color: var(--medium-grey); max-width: 400px; margin: 0 auto; }
 
         /* Trust Indicators */
-        .trust-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .trust-item {
-            text-align: center;
-            flex: 1;
-            min-width: 180px;
-            max-width: 220px;
-        }
-
-        .trust-item h3 {
-            font-size: 0.9rem;
-            color: var(--gold);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .trust-item p {
-            font-size: 0.8rem;
-            color: var(--medium-grey);
-            line-height: 1.4;
-        }
+        .trust-indicators { display: flex; justify-content: center; gap: 3rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .trust-item { text-align: center; flex: 1; min-width: 180px; max-width: 220px; }
+        .trust-item h3 { font-size: 0.9rem; color: var(--gold); font-weight: 600; margin-bottom: 0.25rem; }
+        .trust-item p { font-size: 0.8rem; color: var(--medium-grey); line-height: 1.4; }
 
         /* Form Container */
         .form-container {
@@ -181,206 +101,73 @@
             padding: 2rem;
             margin-bottom: 3rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: visible !important; /* never clip children here */
         }
 
-        .form-embed {
-            width: 100%;
-            min-height: 600px;
-            /* Key: allow dropdowns to extend */
+        .form-embed { width: 100%; min-height: 600px; overflow: visible !important; }
+
+        /* Force the embedded Fillout iframe to be tall enough for long dropdowns */
+        .form-embed iframe {
+            display: block;
+            width: 100% !important;
+            min-height: 1600px !important; /* bump if needed */
             overflow: visible !important;
         }
 
         /* Ensure no ancestor clips the embed */
-        .application-container, .main-content, body, html {
-            overflow: visible !important;
-        }
+        .application-container, .main-content, body, html { overflow: visible !important; }
 
         /* Process Steps */
-        .process-section {
-            background: var(--white);
-            padding: 2rem 0;
-            border-top: 1px solid var(--border-grey);
-        }
-
-        .process-title {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .process-title h2 {
-            font-size: 1.5rem;
-            color: var(--navy);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .process-title p {
-            color: var(--medium-grey);
-            font-size: 0.9rem;
-        }
-
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .process-step {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .step-number {
-            background: var(--gold);
-            color: var(--white);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin: 0 auto 1rem;
-        }
-
-        .process-step h3 {
-            color: var(--navy);
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .process-step p {
-            color: var(--medium-grey);
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
+        .process-section { background: var(--white); padding: 2rem 0; border-top: 1px solid var(--border-grey); }
+        .process-title { text-align: center; margin-bottom: 2rem; }
+        .process-title h2 { font-size: 1.5rem; color: var(--navy); margin-bottom: 0.5rem; font-weight: 600; }
+        .process-title p { color: var(--medium-grey); font-size: 0.9rem; }
+        .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .process-step { text-align: center; padding: 1rem; }
+        .step-number { background: var(--gold); color: var(--white); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; margin: 0 auto 1rem; }
+        .process-step h3 { color: var(--navy); font-size: 1rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .process-step p { color: var(--medium-grey); font-size: 0.85rem; line-height: 1.4; }
 
         /* Mobile Navigation */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: var(--navy);
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--navy); cursor: pointer; padding: 0.5rem; }
         .nav-links.show {
-            display: flex;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            flex-direction: column;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 30, 40, 0.1);
-            border-top: 1px solid var(--border-grey);
+            display: flex; position: absolute; top: 100%; left: 0; right: 0;
+            background: var(--white); flex-direction: column; padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 30, 40, 0.1); border-top: 1px solid var(--border-grey);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
+            .mobile-menu-btn { display: block; }
+            .nav { padding: 1rem; position: relative; }
+            .nav-right { flex-direction: column; align-items: flex-end; gap: 1rem; }
+            .nav-links { display: none; }
+            .back-button { padding: 0.6rem 1.2rem; font-size: 0.95rem; }
+            .logo img { height: 80px; }
+            .main-content { padding: 160px 1rem 40px; }
+            .application-header { padding: 1.5rem 0 2rem; }
+            .application-header h1 { font-size: 1.7rem; }
+            .application-header p { font-size: 0.95rem; }
+            .trust-indicators { flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; }
+            .trust-item { min-width: auto; max-width: none; }
+            .form-container { padding: 1.5rem; }
+            .process-steps { grid-template-columns: 1fr; gap: 1.5rem; }
 
-            .nav {
-                padding: 1rem;
-                position: relative;
-            }
-
-            .nav-right {
-                flex-direction: column;
-                align-items: flex-end;
-                gap: 1rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .back-button {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.95rem;
-            }
-
-            .logo img {
-                height: 80px;
-            }
-
-            .main-content {
-                padding: 160px 1rem 40px;
-            }
-
-            .application-header {
-                padding: 1.5rem 0 2rem;
-            }
-
-            .application-header h1 {
-                font-size: 1.7rem;
-            }
-
-            .application-header p {
-                font-size: 0.95rem;
-            }
-
-            .trust-indicators {
-                flex-direction: column;
-                gap: 1.5rem;
-                margin-bottom: 2rem;
-            }
-
-            .trust-item {
-                min-width: auto;
-                max-width: none;
-            }
-
-            .form-container {
-                padding: 1.5rem;
-            }
-
-            .process-steps {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
+            /* Give even more room on small screens where dropdowns take more space */
+            .form-embed iframe { min-height: 2000px !important; }
         }
 
         @media (max-width: 480px) {
-            .nav {
-                padding: 0.75rem;
-            }
+            .nav { padding: 0.75rem; }
+            .nav-right { gap: 0.5rem; }
+            .back-button { padding: 0.5rem 1rem; font-size: 0.9rem; }
+            .logo img { height: 70px; }
+            .main-content { padding: 160px 1rem 30px; }
+            .application-header h1 { font-size: 1.5rem; }
+            .application-header p { font-size: 0.9rem; }
+            .form-container { padding: 1rem; }
 
-            .nav-right {
-                gap: 0.5rem;
-            }
-
-            .back-button {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .logo img {
-                height: 70px;
-            }
-
-            .main-content {
-                padding: 160px 1rem 30px;
-            }
-
-            .application-header h1 {
-                font-size: 1.5rem;
-            }
-
-            .application-header p {
-                font-size: 0.9rem;
-            }
-
-            .form-container {
-                padding: 1rem;
-            }
+            .form-embed iframe { min-height: 2200px !important; }
         }
     </style>
 </head>
