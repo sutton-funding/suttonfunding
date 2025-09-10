@@ -186,6 +186,13 @@
         .form-embed {
             width: 100%;
             min-height: 600px;
+            /* Key: allow dropdowns to extend */
+            overflow: visible !important;
+        }
+
+        /* Ensure no ancestor clips the embed */
+        .application-container, .main-content, body, html {
+            overflow: visible !important;
         }
 
         /* Process Steps */
@@ -274,7 +281,7 @@
             border-top: 1px solid var(--border-grey);
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
@@ -419,13 +426,15 @@
             <!-- Application Form -->
             <div class="form-container">
                 <div class="form-embed">
-                    <script src="https://embed.fillout.com/embed.js"
+                    <!-- Fillout v1 embed with dynamic resize -->
+                    <div
+                        style="width:100%;height:auto;min-height:600px;"
                         data-fillout-id="8MHgmHfNMpus"
                         data-fillout-embed-type="standard"
-                        data-fillout-auto-resize="true"
                         data-fillout-inherit-parameters="true"
-                        style="width: 100%;">
-                    </script>
+                        data-fillout-dynamic-resize="true">
+                    </div>
+                    <script src="https://server.fillout.com/embed/v1/"></script>
                 </div>
             </div>
 
@@ -449,7 +458,7 @@
                     <div class="process-step">
                         <div class="step-number">3</div>
                         <h3>Funding</h3>
-                        <p>Funds within 1-2 business days</p>
+                        <p>Funds within 1–2 business days</p>
                     </div>
                 </div>
             </div>
@@ -474,6 +483,7 @@
             const nav = document.querySelector('.nav-right');
             const navLinks = document.querySelector('.nav-links');
             if (document.querySelector('.mobile-menu-btn')) return;
+
             const mobileMenuBtn = document.createElement('button');
             mobileMenuBtn.className = 'mobile-menu-btn';
             mobileMenuBtn.innerHTML = '☰';
@@ -482,13 +492,16 @@
                 navLinks.classList.toggle('show');
                 mobileMenuBtn.innerHTML = navLinks.classList.contains('show') ? '✕' : '☰';
             });
+
             nav.appendChild(mobileMenuBtn);
+
             navLinks.addEventListener('click', function(e) {
                 if (e.target.tagName === 'A') {
                     navLinks.classList.remove('show');
                     mobileMenuBtn.innerHTML = '☰';
                 }
             });
+
             document.addEventListener('click', function(e) {
                 if (!nav.contains(e.target)) {
                     navLinks.classList.remove('show');
@@ -497,6 +510,7 @@
             });
         }
         initializeMobileMenu();
+
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 const navLinks = document.querySelector('.nav-links');
