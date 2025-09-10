@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply Now</title>
 
-  <!-- Favicon -->
-<link rel="icon" type="image/png" href="/bridge-favicon.png">
-<link rel="shortcut icon" type="image/png" href="/bridge-favicon.png">
-
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/bridge-favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/bridge-favicon.png">
+    <link rel="apple-touch-icon" href="/bridge-favicon.png">
 
     <style>
         * {
@@ -385,9 +385,7 @@
                 <img src="/sutton-new.png" alt="Sutton Funding" />
             </div>
             <div class="nav-right">
-                <ul class="nav-links">
-                   
-                </ul>
+                <ul class="nav-links"></ul>
                 <a href="/" class="back-button">Back to Home</a>
             </div>
         </nav>
@@ -421,8 +419,13 @@
             <!-- Application Form -->
             <div class="form-container">
                 <div class="form-embed">
-                    <div style="width:100%;height:500px;" data-fillout-id="8MHgmHfNMpus" data-fillout-embed-type="standard" data-fillout-inherit-parameters data-fillout-dynamic-resize></div>
-                    <script src="https://server.fillout.com/embed/v1/"></script>
+                    <script src="https://embed.fillout.com/embed.js"
+                        data-fillout-id="8MHgmHfNMpus"
+                        data-fillout-embed-type="standard"
+                        data-fillout-auto-resize="true"
+                        data-fillout-inherit-parameters="true"
+                        style="width: 100%;">
+                    </script>
                 </div>
             </div>
 
@@ -470,36 +473,22 @@
         function initializeMobileMenu() {
             const nav = document.querySelector('.nav-right');
             const navLinks = document.querySelector('.nav-links');
-            
-            // Check if mobile menu button already exists
             if (document.querySelector('.mobile-menu-btn')) return;
-            
             const mobileMenuBtn = document.createElement('button');
             mobileMenuBtn.className = 'mobile-menu-btn';
             mobileMenuBtn.innerHTML = '☰';
             mobileMenuBtn.setAttribute('aria-label', 'Toggle mobile menu');
-            
             mobileMenuBtn.addEventListener('click', function() {
                 navLinks.classList.toggle('show');
-                // Change icon
-                if (navLinks.classList.contains('show')) {
-                    mobileMenuBtn.innerHTML = '✕';
-                } else {
-                    mobileMenuBtn.innerHTML = '☰';
-                }
+                mobileMenuBtn.innerHTML = navLinks.classList.contains('show') ? '✕' : '☰';
             });
-            
             nav.appendChild(mobileMenuBtn);
-            
-            // Close mobile menu when a link is clicked
             navLinks.addEventListener('click', function(e) {
                 if (e.target.tagName === 'A') {
                     navLinks.classList.remove('show');
                     mobileMenuBtn.innerHTML = '☰';
                 }
             });
-            
-            // Close mobile menu when clicking outside
             document.addEventListener('click', function(e) {
                 if (!nav.contains(e.target)) {
                     navLinks.classList.remove('show');
@@ -507,11 +496,7 @@
                 }
             });
         }
-
-        // Initialize mobile menu on load
         initializeMobileMenu();
-        
-        // Reinitialize on window resize
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 const navLinks = document.querySelector('.nav-links');
