@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark accent-sutton">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Sutton Funding | Offer Calculator</title>
+  
+  <link rel="icon" href="https://i.imgur.com/MXMqYLc.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    body, input, button, select, textarea, * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important; font-weight: 400; }
+    body { font-size: 14px; -webkit-font-smoothing: antialiased; background-color: var(--bg-body); color: var(--text-primary); transition: background-color 0.3s ease; }
+    
+    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type=number] { -moz-appearance: textfield; }
+
+    /* Theme Variables */
+    html.theme-light { 
+      --bg-body: #f8fafc; --bg-card: #ffffff; --bg-card-inner: #f1f5f9; --bg-input: #ffffff; --bg-sidebar: #ffffff;
+      --border-primary: #e2e8f0; --text-primary: #0f172a; --text-secondary: #475569; --text-muted: #94a3b8; 
+      --text-success: #16a34a; --text-warning: #d97706; --text-danger: #dc2626; --shadow-color: rgba(0, 0, 0, 0.05); 
+      --bg-slider-track: #e2e8f0; 
+    }
+    html.theme-dark { 
+      --bg-body: #020617; --bg-card: #0a0f1a; --bg-card-inner: #111827; --bg-input: #111827; --bg-sidebar: #020617; 
+      --border-primary: #1e293b; --text-primary: #f8fafc; --text-secondary: #cbd5e1; --text-muted: #94a3b8; 
+      --text-success: #4ade80; --text-warning: #fbbf24; --text-danger: #f87171; --shadow-color: rgba(0, 0, 0, 0.8); 
+      --bg-slider-track: #1e293b; 
+    }
+
+    /* Accent Colors - Mint #42D197 with White Text */
+    html.accent-sutton { --accent-color: #D4913E; --accent-color-light: #e5a854; --accent-color-dark: #b87a2e; --accent-text-inverted: #020617; }
+    html.accent-mint { --accent-color: #42D197; --accent-color-light: #74eabc; --accent-color-dark: #2d9668; --accent-text-inverted: #ffffff; }
+    html.accent-blue { --accent-color: #3b82f6; --accent-color-light: #60a5fa; --accent-color-dark: #2563eb; --accent-text-inverted: #ffffff; }
+    html.accent-gold { --accent-color: #D19B2B; --accent-color-light: #e6b650; --accent-color-dark: #a6781c; --accent-text-inverted: #020617; }
+    html.accent-purple { --accent-color: #a855f7; --accent-color-light: #c084fc; --accent-color-dark: #9333ea; --accent-text-inverted: #ffffff; }
+    html.accent-red { --accent-color: #ef4444; --accent-color-light: #f87171; --accent-color-dark: #dc2626; --accent-text-inverted: #ffffff; }
+    html.accent-teal { --accent-color: #14b8a6; --accent-color-light: #2dd4bf; --accent-color-dark: #0d9488; --accent-text-inverted: #020617; }
+    html.accent-orange { --accent-color: #f97316; --accent-color-light: #fb923c; --accent-color-dark: #ea580c; --accent-text-inverted: #020617; }
+    html.accent-pink { --accent-color: #ec4899; --accent-color-light: #f472b6; --accent-color-dark: #db2777; --accent-text-inverted: #020617; }
+    html.accent-indigo { --accent-color: #6366f1; --accent-color-light: #818cf8; --accent-color-dark: #4f46e5; --accent-text-inverted: #ffffff; }
+    html.accent-lime { --accent-color: #84cc16; --accent-color-light: #a3e635; --accent-color-dark: #65a30d; --accent-text-inverted: #020617; }
+    html.accent-cyan { --accent-color: #06b6d4; --accent-color-light: #22d3ee; --accent-color-dark: #0891b2; --accent-text-inverted: #ffffff; }
+    html.accent-black { --accent-color: #18181b; --accent-color-light: #3f3f46; --accent-color-dark: #09090b; --accent-text-inverted: #ffffff; }
+    html.accent-grey { --accent-color: #64748b; --accent-color-light: #94a3b8; --accent-color-dark: #475569; --accent-text-inverted: #ffffff; }
+    html.accent-white { --accent-color: #ffffff; --accent-color-light: #f1f5f9; --accent-color-dark: #cbd5e1; --accent-text-inverted: #0f172a; }
+    html.accent-glow { --accent-color: #d946ef; --accent-color-light: #e879f9; --accent-color-dark: #c026d3; --accent-text-inverted: #ffffff; }
+
+    html.accent-white.theme-light .button-primary { border: 1px solid #e2e8f0; }
+    html.accent-white.theme-light .slider { background-color: #e2e8f0; }
+    html.accent-black.theme-dark { --accent-color: #ffffff; --accent-color-light: #e2e8f0; --accent-color-dark: #cbd5e1; --accent-text-inverted: #000000; }
+    
+    .text-hero { color: var(--accent-color); }
+
+    /* Components */
+    .card-bg { background-color: var(--bg-card); border-color: var(--border-primary); box-shadow: 0 1px 3px var(--shadow-color), 0 1px 2px -1px var(--shadow-color); }
+    .sidebar-bg { background-color: var(--bg-sidebar); border-color: var(--border-primary); }
+    .text-primary { color: var(--text-primary); }
+    .text-secondary { color: var(--text-secondary); }
+    .text-muted { color: var(--text-muted); }
+    .text-hero { color: var(--accent-color); }
+    .text-success { color: var(--text-success); }
+    .border-primary { border-color: var(--border-primary); }
+    
+    .input-field { background-color: var(--bg-input); border-color: var(--border-primary); color: var(--text-primary); transition: border-color 0.2s, box-shadow 0.2s; font-size: 14px; font-weight: 400; }
+    .input-field:focus { border-color: var(--accent-color); box-shadow: 0 0 0 1px var(--accent-color); outline: none; }
+    .input-field::placeholder { color: var(--text-muted); opacity: 0.7; }
+    
+    .button-primary { 
+        background-color: var(--accent-color); 
+        color: var(--accent-text-inverted); 
+        font-weight: 600; 
+        border-radius: 10px; 
+        padding: 10px 20px; 
+        border: none; 
+        transition: all 0.2s ease; 
+        font-size: 13px; 
+        box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-color) 30%, transparent);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    .button-primary:hover { background-color: var(--accent-color-light); transform: translateY(-1px); }
+    .button-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    html.theme-dark .button-primary { color: #000000; text-shadow: none; }
+    
+    .button-secondary { background: transparent; color: var(--text-secondary); font-weight: 600; border-radius: 10px; padding: 10px 20px; border: 1px solid var(--border-primary); transition: all 0.2s ease; font-size: 13px; }
+    .button-secondary:hover { border-color: var(--accent-color); color: var(--accent-color); }
+    
+    .button-toggle-action { background: var(--bg-card-inner); color: var(--text-secondary); border: 1px solid var(--border-primary); border-radius: 10px; padding: 10px; font-size: 12px; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
+    .button-toggle-action:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+    .button-danger { background: transparent; color: #ef4444; font-weight: 600; border-radius: 10px; padding: 10px 20px; border: 1px solid #fecaca; transition: all 0.2s ease; font-size: 13px; }
+    .button-danger:hover { background: #fef2f2; border-color: #ef4444; }
+
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .badge-pending { background: #fef3c7; color: #92400e; }
+    .badge-accepted { background: #d1fae5; color: #065f46; }
+    .badge-expired { background: #fee2e2; color: #991b1b; }
+    .badge-declined { background: #f1f5f9; color: #475569; }
+    .badge-accent { background: color-mix(in srgb, var(--accent-color) 15%, transparent); color: var(--accent-color-dark); }
+    html.theme-dark .badge-accent { color: var(--accent-color); }
+
+    .calc-tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border-primary); padding-bottom: 2px; }
+    .calc-tab { padding: 8px 16px; border-radius: 8px 8px 0 0; font-size: 13px; font-weight: 600; color: var(--text-secondary); background: transparent; border: 1px solid transparent; cursor: pointer; transition: all 0.2s; position: relative; bottom: -3px; }
+    .calc-tab.active { background: var(--bg-card); color: var(--accent-color); border: 1px solid var(--border-primary); border-bottom-color: var(--bg-card); }
+    .calc-tab:hover:not(.active) { color: var(--text-primary); }
+    .add-tab-btn { padding: 8px 12px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+    .add-tab-btn:hover { color: var(--accent-color); }
+
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 500; color: var(--text-secondary); transition: all 0.15s ease; cursor: pointer; margin-bottom: 4px; }
+    .nav-item:hover { background: var(--bg-card-inner); color: var(--text-primary); }
+    .nav-item.active { background: color-mix(in srgb, var(--accent-color) 15%, transparent); color: var(--accent-color-dark); font-weight: 600; }
+    html.theme-dark .nav-item.active { color: var(--accent-color); }
+    .nav-item.active svg { stroke: currentColor; }
+
+    .offer-card { background: var(--bg-card); border: 1px solid var(--border-primary); border-radius: 16px; padding: 20px; transition: all 0.2s ease; }
+    .offer-card:hover { box-shadow: 0 8px 25px var(--shadow-color); transform: translateY(-2px); }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px; }
+    .modal-content { background: var(--bg-card); border-radius: 20px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+
+    input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; height: 6px; border-radius: 999px; }
+    input[type=range]:focus { outline: none; }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: transparent; border-radius: 999px; }
+    input[type=range]::-webkit-slider-thumb { height: 20px; width: 20px; border-radius: 50%; background: var(--accent-color); cursor: pointer; -webkit-appearance: none; margin-top: -7px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); border: 3px solid var(--bg-card); transition: transform 0.15s ease; }
+    input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.1); }
+
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border-primary); border-radius: 16px; padding: 20px; }
+    .stat-value { font-size: 32px; font-weight: 600; color: var(--text-primary); }
+    .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
+
+    .toggle-group { display: inline-flex; background: var(--bg-card-inner); border: 1px solid var(--border-primary); border-radius: 12px; padding: 4px; gap: 4px; }
+    .toggle-btn { padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 500; color: var(--text-secondary); background: transparent; border: none; cursor: pointer; transition: all 0.2s ease; }
+    .toggle-btn:hover:not(.active) { background: color-mix(in srgb, var(--accent-color) 10%, transparent); }
+    .toggle-btn.active { background: var(--accent-color); color: var(--accent-text-inverted); box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-color) 40%, transparent); font-weight: 600; }
+    html.theme-dark .toggle-btn.active { color: #000000; }
+
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border-primary); transition: .4s; border-radius: 24px; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+    input:checked + .slider { background-color: var(--accent-color); }
+    input:checked + .slider:before { transform: translateX(20px); }
+
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+    .empty-state svg { width: 80px; height: 80px; margin: 0 auto 20px; opacity: 0.3; }
+    
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--text-primary); color: var(--bg-card); padding: 14px 20px; border-radius: 12px; font-size: 13px; font-weight: 500; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 200; display: flex; align-items: center; gap: 10px; transform: translateY(100px); opacity: 0; transition: all 0.3s ease; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .qr-container { display: flex; justify-content: center; padding: 20px; background: white; border-radius: 12px; margin: 16px 0; }
+
+    .chart-wrapper { position: relative; width: 140px; height: 140px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+    .chart-text { position: absolute; text-align: center; z-index: 10; }
+    .circular-chart { display: block; margin: 0 auto; max-width: 100%; max-height: 100%; }
+    .circle-bg { fill: none; stroke: var(--bg-slider-track); stroke-width: 2.5; }
+    .circle { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke: var(--accent-color); transition: stroke-dasharray 0.6s ease-out; }
+
+    .tooltip-container { position: relative; display: inline-block; cursor: help; }
+    .tooltip-text { visibility: hidden; width: 200px; background-color: var(--text-primary); color: var(--bg-card); text-align: center; border-radius: 8px; padding: 10px; position: absolute; z-index: 50; bottom: 125%; left: 50%; margin-left: -100px; opacity: 0; transition: opacity 0.3s; font-size: 11px; font-weight: normal; box-shadow: 0 4px 12px rgba(0,0,0,0.15); line-height: 1.4; }
+    .tooltip-text::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px; border-width: 6px; border-style: solid; border-color: var(--text-primary) transparent transparent transparent; }
+    .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+    .settings-panel { padding: 16px; background: var(--bg-card-inner); border-radius: 12px; margin-bottom: 16px; }
+    .color-swatch { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: all 0.15s ease; }
+    .color-swatch:hover { transform: scale(1.15); }
+    .color-swatch.selected { border-color: var(--text-primary); box-shadow: 0 0 0 3px var(--bg-card); }
+
+    .client-view { 
+      min-height: 100vh; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      padding: 20px;
+      background-image: linear-gradient(rgba(248, 250, 252, 0.92), rgba(248, 250, 252, 0.92)), url('https://i.imgur.com/MXMqYLc.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    html.theme-dark .client-view {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.92)), url('https://i.imgur.com/MXMqYLc.png');
+    }
+    .client-card { background: var(--bg-card); border-radius: 24px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); overflow: hidden; border: 4px solid var(--accent-color); transition: transform 0.2s; }
+    .client-grid { display: grid; gap: 20px; width: 100%; max-width: 1100px; }
+    .client-grid-1 { grid-template-columns: minmax(0, 500px); justify-content: center; }
+    .client-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .client-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 1024px) { .client-grid-2, .client-grid-3 { grid-template-columns: 1fr; max-width: 500px; } }
+
+    #confettiCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+    .expiration-banner { background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color) 15%, transparent), color-mix(in srgb, var(--accent-color) 5%, transparent)); border: 1px solid color-mix(in srgb, var(--accent-color) 30%, transparent); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .expiration-banner.urgent { background: linear-gradient(135deg, color-mix(in srgb, var(--text-danger) 15%, transparent), color-mix(in srgb, var(--text-danger) 5%, transparent)); border-color: var(--text-danger); }
+    .timer-digit { background: var(--bg-card); border-radius: 6px; padding: 6px 10px; font-weight: 500; font-size: 16px; min-width: 40px; text-align: center; box-shadow: 0 2px 4px var(--shadow-color); }
+    .no-select { -webkit-user-select: none; -moz-user-select: none; user-select: none; }
+
+    /* FIXED: Sidebar Styling from Original */
+    .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 40; display: none; backdrop-filter: blur(2px); }
+    .sidebar.open + .sidebar-overlay { display: block; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); position: fixed; z-index: 50; transition: transform 0.3s ease-in-out; } .sidebar.open { transform: translateX(0); } .main-content { margin-left: 0 !important; } .mobile-header { display: flex !important; } }
+    .mobile-header { display: none; }
+
+    .amort-table th { background-color: var(--bg-slider-track); color: var(--text-secondary); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.75rem 0.5rem; font-weight: 500; border-bottom: 2px solid var(--accent-color); text-align: right; }
+    .amort-table th:first-child, .amort-table th:nth-child(2) { text-align: left; }
+    .amort-table td { border-bottom: 1px solid var(--border-primary); color: var(--text-primary); font-size: 0.75rem; padding: 0.6rem 0.5rem; text-align: right; }
+    .amort-table td:first-child, .amort-table td:nth-child(2) { text-align: left; }
+    .amort-table tr:hover { background: color-mix(in srgb, var(--accent-color) 5%, transparent); }
+
+    .search-grid-card { background: var(--bg-card); border: 1px solid var(--border-primary); border-radius: 16px; padding: 20px; height: 100%; display: flex; flex-direction: column; transition: box-shadow 0.2s; }
+    .search-grid-card:hover { box-shadow: 0 4px 12px var(--shadow-color); }
+    .search-grid-header { font-weight: 600; font-size: 14px; margin-bottom: 12px; color: var(--text-primary); display: flex; align-items: center; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border-primary); }
+    .spinner { border: 2px solid rgba(0, 0, 0, 0.1); border-left-color: var(--accent-color); border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .skeleton { background-color: var(--bg-card-inner); border-radius: 4px; animation: pulse 1.5s infinite ease-in-out; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+    
+    /* Updated Calculator Grid Styles for Uniformity */
+    .option-toggles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .option-toggle-card { background: var(--bg-card-inner); border-radius: 12px; padding: 14px 16px; border: 1px solid var(--border-primary); transition: all 0.2s ease; }
+    .option-toggle-card:hover { border-color: color-mix(in srgb, var(--accent-color) 50%, var(--border-primary)); }
+    
+    .section-header { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .preview-card { background: var(--bg-card); border: 3px solid var(--accent-color); border-radius: 24px; padding: 28px; position: sticky; top: 24px; box-shadow: 0 8px 30px color-mix(in srgb, var(--accent-color) 15%, transparent); }
+  </style>
+</head>
+<body class="min-h-screen">
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- DASHBOARD VIEW -->
+  <div id="dashboardContainer">
+    <div class="flex min-h-screen">
+      
+      <aside id="sidebar" class="sidebar w-64 sidebar-bg border-r border-primary flex flex-col fixed h-full">
+        <div class="p-6 border-b border-primary flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <img src="https://i.imgur.com/MXMqYLc.png" alt="Sutton Funding" class="h-10 w-auto" />
+            <div><div class="font-medium text-primary">Sutton Funding</div><div class="text-[10px] text-muted uppercase tracking-wider">Funding Calculator</div></div>
+          </div>
+          <button onclick="toggleSidebar()" class="md:hidden text-secondary hover:text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+        </div>
+        
+        <!-- INCREASED GAP HERE using space-y-3 -->
+        <nav class="flex-1 p-4 space-y-3">
+          <div class="nav-item active" data-view="dashboard"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 01-1 1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>Dashboard</div>
+          <div class="nav-item" data-view="calculator"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>New Offer</div>
+          <div class="nav-item" data-view="offers"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>All Offers</div>
+          <div class="nav-item" data-view="clients"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>Clients</div>
+          
+          <div class="pt-4 mt-4 border-t border-primary">
+             <div class="nav-item" data-view="settings"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>Settings</div>
+          </div>
+        </nav>
+        
+        <div class="p-4 border-t border-primary">
+            <div class="nav-item" onclick="toggleTheme()" role="button" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg><span id="themeLabel">Dark Mode</span></div>
+            <div class="text-[10px] text-muted mt-4 px-2">Rep: <span id="repNameSidebar" class="text-secondary">Not Set</span></div>
+        </div>
+      </aside>
+      <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+      <main class="main-content flex-1 ml-64 p-8 transition-all">
+        <div class="mobile-header items-center justify-between mb-6 p-4 card-bg rounded-xl border border-primary shadow-sm">
+          <button type="button" onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-gray-100 text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg></button>
+          <span class="font-medium text-primary">Sutton Funding</span><div class="w-8"></div>
+        </div>
+
+        <header class="flex items-center justify-between mb-8">
+          <div><h1 id="pageTitle" class="text-2xl font-bold text-primary">Dashboard</h1><p id="pageSubtitle" class="text-sm text-muted mt-1">Welcome back! Here's your offer activity.</p></div>
+          <div class="flex gap-3">
+              <button type="button" id="cancelEditBtn" onclick="cancelEdit()" class="button-secondary hidden">Cancel Edit</button>
+              <button type="button" onclick="switchView('calculator')" class="button-primary flex items-center gap-2 shadow-lg shadow-[var(--accent-color)]/20"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg><span id="mainActionBtnText">New Offer</span></button>
+          </div>
+        </header>
+
+        <div id="dashboardView">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="stat-card"><div class="stat-label mb-2">Total Offers</div><div id="statTotal" class="stat-value">0</div></div>
+            <div class="stat-card"><div class="stat-label mb-2">Pending</div><div id="statPending" class="stat-value text-yellow-500">0</div></div>
+            <div class="stat-card"><div class="stat-label mb-2">Accepted</div><div id="statAccepted" class="stat-value text-green-500">0</div></div>
+            <div class="stat-card"><div class="stat-label mb-2">Total Value</div><div id="statValue" class="stat-value text-hero">$0</div></div>
+          </div>
+          <div class="card-bg rounded-2xl border border-primary">
+            <div class="p-5 border-b border-primary flex items-center justify-between">
+              <h2 class="font-medium text-primary">Recent Offers</h2>
+              <div class="toggle-group">
+                <button type="button" class="toggle-btn active" data-filter="all">All</button>
+                <button type="button" class="toggle-btn" data-filter="pending">Pending</button>
+                <button type="button" class="toggle-btn" data-filter="accepted">Accepted</button>
+              </div>
+            </div>
+            <div id="recentOffersList" class="p-5"></div>
+          </div>
+        </div>
+
+        <div id="calculatorView" class="hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div class="space-y-6">
+                <div class="card-bg rounded-2xl border border-primary p-6">
+                    <div class="flex items-center justify-between mb-4"><h3 class="text-xs font-medium text-secondary uppercase tracking-wider">Client Information</h3><button type="button" onclick="toggleContactInfo()" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border border-primary text-secondary bg-transparent hover:border-[var(--accent-color)] transition-all"><span id="lblContactAction">Add Details</span><svg id="iconContactChevron" xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg></button></div>
+                    <div class="space-y-4">
+                      <div><input id="calcBusinessName" type="text" class="w-full p-2.5 border rounded-lg input-field text-sm" placeholder="Business Name" /></div>
+                      <div id="extraContactInfo" class="hidden space-y-4 pt-2 border-t border-primary transition-all"><div class="grid grid-cols-2 gap-4"><input id="calcContactName" type="text" class="w-full p-2.5 border rounded-lg input-field text-sm" placeholder="Contact Name" /><input id="calcEmail" type="email" class="w-full p-2.5 border rounded-lg input-field text-sm" placeholder="Email Address" /></div></div>
+                    </div>
+                </div>
+                <div class="card-bg rounded-2xl border border-primary p-6">
+                    <div class="flex items-center justify-between mb-2"><h3 class="text-xs font-medium text-secondary uppercase tracking-wider">Funding Terms</h3></div>
+                    <div class="calc-tabs"><button id="tab-btn-0" class="calc-tab active" onclick="switchCalcTab(0)">Option 1</button><button id="tab-btn-1" class="calc-tab hidden" onclick="switchCalcTab(1)">Option 2</button><button id="tab-btn-2" class="calc-tab hidden" onclick="switchCalcTab(2)">Option 3</button><button id="add-tab-btn" class="add-tab-btn" onclick="addCalcOption()">+ Add</button></div>
+                    <div class="space-y-6">
+                      <div><div class="flex justify-between items-center mb-2"><label class="text-xs font-medium text-secondary">Funding Amount</label><button type="button" id="remove-option-btn" onclick="removeCalcOption()" class="text-xs text-red-500 hidden font-medium">Remove</button></div><div class="flex items-center gap-3 mb-2"><div class="relative w-full"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted font-medium">$</span><input id="calcAmount" type="text" class="w-full p-2.5 pl-7 border rounded-lg input-field font-medium text-sm" value="50,000" /></div></div><input id="calcAmountSlider" type="range" min="5000" max="1000000" step="1000" value="50000" class="w-full accent-[var(--accent-color)]" /></div>
+                      <div class="grid grid-cols-2 gap-6"><div><div class="flex justify-between items-center mb-2"><label class="text-xs font-medium text-secondary">Factor Rate</label></div><div class="relative mb-2"><input id="calcFactor" type="number" step="0.01" class="w-full p-2.5 border rounded-lg input-field font-medium text-sm" value="1.25" /><span class="absolute right-3 top-1/2 -translate-y-1/2 text-muted text-xs font-medium">x</span></div><input id="calcFactorSlider" type="range" min="1.05" max="1.7" step="0.01" value="1.25" class="w-full" /></div><div><div class="flex justify-between items-center mb-2"><label class="text-xs font-medium text-secondary">Term</label></div><div class="relative mb-2"><input id="calcTerm" type="number" class="w-full p-2.5 border rounded-lg input-field font-medium text-sm" value="130" /><span class="absolute right-3 top-1/2 -translate-y-1/2 text-muted text-xs font-medium">Pmts</span></div><input id="calcTermSlider" type="range" min="3" max="528" step="1" value="130" class="w-full" /></div></div>
+                      <div><label class="block text-xs font-medium text-secondary mb-2">Payment Frequency</label><div class="toggle-group w-full flex" role="radiogroup"><button type="button" class="toggle-btn active flex-1 py-2 text-xs" data-freq="daily" onclick="setFrequency('daily')">Daily</button><button type="button" class="toggle-btn flex-1 py-2 text-xs" data-freq="weekly" onclick="setFrequency('weekly')">Weekly</button><button type="button" class="toggle-btn flex-1 py-2 text-xs" data-freq="monthly" onclick="setFrequency('monthly')">Monthly</button></div></div>
+                      <div class="border-t border-primary my-2"></div>
+                      
+                      <!-- Updated 2x3 Grid for Additional Options -->
+                      <div>
+                        <h4 class="section-header">Additional Options</h4>
+                        <div class="option-toggles-grid">
+                          <div class="option-toggle-card"><div class="flex items-center justify-between"><span class="text-sm font-medium text-primary">Origination Fee</span><label class="switch scale-90"><input id="toggleFee" type="checkbox" onchange="toggleFeeSection(this.checked)"><span class="slider"></span></label></div><div id="contentFee" class="hidden mt-3 pt-3 border-t border-primary/50"><div class="flex items-center gap-2 mb-2"><input id="calcFee" type="number" step="0.5" min="0" max="10" class="w-20 p-1 bg-transparent border-b border-primary focus:border-accent-color outline-none font-medium text-sm text-primary" value="0" /><span class="text-sm text-muted font-medium">%</span></div><input id="calcFeeSlider" type="range" min="0" max="10" step="0.5" value="0" class="w-full h-1" /></div></div>
+                          <div class="option-toggle-card"><div class="flex items-center justify-between"><span class="text-sm font-medium text-primary">Prepay Discount</span><label class="switch scale-90"><input id="togglePrepay" type="checkbox" onchange="togglePrepaySection(this.checked)"><span class="slider"></span></label></div><div id="contentPrepay" class="hidden mt-3 pt-3 border-t border-primary/50"><div class="flex items-center gap-2 mb-2"><input id="calcPrepay" type="number" step="1" min="0" max="50" class="w-20 p-1 bg-transparent border-b border-primary focus:border-accent-color outline-none font-medium text-sm text-primary" value="0" /><span class="text-sm text-muted font-medium">%</span></div><input id="calcPrepaySlider" type="range" min="0" max="50" step="1" value="0" class="w-full h-1" /></div></div>
+                          <div class="option-toggle-card"><div class="flex items-center justify-between"><span class="text-sm font-medium text-primary">Custom Label</span><label class="switch scale-90"><input id="toggleOverride" type="checkbox" onchange="toggleOverrideSection(this.checked)"><span class="slider"></span></label></div><div id="contentOverride" class="hidden mt-3 pt-3 border-t border-primary/50"><input id="calcTermOverride" type="text" class="w-full p-1.5 border rounded-md input-field bg-[var(--bg-card)] text-xs text-primary" placeholder="e.g. 6 Months" /></div></div>
+                          <div class="option-toggle-card"><div class="flex items-center justify-between"><span class="text-sm font-medium text-primary">Set Expiration</span><label class="switch scale-90"><input id="toggleExpiry" type="checkbox" onchange="toggleExpirySection(this.checked)"><span class="slider"></span></label></div><div id="contentExpiry" class="hidden mt-3 pt-3 border-t border-primary/50"><input id="calcExpiryDate" type="date" class="w-full p-1.5 border rounded-md input-field bg-[var(--bg-card)] text-xs text-primary" /></div></div>
+                          
+                          <!-- APR Toggle Added -->
+                          <div class="option-toggle-card"><div class="flex items-center justify-between"><span class="text-sm font-medium text-primary">Show APR</span><label class="switch scale-90"><input id="toggleApr" type="checkbox" onchange="toggleApr(this.checked)"><span class="slider"></span></label></div></div>
+                          
+                          <!-- Notes - Removed Full Width -->
+                          <div class="option-toggle-card"><div class="flex items-center justify-between"><span class="text-sm font-medium text-primary">Approval Notes</span><label class="switch scale-90"><input id="toggleNotes" type="checkbox" onchange="toggleNotesSection(this.checked)"><span class="slider"></span></label></div><div id="contentNotes" class="hidden mt-3 pt-3 border-t border-primary/50"><textarea id="calcNotes" rows="3" class="w-full p-2 border rounded-md input-field bg-[var(--bg-card)] text-xs text-primary resize-none" placeholder="Enter notes..."></textarea></div></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="flex gap-4"><button type="button" onclick="resetCalculator()" class="button-secondary flex-1">Reset</button><button type="button" onclick="createOffer()" class="button-primary flex-1">Create & Share Offer</button></div>
+              </div>
+              <div class="space-y-6">
+                <div class="card-bg rounded-2xl border-4 border-primary p-6 sticky top-8" style="border-color: var(--accent-color);">
+                  <div class="text-center pb-4 border-b border-primary mb-4">
+                    <h4 class="text-xs font-medium text-secondary uppercase tracking-wider">
+                      <span id="previewOptionLabel">Option 1</span> Preview
+                    </h4>
+                  </div>
+                  <div id="previewBusinessName" class="text-center text-sm font-medium text-primary mb-2 hidden"></div>
+                  <div class="text-center py-4">
+                    <span class="text-[11px] font-medium text-muted block uppercase tracking-widest">You Get</span>
+                    <span id="previewAmount" class="text-5xl font-semibold block my-3 text-hero leading-tight">$50,000</span>
+                  </div>
+                  <div class="my-5">
+                    <div class="chart-wrapper" title="Principal vs Cost">
+                      <svg viewBox="0 0 36 36" class="circular-chart">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path id="previewCircle" class="circle" stroke-dasharray="80, 20" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      </svg>
+                      <div class="chart-text">
+                        <span class="text-[10px] font-medium text-muted block uppercase tracking-wider">Payback</span>
+                        <span id="previewPaybackChart" class="text-base font-semibold text-primary block">$62,500</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="previewAprContainer" class="p-3 rounded-xl text-center mb-4 hidden" style="background: var(--bg-card-inner);">
+                    <span class="text-xs font-medium text-muted uppercase tracking-wider">Estimated APR</span>
+                    <span id="previewApr" class="text-2xl font-semibold text-hero block">48%</span>
+                  </div>
+                  <div class="border border-primary rounded-xl overflow-hidden">
+                    <div class="grid grid-cols-2 divide-x divide-primary border-b border-primary">
+                      <div class="p-3 text-center">
+                        <span class="text-[10px] font-medium text-muted block uppercase">Term Length</span>
+                        <span id="previewTermLength" class="text-sm font-medium text-primary">6 months</span>
+                      </div>
+                      <div class="p-3 text-center">
+                        <span class="text-[10px] font-medium text-muted block uppercase">Payments</span>
+                        <span id="previewTermPayments" class="text-sm font-medium text-primary">130</span>
+                      </div>
+                    </div>
+                    <div class="grid grid-cols-2 divide-x divide-primary border-b border-primary">
+                      <div class="p-3 text-center">
+                        <span class="text-[10px] font-medium text-muted block uppercase">Factor Rate</span>
+                        <span id="previewFactor" class="text-sm font-medium text-primary">1.25x</span>
+                      </div>
+                      <div class="p-3 text-center">
+                        <span class="text-[10px] font-medium text-muted block uppercase">Total Cost</span>
+                        <span id="previewCost" class="text-sm font-medium text-primary">$12,500</span>
+                      </div>
+                    </div>
+                    <div id="previewFeeRow" class="grid grid-cols-2 divide-x divide-primary border-b border-primary hidden">
+                      <div class="p-3 text-center">
+                        <span class="text-[10px] font-medium text-muted block uppercase">Origination Fee</span>
+                        <span id="previewFeeAmount" class="text-sm font-medium text-primary">$0</span>
+                      </div>
+                      <div class="p-3 text-center">
+                        <span class="text-[10px] font-medium text-muted block uppercase">Net Proceeds</span>
+                        <span id="previewNet" class="text-sm font-medium text-primary">$50,000</span>
+                      </div>
+                    </div>
+                    <div class="p-4 text-center" style="background: var(--bg-card-inner);">
+                      <span id="previewPaymentLabel" class="text-[10px] font-medium text-muted block uppercase">Est. Daily Payment</span>
+                      <span id="previewPayment" class="text-lg font-medium text-primary">$480.77</span>
+                    </div>
+                  </div>
+                  <div class="text-center mt-6">
+                    <button onclick="openAmortSchedule(activeCalcTab)" class="text-xs font-bold text-[var(--accent-color)] hover:text-primary hover:underline transition-colors">View Amortization Schedule</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div id="offersView" class="hidden"><div id="allOffersList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div></div>
+        <div id="clientsView" class="hidden"><div id="clientsList" class="space-y-4"></div></div>
+        <div id="settingsView" class="hidden">
+            <div class="card-bg rounded-2xl border border-primary p-6 max-w-2xl">
+            <h2 class="text-lg font-medium text-primary mb-6">Settings</h2>
+            <div class="settings-panel">
+              <h3 class="text-sm font-medium text-muted uppercase tracking-wider mb-4">Rep Information</h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div><label class="block text-xs text-muted mb-1">Your Name</label><input id="settingsRepName" type="text" class="w-full p-3 border rounded-xl input-field" placeholder="John Smith" /></div>
+                <div><label class="block text-xs text-muted mb-1">Your Email</label><input id="settingsRepEmail" type="email" class="w-full p-3 border rounded-xl input-field" placeholder="john@company.com" /></div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mt-4">
+                <div><label class="block text-xs text-muted mb-1">Company Name</label><input id="settingsCompanyName" type="text" class="w-full p-3 border rounded-xl input-field" placeholder="Trust Capital Funding" /></div>
+                <div><label class="block text-xs text-muted mb-1">Phone Number</label><input id="settingsRepPhone" type="tel" class="w-full p-3 border rounded-xl input-field" placeholder="(555) 123-4567" /></div>
+              </div>
+              <div class="mt-4"><label class="block text-xs text-muted mb-1">Company Logo URL</label><input id="settingsLogoUrl" type="url" class="w-full p-3 border rounded-xl input-field" placeholder="https://example.com/logo.png" /></div>
+            </div>
+            <div class="settings-panel">
+              <h3 class="text-sm font-medium text-muted uppercase tracking-wider mb-4">Appearance</h3>
+              <div class="flex gap-3 flex-wrap">
+                <div onclick="setAccent('sutton')" class="color-swatch" style="background-color: #D4913E;" title="Sutton"></div>
+                <div onclick="setAccent('mint')" class="color-swatch" style="background-color: #42D197;" title="Mint"></div>
+                <div onclick="setAccent('blue')" class="color-swatch" style="background-color: #3b82f6;" title="Blue"></div>
+                <div onclick="setAccent('gold')" class="color-swatch" style="background-color: #D19B2B;" title="Gold"></div>
+                <div onclick="setAccent('purple')" class="color-swatch" style="background-color: #a855f7;" title="Purple"></div>
+                <div onclick="setAccent('red')" class="color-swatch" style="background-color: #ef4444;" title="Red"></div>
+                <div onclick="setAccent('teal')" class="color-swatch" style="background-color: #14b8a6;" title="Teal"></div>
+                <div onclick="setAccent('orange')" class="color-swatch" style="background-color: #f97316;" title="Orange"></div>
+                <div onclick="setAccent('pink')" class="color-swatch" style="background-color: #ec4899;" title="Pink"></div>
+                <div onclick="setAccent('indigo')" class="color-swatch" style="background-color: #6366f1;" title="Indigo"></div>
+                <div onclick="setAccent('lime')" class="color-swatch" style="background-color: #84cc16;" title="Lime"></div>
+                <div onclick="setAccent('cyan')" class="color-swatch" style="background-color: #06b6d4;" title="Cyan"></div>
+                <div onclick="setAccent('black')" class="color-swatch" style="background-color: #18181b;" title="Black"></div>
+                <div onclick="setAccent('grey')" class="color-swatch" style="background-color: #64748b;" title="Grey"></div>
+                <div onclick="setAccent('white')" class="color-swatch" style="background-color: #ffffff; border: 1px solid #e2e8f0;" title="White"></div>
+                <div onclick="setAccent('glow')" class="color-swatch" style="background: linear-gradient(135deg, #22d3ee, #d946ef);" title="Irridescent Glow"></div>
+              </div>
+              <div class="flex items-center justify-between pt-2 border-t border-primary"><label class="text-sm font-medium text-primary">Show APR on Offers</label><label class="switch"><input id="settingsShowApr" type="checkbox"><span class="slider"></span></label></div>
+            </div>
+            <div class="settings-panel">
+              <h3 class="text-sm font-medium text-muted uppercase tracking-wider mb-4">Default Offer Terms</h3>
+              <div class="grid grid-cols-3 gap-4">
+                <div><label class="block text-xs text-muted mb-1">Default Factor</label><input id="settingsDefaultFactor" type="number" step="0.01" class="w-full p-3 border rounded-xl input-field" value="1.25" /></div>
+                <div><label class="block text-xs text-muted mb-1">Default Term</label><input id="settingsDefaultTerm" type="number" class="w-full p-3 border rounded-xl input-field" value="130" /></div>
+                <div><label class="block text-xs text-muted mb-1">Expiry (Days)</label><input id="settingsDefaultExpiry" type="number" class="w-full p-3 border rounded-xl input-field" value="14" /></div>
+              </div>
+            </div>
+            <button onclick="saveSettings()" class="button-primary mt-4">Save Settings</button>
+           </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- CLIENT VIEW (Standalone) -->
+  <div id="clientContainer" class="client-view hidden">
+    <div class="client-card max-w-4xl w-full">
+      <div class="p-6 border-b border-primary text-center">
+        <div id="clientLogoWrapper" class="flex items-center justify-center mb-3">
+          <img id="clientLogo" src="" alt="Logo" class="h-12 w-auto hidden" />
+          <img id="clientLogoPlaceholder" src="https://i.imgur.com/MXMqYLc.png" alt="Sutton Funding" class="h-12 w-auto" />
+        </div>
+        <div id="clientCompanyName" class="font-medium text-primary text-lg">Sutton Funding</div>
+        <div id="clientBusinessNameDisplay" class="text-center text-sm font-medium text-primary mb-2 hidden"></div>
+        <div id="clientExpirationBanner" class="expiration-banner mx-auto mt-6 hidden inline-flex shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-hero" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <span class="text-sm font-medium text-secondary">Offer expires in</span>
+          <div class="flex items-center gap-1">
+            <span id="clientTimerDays" class="timer-digit text-primary">00</span>d :
+            <span id="clientTimerHours" class="timer-digit text-primary">00</span>h :
+            <span id="clientTimerMinutes" class="timer-digit text-primary">00</span>m :
+            <span id="clientTimerSeconds" class="timer-digit text-primary">00</span>s
+          </div>
+        </div>
+      </div>
+      <div class="p-6">
+        
+        <!-- Client Main Stage: Amount + Slider -->
+        <div class="text-center py-4">
+           <span class="text-[11px] font-medium text-muted block uppercase tracking-widest">You Get</span>
+           <span id="clientMainAmount" class="text-6xl font-bold block my-3 text-hero"></span>
+           
+           <!-- SLIDER -->
+           <div id="clientSliderContainer" class="mt-6 max-w-xs mx-auto px-4 hidden">
+             <input type="range" id="clientAmountSlider" class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-[var(--bg-slider-track)]"
+                    oninput="updateClientMainCard(this.value)">
+             <div class="flex justify-between text-[10px] text-muted mt-2 font-medium px-1">
+                <span>$5,000</span>
+                <span id="clientMaxAmountLabel">Approved</span>
+             </div>
+           </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="my-6 flex justify-center">
+            <div class="chart-wrapper">
+                <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path id="clientMainDonut" class="circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <div class="chart-text">
+                    <span class="text-[10px] font-medium text-muted block uppercase">Payback</span>
+                    <span id="clientMainPayback" class="text-lg font-bold text-primary"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Details Grid - Updated to show terms -->
+        <div class="border border-primary rounded-xl overflow-hidden mb-6">
+            <div class="grid grid-cols-2 divide-x divide-primary border-b border-primary">
+                <div class="p-4 text-center"><span class="text-[10px] font-medium text-muted block uppercase">Term</span><span id="clientMainTerm" class="text-lg font-bold text-primary"></span></div>
+                <div class="p-4 text-center"><span class="text-[10px] font-medium text-muted block uppercase">Cost</span><span id="clientMainCost" class="text-lg font-bold text-primary"></span></div>
+            </div>
+            <div class="p-5 text-center bg-[var(--bg-card-inner)]">
+                <span id="clientMainFreqLabel" class="text-[10px] font-medium text-muted block uppercase">Est. Payment</span>
+                <span id="clientMainPayment" class="text-2xl font-bold text-primary"></span>
+            </div>
+        </div>
+
+        <!-- Prepay Calculator -->
+        <div id="clientPrepaySection" class="hidden mt-6 pt-4 border-t border-primary">
+            <button onclick="document.getElementById('clientPrepayContainer').classList.toggle('hidden')" class="w-full text-xs font-bold text-muted hover:text-hero flex items-center justify-center gap-2 transition-colors py-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" /></svg>
+            Calculate Prepayment Discount
+            </button>
+            <div id="clientPrepayContainer" class="hidden mt-4 p-4 rounded-xl border border-primary bg-[var(--bg-card-inner)]">
+                <div class="flex justify-between items-center mb-3 pb-2 border-b border-primary">
+                    <span class="text-xs font-medium text-secondary uppercase tracking-wider">Discount</span>
+                    <span id="clientPrepayPercent" class="text-sm font-bold text-hero">0% Max</span>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-xs font-medium text-muted mb-1 text-center">Select Payoff Date</label>
+                    <input type="date" id="clientMainPrepayDate" onchange="calculateMainClientSavings()" class="w-full p-2.5 text-sm rounded-lg border border-primary input-field text-center">
+                </div>
+                <div class="grid grid-cols-2 gap-4 text-center border-t border-primary pt-4">
+                    <div><span class="text-[10px] font-medium text-muted block uppercase tracking-wider">Savings</span><span id="clientMainSavings" class="text-lg font-bold text-green-500">$0</span></div>
+                    <div><span class="text-[10px] font-medium text-muted block uppercase tracking-wider">New Payoff</span><span id="clientMainNewTotal" class="text-lg font-bold text-primary">$0</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes -->
+        <div id="clientNotesContainer" class="hidden mb-8 p-5 bg-[var(--bg-card-inner)] rounded-xl text-xs border border-primary mt-6">
+            <div class="font-bold text-muted uppercase tracking-wider mb-3">Approval Notes</div>
+            <div id="clientNotesText" class="text-secondary whitespace-pre-wrap leading-relaxed"></div>
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-6">
+             <button id="clientAcceptBtn" onclick="acceptOffer(activeClientOptionIdx)" class="button-primary w-full py-4 text-sm uppercase tracking-wider shadow-lg">Accept This Offer</button>
+             <div id="clientAcceptedMsg" class="hidden text-center py-6 bg-green-50 border border-green-200 rounded-2xl text-green-700 font-bold text-xl">Offer Accepted!</div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <button onclick="openAmortSchedule(activeClientOptionIdx)" class="text-xs font-bold text-hero hover:underline">View Schedule</button>
+        </div>
+
+        <div id="clientAlternativesContainer" class="w-full hidden border-t border-primary pt-8 mt-8">
+           <h4 class="text-xs font-bold text-muted uppercase tracking-widest text-center mb-6">Other Available Options</h4>
+           <div id="clientThumbnails" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+        <div id="clientRepInfo" class="mt-6 pt-4 border-t border-primary text-xs text-secondary text-center hidden">
+          <div class="font-medium text-muted mb-1 uppercase tracking-wider text-[10px]">Your Funding Specialist</div>
+          <div id="clientRepName" class="font-medium text-primary"></div>
+          <div id="clientRepEmail" class="text-muted"></div>
+          <div id="clientRepPhone" class="text-muted"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALS -->
+  <div id="amortModal" class="modal-overlay hidden" style="z-index: 200;">
+    <div class="modal-content max-w-2xl bg-[var(--bg-card)] rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+      <div class="p-6 border-b border-primary flex items-center justify-between bg-[var(--bg-card-inner)]">
+        <div><h3 class="text-lg font-bold text-primary">Payment Schedule</h3><p id="amortSubtitle" class="text-xs text-muted mt-1">Estimated repayment timeline.</p></div>
+        <button onclick="document.getElementById('amortModal').classList.add('hidden')" class="p-2 rounded-xl hover:bg-gray-200/50 text-secondary transition-colors"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
+      </div>
+      <div class="overflow-y-auto flex-1 p-0"><table class="w-full text-sm amort-table"><thead class="sticky top-0 z-10 shadow-sm"><tr><th>#</th><th>Date</th><th>Payment</th><th>Balance</th></tr></thead><tbody id="amortTableBody"></tbody></table></div>
+    </div>
+  </div>
+
+  <div id="offerDetailModal" class="modal-overlay hidden">
+    <div class="modal-content max-w-lg">
+      <div class="p-6 border-b border-primary flex items-center justify-between">
+        <h3 class="text-lg font-medium text-primary">Offer Details</h3>
+        <div class="flex gap-2">
+             <button onclick="editOffer()" class="p-2 rounded-lg hover:bg-gray-100 text-hero"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg></button>
+             <button onclick="closeOfferDetailModal()" class="p-2 rounded-lg hover:bg-gray-100 text-muted"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
+        </div>
+      </div>
+      <div id="offerDetailContent" class="p-6"></div>
+      <div class="p-6 border-t border-primary bg-[var(--bg-card-inner)]">
+        <div class="flex gap-3 mb-3">
+          <button onclick="copyOfferLink()" class="button-secondary flex-1 flex items-center justify-center gap-2 bg-[var(--bg-card)]">Copy Link</button>
+          <button onclick="copyOfferText()" class="button-primary flex-1 flex items-center justify-center gap-2">Copy Text</button>
+        </div>
+        <button onclick="confirmDeleteOffer()" class="button-danger w-full flex items-center justify-center gap-2 bg-[var(--bg-card)]">Delete Offer</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirmModal" class="modal-overlay hidden" style="z-index: 110;">
+    <div class="modal-content max-w-sm p-8 text-center">
+      <h3 class="text-lg font-bold text-primary mb-2">Confirm Deletion</h3>
+      <p class="text-muted mb-6">Are you sure you want to delete this offer?</p>
+      <div class="flex gap-3"><button onclick="closeConfirmModal()" class="button-secondary flex-1">Cancel</button><button onclick="executeDelete()" class="button-primary flex-1 bg-red-500 hover:bg-red-600 border-none text-white">Delete</button></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg><span id="toastMessage">Success!</span></div>
+
+  <script>
+    let offers = [], currentFilter = 'all', currentView = 'dashboard', selectedOfferId = null, editingOfferId = null, clientTimerId = null, activeClientOptionIdx = 0;
+    let activeCalcTab = 0, calcOptions = [];
+    let settings = { repName: '', repEmail: '', repPhone: '', companyName: '', logoUrl: '', defaultFactor: 1.25, defaultTerm: 130, defaultExpiry: 14, accent: 'sutton', showApr: false };
+    let isDark = true;
+    const STORAGE_KEY = 'sutton_offers', SETTINGS_KEY = 'sutton_settings';
+
+    // --- CORE FUNCTIONS ---
+    function generateId() { return 'offer_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9); }
+    function formatCurrency(num) { const n = Number(num); return isNaN(n) ? '$0' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(n); }
+    function parseNumber(val) { return (typeof val !== 'string' || !val) ? 0 : parseFloat(val.replace(/[\$,]/g, '')) || 0; }
+    function formatNumber(num) { return new Intl.NumberFormat('en-US').format(num); }
+
+    // --- COPY TO CLIPBOARD ---
+    function copyToClipboard(text) { 
+        if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(() => showToast('Link copied!')).catch(() => fallbackCopyToClipboard(text)); } 
+        else { fallbackCopyToClipboard(text); } 
+    }
+    function fallbackCopyToClipboard(text) {
+        const t = document.createElement("textarea"); t.value = text; t.style.position = "fixed"; t.style.left = "-9999px"; document.body.appendChild(t); t.focus(); t.select(); 
+        try { document.execCommand('copy') ? showToast('Link copied!') : showToast('Copy failed'); } catch (e) { showToast('Error'); } document.body.removeChild(t); 
+    }
+    function copyHtmlToClipboard(html, text) {
+        const c = document.createElement("div"); c.innerHTML = html; c.style.position = "fixed"; c.style.opacity = "0"; c.style.background = "white"; c.contentEditable = true; document.body.appendChild(c);
+        const r = document.createRange(); r.selectNodeContents(c); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy') ? showToast('Formatted text copied!') : copyToClipboard(text); } catch (err) { copyToClipboard(text); } s.removeAllRanges(); document.body.removeChild(c);
+    }
+
+    function fireConfetti() { const c = document.getElementById('confettiCanvas'), x = c.getContext('2d'); c.width = window.innerWidth; c.height = window.innerHeight; const p = [], colors = ['#D4913E', '#42D197', '#3b82f6', '#f97316', '#a855f7', '#ec4899', '#eab308']; for (let i = 0; i < 150; i++) p.push({ x: Math.random() * c.width, y: Math.random() * c.height - c.height, w: Math.random() * 12 + 5, h: Math.random() * 6 + 4, c: colors[Math.floor(Math.random() * colors.length)], vy: Math.random() * 3 + 2, vx: Math.random() * 4 - 2, r: Math.random() * 360 }); function u() { x.clearRect(0, 0, c.width, c.height); let a = false; p.forEach(o => { o.y += o.vy; o.x += o.vx; o.r += 3; if (o.y < c.height + 50) a = true; x.save(); x.translate(o.x, o.y); x.rotate(o.r * Math.PI / 180); x.fillStyle = o.c; x.fillRect(-o.w/2, -o.h/2, o.w, o.h); x.restore(); }); if (a) requestAnimationFrame(u); else x.clearRect(0, 0, c.width, c.height); } u(); }
+
+    function calculateOffer(a, f, t, fr, fe) { 
+        const tp = a * f, tc = tp - a, p = tp / t, fa = a * (fe / 100), np = a - fa; 
+        let ty; if (fr === 'weekly') ty = t / 52; else if (fr === 'monthly') ty = t / 12; else ty = t / 250; 
+        const apr = ty > 0 ? Math.round(((tc / a) / ty) * 100) : 0; 
+        let tm; if (fr === 'weekly') tm = t * (12 / 52); else if (fr === 'monthly') tm = t; else tm = t * (12 / 250); tm = Math.round(tm * 2) / 2; 
+        return { amount: a, factor: f, term: t, frequency: fr, fee: fe, feeAmount: fa, netProceeds: np, totalPayback: tp, totalCost: tc, payment: p, apr, termMonths: tm }; 
+    }
+    function initDefaultOption() { return { amount: 50000, factor: settings.defaultFactor, term: settings.defaultTerm, frequency: 'daily', fee: 0, prepay: 0, termOverride: '', notes: '' }; }
+
+    // --- UI UPDATES ---
+    function updateStats() {
+      const t = offers.length, p = offers.filter(o => o.status === 'pending').length, a = offers.filter(o => o.status === 'accepted').length;
+      const v = offers.filter(o => o.status === 'accepted').reduce((s, o) => { const idx = o.acceptedOptionIndex || 0; return s + (o.options[idx] ? o.options[idx].amount : 0); }, 0);
+      document.getElementById('statTotal').textContent = t; document.getElementById('statPending').textContent = p; document.getElementById('statAccepted').textContent = a; document.getElementById('statValue').textContent = formatCurrency(v);
+    }
+
+    function renderOffers(c, f = 'all', l = null) {
+      if (!c) return; let list = [...offers]; if (f !== 'all') list = list.filter(o => o.status === f);
+      list.sort((a, b) => b.createdAt - a.createdAt); if (l) list = list.slice(0, l);
+      if (list.length === 0) { c.innerHTML = `<div class="empty-state"><p class="text-muted">No offers found.</p></div>`; return; }
+      c.innerHTML = list.map(o => {
+        let sClass = 'badge-pending'; if (o.status === 'accepted') sClass = 'badge-accepted'; else if (o.status === 'expired') sClass = 'badge-expired'; else if (o.status === 'declined') sClass = 'badge-declined';
+        const opt1 = o.options[0];
+        return `<div class="offer-card cursor-pointer" onclick="openOfferDetail('${o.id}')"><div class="flex justify-between items-start mb-3"><div><div class="font-medium text-primary">${o.businessName || 'Unnamed'}</div><div class="text-[11px] text-muted mt-1">${formatCurrency(opt1.amount)} • ${formatCurrency(opt1.payment)}/${opt1.frequency.charAt(0)}</div></div><span class="badge ${sClass}">${o.status.toUpperCase()}</span></div><div class="flex justify-between text-[11px] text-muted mt-1"><span>Created: ${new Date(o.createdAt).toLocaleDateString()}</span><span>Expires: ${new Date(o.expiresAt).toLocaleDateString()}</span></div></div>`;
+      }).join('');
+    }
+
+    function renderClients() {
+      const c = document.getElementById('clientsList'); if (!c) return;
+      const map = {}; offers.forEach(o => { if (!map[o.businessName]) map[o.businessName] = { name: o.businessName, contact: o.contactName, count: 0, accepted: 0 }; map[o.businessName].count++; if (o.status === 'accepted') map[o.businessName].accepted++; });
+      const list = Object.values(map);
+      if (list.length === 0) { c.innerHTML = `<div class="empty-state"><p class="text-muted">No clients yet.</p></div>`; return; }
+      c.innerHTML = list.map(cl => `<div class="card-bg rounded-xl border border-primary p-5 flex items-center justify-between mb-3 hover:shadow-md transition-all"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white" style="background: var(--accent-color);">${cl.name.charAt(0).toUpperCase()}</div><div><h3 class="font-medium text-primary">${cl.name}</h3><p class="text-xs text-muted">${cl.contact || 'No Contact'}</p></div></div><div class="text-right"><div class="text-lg font-bold text-primary">${cl.count} Offers</div><div class="text-xs text-muted">${cl.accepted} Accepted</div></div></div>`).join('');
+    }
+
+    // --- STATE MANAGEMENT ---
+    function loadOffers() { try { const s = localStorage.getItem(STORAGE_KEY); if (s) offers = JSON.parse(s); } catch (e) { offers = []; } }
+    function saveOffers() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(offers)); } catch (e) {} }
+    function loadSettings() { try { const s = localStorage.getItem(SETTINGS_KEY); if (s) settings = { ...settings, ...JSON.parse(s) }; updateSettingsUI(); updateRepDisplay(); if (settings.accent) setAccent(settings.accent, false); } catch (e) {} }
+    function saveSettings() { 
+        settings.repName = document.getElementById('settingsRepName').value.trim(); 
+        settings.repEmail = document.getElementById('settingsRepEmail').value.trim(); 
+        settings.repPhone = document.getElementById('settingsRepPhone').value.trim(); 
+        settings.companyName = document.getElementById('settingsCompanyName').value.trim(); 
+        settings.logoUrl = document.getElementById('settingsLogoUrl').value.trim(); 
+        settings.defaultFactor = parseFloat(document.getElementById('settingsDefaultFactor').value) || 1.25; 
+        settings.defaultTerm = parseInt(document.getElementById('settingsDefaultTerm').value) || 130; 
+        settings.defaultExpiry = parseInt(document.getElementById('settingsDefaultExpiry').value) || 14; 
+        settings.showApr = document.getElementById('settingsShowApr').checked; 
+        try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); updateRepDisplay(); showToast('Settings saved!'); updateCalculatorPreview(); } catch (e) {} 
+    }
+    function updateSettingsUI() { 
+        document.getElementById('settingsRepName').value = settings.repName || ''; 
+        document.getElementById('settingsRepEmail').value = settings.repEmail || ''; 
+        document.getElementById('settingsRepPhone').value = settings.repPhone || ''; 
+        document.getElementById('settingsCompanyName').value = settings.companyName || ''; 
+        document.getElementById('settingsLogoUrl').value = settings.logoUrl || ''; 
+        document.getElementById('settingsDefaultFactor').value = settings.defaultFactor || 1.25; 
+        document.getElementById('settingsDefaultTerm').value = settings.defaultTerm || 130; 
+        document.getElementById('settingsDefaultExpiry').value = settings.defaultExpiry || 14; 
+        document.getElementById('settingsShowApr').checked = settings.showApr || false; 
+    }
+    function updateRepDisplay() { document.getElementById('repNameSidebar').textContent = settings.repName || 'Not Set'; }
+    
+    function toggleTheme() { isDark = !isDark; document.documentElement.classList.toggle('theme-dark', isDark); document.documentElement.classList.toggle('theme-light', !isDark); document.getElementById('themeLabel').textContent = isDark ? 'Light Mode' : 'Dark Mode'; localStorage.setItem('sutton_theme', isDark ? 'dark' : 'light'); updateSliderFills(); }
+    function loadTheme() { const s = localStorage.getItem('sutton_theme'); if (s === 'light') { isDark = false; document.documentElement.classList.remove('theme-dark'); document.documentElement.classList.add('theme-light'); } else { isDark = true; document.documentElement.classList.remove('theme-light'); document.documentElement.classList.add('theme-dark'); } document.getElementById('themeLabel').textContent = isDark ? 'Light Mode' : 'Dark Mode'; }
+    function setAccent(a, s = true) { document.documentElement.className = document.documentElement.className.replace(/accent-\w+/g, ''); document.documentElement.classList.add('accent-' + a); settings.accent = a; if (s) try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch (e) {} updateSliderFills(); }
+
+    // --- CALCULATOR LOGIC ---
+    function addCalcOption() { if (calcOptions.length >= 3) return; const p = calcOptions[calcOptions.length - 1]; calcOptions.push({ ...p }); updateTabsUI(); switchCalcTab(calcOptions.length - 1); }
+    function removeCalcOption() { if (calcOptions.length <= 1) return; calcOptions.splice(activeCalcTab, 1); if (activeCalcTab >= calcOptions.length) activeCalcTab = calcOptions.length - 1; updateTabsUI(); switchCalcTab(activeCalcTab); }
+    function switchCalcTab(i) { saveInputsToState(activeCalcTab); activeCalcTab = i; updateTabsUI(); loadStateToInputs(activeCalcTab); updateCalculatorPreview(); updateSliderFills(); }
+    
+    function updateTabsUI() { 
+        for(let i=0; i<3; i++) { 
+            const b = document.getElementById(`tab-btn-${i}`); 
+            if (i < calcOptions.length) { b.classList.remove('hidden'); b.classList.toggle('active', i === activeCalcTab); } 
+            else { b.classList.add('hidden'); } 
+        } 
+        document.getElementById('add-tab-btn').classList.toggle('hidden', calcOptions.length >= 3); 
+        document.getElementById('remove-option-btn').classList.toggle('hidden', calcOptions.length <= 1); 
+        document.getElementById('previewOptionLabel').textContent = `Option ${activeCalcTab + 1}`; 
+    }
+    
+    function saveInputsToState(i) { 
+        if (!calcOptions[i]) return; 
+        const fb = document.querySelector('#calculatorView .toggle-btn.active[data-freq]'); 
+        const fr = fb ? fb.dataset.freq : 'daily'; 
+        const feeEnabled = document.getElementById('toggleFee').checked; 
+        const prepayEnabled = document.getElementById('togglePrepay').checked; 
+        const overrideEnabled = document.getElementById('toggleOverride').checked; 
+        const notesEnabled = document.getElementById('toggleNotes').checked; 
+        const aprEnabled = document.getElementById('toggleApr').checked;
+        calcOptions[i] = { 
+            amount: parseNumber(document.getElementById('calcAmount').value), 
+            factor: parseFloat(document.getElementById('calcFactor').value) || 1.25, 
+            term: parseInt(document.getElementById('calcTerm').value) || 130, 
+            frequency: fr, 
+            fee: feeEnabled ? (parseFloat(document.getElementById('calcFee').value) || 0) : 0, 
+            prepay: prepayEnabled ? (parseInt(document.getElementById('calcPrepay').value) || 0) : 0, 
+            termOverride: overrideEnabled ? document.getElementById('calcTermOverride').value.trim() : '', 
+            notes: notesEnabled ? document.getElementById('calcNotes').value : '' 
+        }; 
+    }
+    
+    function loadStateToInputs(i) { 
+        const o = calcOptions[i]; if (!o) return; 
+        document.getElementById('calcAmount').value = formatNumber(o.amount); 
+        document.getElementById('calcAmountSlider').value = o.amount; 
+        document.getElementById('calcFactor').value = o.factor; 
+        document.getElementById('calcFactorSlider').value = o.factor; 
+        document.getElementById('calcTerm').value = o.term; 
+        document.getElementById('calcTermSlider').value = o.term; 
+        const ho = !!o.termOverride; document.getElementById('toggleOverride').checked = ho; toggleOverrideSection(ho); if(ho) document.getElementById('calcTermOverride').value = o.termOverride; 
+        document.querySelectorAll('.toggle-btn[data-freq]').forEach(b => { const ia = b.dataset.freq === o.frequency; b.classList.toggle('active', ia); b.setAttribute('aria-pressed', ia); }); 
+        const hf = o.fee > 0; document.getElementById('toggleFee').checked = hf; toggleFeeSection(hf); if(hf) { document.getElementById('calcFee').value = o.fee; document.getElementById('calcFeeSlider').value = o.fee; } 
+        const hp = o.prepay > 0; document.getElementById('togglePrepay').checked = hp; togglePrepaySection(hp); if(hp) { document.getElementById('calcPrepay').value = o.prepay; document.getElementById('calcPrepaySlider').value = o.prepay; } 
+        const hn = !!o.notes; document.getElementById('toggleNotes').checked = hn; toggleNotesSection(hn); if(hn) document.getElementById('calcNotes').value = o.notes; 
+        const ha = settings.showApr; if(document.getElementById('toggleApr')) document.getElementById('toggleApr').checked = ha;
+    }
+    
+    function updateSliderFill(s) { if (!s) return; const m = parseFloat(s.min) || 0, mx = parseFloat(s.max) || 100, v = parseFloat(s.value) || 0, p = ((v - m) / (mx - m)) * 100; s.style.background = `linear-gradient(to right, var(--accent-color) 0%, var(--accent-color) ${p}%, var(--bg-slider-track) ${p}%, var(--bg-slider-track) 100%)`; }
+    function updateSliderFills() { ['calcAmountSlider','calcFactorSlider','calcTermSlider','calcFeeSlider','calcPrepaySlider'].forEach(id => updateSliderFill(document.getElementById(id))); }
+    
+    function toggleContactInfo(f=null) { 
+        const c = document.getElementById('extraContactInfo'), i = document.getElementById('iconContactChevron'), l = document.getElementById('lblContactAction'); 
+        const s = f !== null ? f : c.classList.contains('hidden'); 
+        if (s) { c.classList.remove('hidden'); i.style.transform = 'rotate(180deg)'; l.textContent = 'Hide Details'; } 
+        else { c.classList.add('hidden'); i.style.transform = 'rotate(0deg)'; l.textContent = 'Add Details'; } 
+    }
+    
+    function toggleFeeSection(s) { const c = document.getElementById('contentFee'); if (s) c.classList.remove('hidden'); else { c.classList.add('hidden'); document.getElementById('calcFee').value = 0; document.getElementById('calcFeeSlider').value = 0; updateSliderFill(document.getElementById('calcFeeSlider')); updateCalculatorPreview(); } }
+    function togglePrepaySection(s) { const c = document.getElementById('contentPrepay'); if (s) c.classList.remove('hidden'); else { c.classList.add('hidden'); document.getElementById('calcPrepay').value = 0; document.getElementById('calcPrepaySlider').value = 0; updateSliderFill(document.getElementById('calcPrepaySlider')); } }
+    function toggleOverrideSection(s) { const c = document.getElementById('contentOverride'); if (s) c.classList.remove('hidden'); else { c.classList.add('hidden'); document.getElementById('calcTermOverride').value = ''; updateCalculatorPreview(); } }
+    function toggleExpirySection(s) { const c = document.getElementById('contentExpiry'); if (s) { c.classList.remove('hidden'); if(!document.getElementById('calcExpiryDate').value) setExpiryDateDefault(); } else c.classList.add('hidden'); }
+    function toggleNotesSection(s) { const c = document.getElementById('contentNotes'); if (s) c.classList.remove('hidden'); else { c.classList.add('hidden'); document.getElementById('calcNotes').value = ''; } }
+    function toggleApr(checked) { settings.showApr = checked; updateCalculatorPreview(); }
+    function setFrequency(f) { document.querySelectorAll('.toggle-btn[data-freq]').forEach(b => b.classList.toggle('active', b.dataset.freq === f)); updateCalculatorPreview(); }
+    function setExpiryDateDefault() { const d = new Date(); d.setDate(d.getDate() + (settings.defaultExpiry || 14)); document.getElementById('calcExpiryDate').value = d.toISOString().split('T')[0]; }
+    
+    function updateCalculatorPreview() {
+      const a = parseNumber(document.getElementById('calcAmount').value), f = parseFloat(document.getElementById('calcFactor').value) || 1.25, t = parseInt(document.getElementById('calcTerm').value) || 130;
+      const to = document.getElementById('toggleOverride').checked ? document.getElementById('calcTermOverride').value.trim() : '', bn = document.getElementById('calcBusinessName').value.trim();
+      const fe = document.getElementById('toggleFee').checked ? (parseFloat(document.getElementById('calcFee').value) || 0) : 0;
+      const fb = document.querySelector('#calculatorView .toggle-btn.active[data-freq]'), fr = fb ? fb.dataset.freq : 'daily';
+      const c = calculateOffer(a, f, t, fr, fe);
+      if (bn) { document.getElementById('previewBusinessName').textContent = bn; document.getElementById('previewBusinessName').classList.remove('hidden'); } else document.getElementById('previewBusinessName').classList.add('hidden');
+      document.getElementById('previewAmount').textContent = formatCurrency(c.amount); document.getElementById('previewPaybackChart').textContent = formatCurrency(c.totalPayback);
+      const aprC = document.getElementById('previewAprContainer'); if (settings.showApr) { aprC.classList.remove('hidden'); document.getElementById('previewApr').textContent = c.apr + '%'; } else aprC.classList.add('hidden');
+      document.getElementById('previewTermLength').textContent = to ? to : (c.termMonths + ' months'); document.getElementById('previewTermPayments').textContent = c.term + ' payments'; document.getElementById('previewFactor').textContent = c.factor.toFixed(2) + 'x'; document.getElementById('previewCost').textContent = formatCurrency(c.totalCost);
+      document.getElementById('previewPaymentLabel').textContent = fr === 'weekly' ? 'Est. Weekly Payment' : fr === 'monthly' ? 'Est. Monthly Payment' : 'Est. Daily Payment'; document.getElementById('previewPayment').textContent = formatCurrency(c.payment);
+      if (fe > 0) { document.getElementById('previewFeeRow').classList.remove('hidden'); document.getElementById('previewFeeAmount').textContent = formatCurrency(c.feeAmount); document.getElementById('previewNet').textContent = formatCurrency(c.netProceeds); } else document.getElementById('previewFeeRow').classList.add('hidden');
+      const pp = c.totalPayback > 0 ? (c.amount / c.totalPayback) * 100 : 0; document.getElementById('previewCircle').setAttribute('stroke-dasharray', `${pp} ${100 - pp}`);
+    }
+    
+    function resetCalculator() {
+      document.getElementById('calcBusinessName').value = ''; document.getElementById('calcContactName').value = ''; document.getElementById('calcEmail').value = '';
+      setExpiryDateDefault(); toggleContactInfo(false);
+      ['toggleFee','togglePrepay','toggleOverride','toggleExpiry', 'toggleNotes', 'toggleApr'].forEach(id => { const el = document.getElementById(id); if(el) el.checked = false; });
+      if (document.getElementById('toggleApr')) document.getElementById('toggleApr').checked = settings.showApr;
+      toggleFeeSection(false); togglePrepaySection(false); toggleOverrideSection(false); toggleExpirySection(false); toggleNotesSection(false);
+      editingOfferId = null; document.getElementById('cancelEditBtn').classList.add('hidden'); document.getElementById('mainActionBtnText').textContent = 'New Offer';
+      calcOptions = [initDefaultOption()]; activeCalcTab = 0; updateTabsUI(); loadStateToInputs(0); updateSliderFills(); updateCalculatorPreview();
+    }
+
+    function createOffer() {
+      const bn = document.getElementById('calcBusinessName').value.trim(); if (!bn) { showToast('Please enter a business name'); document.getElementById('calcBusinessName').focus(); return; }
+      saveInputsToState(activeCalcTab);
+      const hasExpiration = document.getElementById('toggleExpiry').checked;
+      let ea; if(hasExpiration) { const dv = document.getElementById('calcExpiryDate').value; if (dv) ea = new Date(dv).getTime(); } 
+      if (!ea || isNaN(ea)) ea = Date.now() + (settings.defaultExpiry * 24 * 60 * 60 * 1000);
+      const finalOpts = calcOptions.map((o, i) => { const c = calculateOffer(o.amount, o.factor, o.term, o.frequency, o.fee); return { id: i, amount: o.amount, factor: o.factor, term: o.term, frequency: o.frequency, fee: o.fee, prepayDiscount: o.prepay, termOverride: o.termOverride, notes: o.notes, ...c }; });
+      if (editingOfferId) { const idx = offers.findIndex(o => o.id === editingOfferId); if (idx !== -1) { offers[idx] = { ...offers[idx], businessName: bn, contactName: document.getElementById('calcContactName').value.trim(), email: document.getElementById('calcEmail').value.trim(), options: finalOpts, expiresAt: ea, hasExpiration: hasExpiration, showApr: settings.showApr }; saveOffers(); showToast('Offer updated!'); cancelEdit(); setTimeout(() => openOfferDetail(editingOfferId), 300); return; } }
+      const newOffer = { id: generateId(), businessName: bn, contactName: document.getElementById('calcContactName').value.trim(), email: document.getElementById('calcEmail').value.trim(), options: finalOpts, status: 'pending', createdAt: Date.now(), expiresAt: ea, hasExpiration: hasExpiration, repName: settings.repName, repEmail: settings.repEmail, repPhone: settings.repPhone, companyName: settings.companyName, logoUrl: settings.logoUrl, accent: settings.accent, showApr: settings.showApr };
+      offers.push(newOffer); saveOffers(); resetCalculator(); refreshView(); showToast('Offer created!'); setTimeout(() => openOfferDetail(newOffer.id), 300);
+    }
+
+    function editOffer() { if(!selectedOfferId) return; editingOfferId = selectedOfferId; const o = offers.find(x => x.id === editingOfferId); document.getElementById('calcBusinessName').value = o.businessName; document.getElementById('calcContactName').value = o.contactName; document.getElementById('calcEmail').value = o.email; if(o.contactName || o.email) toggleContactInfo(true); calcOptions = o.options.map(x => ({...x, prepay: x.prepayDiscount})); 
+    if(o.hasExpiration && o.expiresAt) { document.getElementById('calcExpiryDate').value = new Date(o.expiresAt).toISOString().split('T')[0]; document.getElementById('toggleExpiry').checked = true; toggleExpirySection(true); } else { document.getElementById('toggleExpiry').checked = false; toggleExpirySection(false); }
+    if (o.showApr !== undefined) { settings.showApr = o.showApr; if(document.getElementById('toggleApr')) document.getElementById('toggleApr').checked = o.showApr; }
+    activeCalcTab = 0; updateTabsUI(); loadStateToInputs(0); document.getElementById('cancelEditBtn').classList.remove('hidden'); document.getElementById('mainActionBtnText').textContent = 'Update Offer'; closeOfferDetailModal(); switchView('calculator'); }
+    function cancelEdit() { editingOfferId = null; resetCalculator(); switchView('dashboard'); }
+    function confirmDeleteOffer() { if(selectedOfferId) document.getElementById('confirmModal').classList.remove('hidden'); }
+    function closeConfirmModal() { document.getElementById('confirmModal').classList.add('hidden'); }
+    function executeDelete() { if(selectedOfferId) { offers = offers.filter(x => x.id !== selectedOfferId); saveOffers(); refreshView(); closeConfirmModal(); closeOfferDetailModal(); showToast('Deleted'); } }
+    function copyOfferLink() { const o = offers.find(x => x.id === selectedOfferId); if(o) { const link = `${window.location.origin}${window.location.pathname}?offer=${encodeURIComponent(o.id)}`; copyToClipboard(link); } }
+    
+    function copyOfferText() {
+      const offer = offers.find(x => x.id === selectedOfferId); if (!offer) return;
+      const company = offer.companyName || 'Sutton Funding';
+      const link = generateOfferLink(offer);
+      const colorMap = { mint: '#42D197', blue: '#3b82f6', gold: '#D19B2B', purple: '#a855f7', red: '#ef4444', teal: '#14b8a6', pink: '#ec4899', orange: '#f97316', indigo: '#6366f1', lime: '#84cc16', cyan: '#06b6d4', black: '#18181b', grey: '#64748b', white: '#f8fafc', glow: '#d946ef' };
+      const brandColor = colorMap[offer.accent] || '#42D197';
+      const lightAccents = ['mint', 'lime', 'cyan', 'white', 'glow'];
+      // Mint is back to light, so using darker text, or white depending on exact shade.
+      // Reverting to smart logic: if it's a very light color, dark text. #42D197 is mid-tone, but usually white text works with shadow.
+      const headerTextColor = (offer.accent === 'white' || offer.accent === 'cyan' || offer.accent === 'lime') ? '#0f172a' : '#ffffff';
+      const btnTextColor = (offer.accent === 'white' || offer.accent === 'cyan' || offer.accent === 'lime') ? '#0f172a' : '#ffffff';
+      
+      let optionsRows = '';
+      offer.options.forEach((opt, i) => {
+        const freqLabel = opt.frequency.charAt(0).toUpperCase() + opt.frequency.slice(1);
+        const termLabel = opt.termOverride ? opt.termOverride : (opt.termMonths + ' months');
+        optionsRows += `<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 16px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; border-spacing: 0; border-collapse: separate; overflow: hidden;"><tr><td style="border-left: 6px solid ${brandColor}; padding: 20px;"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top"><div style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Option ${i+1}</div><div style="font-family: Helvetica, Arial, sans-serif; font-size: 24px; font-weight: bold; color: #0f172a;">${formatCurrency(opt.amount)}</div></td><td align="right" valign="top"><div style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: bold; color: ${brandColor};">${opt.factor}x</div></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 16px; border-top: 1px solid #f1f5f9;"><tr><td style="padding-top: 12px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #475569;">Term</td><td align="right" style="padding-top: 12px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #0f172a;">${termLabel}</td></tr><tr><td style="padding-top: 8px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #475569;">Payment</td><td align="right" style="padding-top: 8px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #0f172a;">${formatCurrency(opt.payment)} / ${freqLabel}</td></tr></table></td></tr></table>`;
+      });
+      let notesHtml = '';
+      const allNotes = offer.options.map(o => o.notes).filter(n => n);
+      const displayNotes = allNotes.length > 0 ? allNotes[0] : '';
+      if (displayNotes) { const bullets = displayNotes.split('\n').filter(n => n.trim()).map(n => `<li style="margin-bottom: 4px;">${n}</li>`).join(''); notesHtml = `<div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 16px; margin-bottom: 24px;"><div style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold; text-transform: uppercase; color: #64748b; margin-bottom: 8px;">Approval Conditions</div><ul style="margin: 0; padding-left: 20px; font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #334155;">${bullets}</ul></div>`; }
+      const htmlContent = `<!DOCTYPE html><html><body style="margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif; background-color: #ffffff;"><div style="max-width: 550px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"><div style="background-color: ${brandColor}; padding: 32px 24px; text-align: center;"><h1 style="margin: 0; font-size: 26px; color: ${headerTextColor}; letter-spacing: -0.5px;">${company}</h1><p style="margin: 6px 0 0 0; color: ${headerTextColor}; opacity: 0.9; font-size: 14px; font-weight: 500;">Funding Approval</p></div><div style="padding: 32px 24px; background-color: #ffffff;"><p style="margin-top: 0; margin-bottom: 24px; font-size: 15px; line-height: 1.6; color: #334155;">Hi ${offer.contactName || 'there'},<br><br>We are pleased to inform you that <strong>${offer.businessName}</strong> has been approved for funding. Please review your options below.</p>${optionsRows}${notesHtml}<div style="text-align: center; margin-top: 32px; margin-bottom: 12px;"><a href="${link}" style="background-color: ${brandColor}; color: ${btnTextColor}; font-size: 16px; font-weight: bold; text-decoration: none; padding: 14px 36px; border-radius: 8px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">View & Accept Offer</a></div><div style="text-align: center;"><a href="${link}" style="font-size: 12px; color: #64748b; text-decoration: none;">Expires on ${new Date(offer.expiresAt).toLocaleDateString()}</a></div></div><div style="background-color: #f8fafc; padding: 16px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8;">SECURE FUNDING PROPOSAL &bull; POWERED BY SUTTON FUNDING</div></div></body></html>`;
+      let plainText = `Funding Approval for ${offer.businessName}\n\n`; offer.options.forEach((opt, i) => { plainText += `OPTION ${i+1}: ${formatCurrency(opt.amount)} | Term: ${opt.termOverride || opt.term} | Pmt: ${formatCurrency(opt.payment)}\n`; }); plainText += `\nView details and accept here: ${link}`;
+      copyHtmlToClipboard(htmlContent, plainText);
+    }
+    function generateOfferLink(offer) { return window.location.origin + window.location.pathname + '?offer=' + encodeURIComponent(offer.id); }
+    
+    function openOfferDetail(id) {
+      selectedOfferId = id; const o = offers.find(x => x.id === id); if (!o) return;
+      const status = o.status === 'accepted' ? 'badge-accepted' : o.status === 'expired' ? 'badge-expired' : 'badge-pending';
+      const html = o.options.map((opt, i) => `<div class="mb-4 rounded-xl border border-primary bg-[var(--bg-card-inner)] overflow-hidden"><div class="px-4 py-3 border-b border-primary flex justify-between items-center bg-[var(--bg-card)]"><span class="text-xs font-bold text-muted uppercase tracking-wider">Option ${i+1}</span><span class="text-xl font-bold text-hero">${formatCurrency(opt.amount)}</span></div><div class="grid grid-cols-3 gap-4 p-4 text-center"><div><div class="text-[10px] font-bold text-muted uppercase mb-1">Term</div><div class="text-sm font-semibold text-primary">${opt.termOverride || (opt.termMonths + ' mo')}</div></div><div><div class="text-[10px] font-bold text-muted uppercase mb-1">Factor</div><div class="text-sm font-semibold text-primary">${opt.factor}</div></div><div><div class="text-[10px] font-bold text-muted uppercase mb-1">Payment</div><div class="text-sm font-semibold text-primary">${formatCurrency(opt.payment)}</div></div></div></div>`).join('');
+      document.getElementById('offerDetailContent').innerHTML = `<div class="text-center mb-6"><span class="badge ${status} mb-3">${o.status.toUpperCase()}</span><h2 class="text-xl font-bold text-primary">${o.businessName}</h2></div><div class="max-h-[400px] overflow-y-auto pr-1 -mr-1">${html}</div>`;
+      document.getElementById('offerDetailModal').classList.remove('hidden');
+    }
+    function closeOfferDetailModal() { document.getElementById('offerDetailModal').classList.add('hidden'); selectedOfferId = null; }
+
+    // --- CLIENT SLIDER LOGIC ---
+    function updateClientMainCard(amountVal) {
+      const o = offers.find(x => x.id === window.currentClientOfferId); if (!o) return;
+      const opt = o.options[activeClientOptionIdx];
+      const amt = parseFloat(amountVal);
+      
+      // Recalculate
+      const c = calculateOffer(amt, opt.factor, opt.term, opt.frequency, opt.fee);
+      
+      document.getElementById('clientMainAmount').textContent = formatCurrency(amt);
+      document.getElementById('clientMainPayback').textContent = formatCurrency(c.totalPayback);
+      document.getElementById('clientMainPayment').textContent = formatCurrency(c.payment);
+      document.getElementById('clientMainCost').textContent = formatCurrency(c.totalCost);
+      
+      const pct = (amt / c.totalPayback) * 100;
+      const donut = document.getElementById('clientMainDonut');
+      if(donut) donut.setAttribute('stroke-dasharray', `${pct}, 100`);
+      
+      calculateMainClientSavings();
+    }
+
+    function calculateMainClientSavings() { 
+      const o = offers.find(x => x.id === window.currentClientOfferId); if(!o) return; 
+      const di = document.getElementById('clientMainPrepayDate'); if(!di || !di.value) return; 
+      const a = parseNumber(document.getElementById('clientMainAmount').textContent); 
+      const opt = o.options[activeClientOptionIdx]; 
+      const tp = a * opt.factor; 
+      const sd = new Date(); sd.setHours(0,0,0,0); 
+      let td = opt.term; 
+      if(opt.frequency === 'weekly') td = opt.term * 7; 
+      else if(opt.frequency === 'monthly') td = opt.term * 30.44; 
+      else td = opt.term * 1.42; 
+      const ed = new Date(sd); ed.setDate(ed.getDate() + Math.ceil(td)); 
+      const sel = new Date(di.value); sel.setHours(0,0,0,0); 
+      const tt = ed.getTime() - sd.getTime(); 
+      const rt = ed.getTime() - sel.getTime(); 
+      let fr = tt > 0 ? rt / tt : 0; fr = Math.max(0, Math.min(1, fr)); 
+      const ms = tp * (opt.prepayDiscount / 100); 
+      const s = ms * fr; 
+      const nt = tp - s; 
+      document.getElementById('clientMainSavings').textContent = formatCurrency(s); 
+      document.getElementById('clientMainNewTotal').textContent = formatCurrency(nt); 
+    }
+
+    function populateClientView(offer) {
+       window.currentClientOfferId = offer.id;
+       const opt = offer.options[activeClientOptionIdx];
+       const c = calculateOffer(opt.amount, opt.factor, opt.term, opt.frequency, opt.fee);
+       const termLabel = opt.termOverride || c.termMonths + ' mo';
+       const freqLabel = opt.frequency === 'weekly' ? 'Est. Weekly Payment' : opt.frequency === 'monthly' ? 'Est. Monthly Payment' : 'Est. Daily Payment';
+
+       // Populate main display values
+       document.getElementById('clientMainAmount').textContent = formatCurrency(c.amount);
+       document.getElementById('clientMainPayback').textContent = formatCurrency(c.totalPayback);
+       document.getElementById('clientMainTerm').textContent = termLabel;
+       document.getElementById('clientMainCost').textContent = formatCurrency(c.totalCost);
+       document.getElementById('clientMainPayment').textContent = formatCurrency(c.payment);
+       document.getElementById('clientMainFreqLabel').textContent = freqLabel;
+
+       // Update donut chart
+       const pct = c.totalPayback > 0 ? (c.amount / c.totalPayback) * 100 : 0;
+       document.getElementById('clientMainDonut').setAttribute('stroke-dasharray', `${pct}, 100`);
+
+       // Configure slider
+       const slider = document.getElementById('clientAmountSlider');
+       const sliderContainer = document.getElementById('clientSliderContainer');
+       if (offer.status === 'pending') {
+           slider.min = 5000;
+           slider.max = opt.amount;
+           slider.step = 1000;
+           slider.value = opt.amount;
+           sliderContainer.classList.remove('hidden');
+           document.getElementById('clientMaxAmountLabel').textContent = 'Approved: ' + formatCurrency(opt.amount);
+           // Set initial slider fill (starts at max value, so 100%)
+           const pctFill = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+           slider.style.background = `linear-gradient(to right, var(--accent-color) 0%, var(--accent-color) ${pctFill}%, var(--bg-slider-track) ${pctFill}%, var(--bg-slider-track) 100%)`;
+       } else {
+           sliderContainer.classList.add('hidden');
+       }
+
+       // Show/hide prepay section
+       const prepaySection = document.getElementById('clientPrepaySection');
+       if (opt.prepayDiscount > 0) {
+           prepaySection.classList.remove('hidden');
+           document.getElementById('clientPrepayPercent').textContent = opt.prepayDiscount + '% Max';
+       } else {
+           prepaySection.classList.add('hidden');
+       }
+
+       // Show/hide notes
+       const notesContainer = document.getElementById('clientNotesContainer');
+       if (opt.notes) {
+           notesContainer.classList.remove('hidden');
+           document.getElementById('clientNotesText').textContent = opt.notes;
+       } else {
+           notesContainer.classList.add('hidden');
+       }
+
+       // Show/hide accept button vs accepted message
+       const acceptBtn = document.getElementById('clientAcceptBtn');
+       const acceptedMsg = document.getElementById('clientAcceptedMsg');
+       if (offer.status === 'pending') {
+           acceptBtn.classList.remove('hidden');
+           acceptedMsg.classList.add('hidden');
+       } else {
+           acceptBtn.classList.add('hidden');
+           acceptedMsg.classList.remove('hidden');
+       }
+
+       // Render alternative option thumbnails if > 1 option
+       if (offer.options.length > 1) {
+           document.getElementById('clientAlternativesContainer').classList.remove('hidden');
+           document.getElementById('clientThumbnails').innerHTML = offer.options.map((o, i) => generateThumbnailHTML(o, i)).join('');
+       } else {
+           document.getElementById('clientAlternativesContainer').classList.add('hidden');
+       }
+    }
+  
+    function generateThumbnailHTML(opt, idx) { 
+        const c = calculateOffer(opt.amount, opt.factor, opt.term, opt.frequency, opt.fee);
+        const tl = opt.termOverride ? opt.termOverride : (c.termMonths + ' months'); 
+        return `<div onclick="switchClientOption(${idx})" class="bg-[var(--bg-card)] p-4 rounded-xl border border-primary hover:border-[var(--accent-color)] hover:shadow-md cursor-pointer transition-all flex items-center justify-between group ${idx === activeClientOptionIdx ? 'ring-2 ring-[var(--accent-color)]' : ''}"><div><span class="text-[10px] font-bold text-muted uppercase block mb-1">Option ${idx + 1}</span><div class="text-lg font-bold text-primary group-hover:text-[var(--accent-color)] transition-colors">${formatCurrency(opt.amount)}</div><div class="text-xs text-secondary mt-0.5">${tl} • ${opt.frequency}</div></div><div class="text-right"><div class="text-xs font-medium text-muted">Factor</div><div class="font-bold text-primary">${opt.factor}x</div><div class="text-[10px] font-bold text-hero mt-1 uppercase tracking-wide">View &rarr;</div></div></div>`; 
+    }
+    function switchClientOption(idx) { activeClientOptionIdx = idx; const o = offers.find(x => x.id === window.currentClientOfferId); populateClientView(o); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function startClientTimer(ea) { if(clientTimerId) clearInterval(clientTimerId); function u() { const n = Date.now(); const d = ea - n; if(d <= 0) { clearInterval(clientTimerId); location.reload(); return; } const days = Math.floor(d / 86400000); const hours = Math.floor((d % 86400000) / 3600000); const minutes = Math.floor((d % 3600000) / 60000); const seconds = Math.floor((d % 60000) / 1000); document.getElementById('clientTimerDays').textContent = days.toString().padStart(2, '0'); document.getElementById('clientTimerHours').textContent = hours.toString().padStart(2, '0'); document.getElementById('clientTimerMinutes').textContent = minutes.toString().padStart(2, '0'); document.getElementById('clientTimerSeconds').textContent = seconds.toString().padStart(2, '0'); } u(); clientTimerId = setInterval(u, 1000); }
+    function acceptOffer(idx) { const o = offers.find(x => x.id === window.currentClientOfferId); if(!o) return; o.status = 'accepted'; o.acceptedAt = Date.now(); o.acceptedOptionIndex = idx; saveOffers(); fireConfetti(); showClientView(window.currentClientOfferId); showToast('Offer accepted!'); }
+    function openAmortSchedule(idx) { 
+        let o, opt, a;
+        if (currentView === 'dashboard' || currentView === 'calculator') {
+            // Logic for preview mode
+            a = parseNumber(document.getElementById('calcAmount').value);
+            const f = parseFloat(document.getElementById('calcFactor').value) || 1.25;
+            const t = parseInt(document.getElementById('calcTerm').value) || 130;
+            const fr = document.querySelector('#calculatorView .toggle-btn.active').dataset.freq || 'daily';
+            opt = { amount: a, factor: f, term: t, frequency: fr, fee: 0 }; // simplified
+        } else {
+            // Logic for client view - USE THE ADJUSTED AMOUNT FROM SLIDER
+            o = offers.find(x => x.id === window.currentClientOfferId); 
+            if(!o) return; 
+            opt = o.options[idx];
+            // CRITICAL: Read current slider value for schedule
+            a = parseNumber(document.getElementById('clientMainAmount').textContent);
+            opt = { ...opt, amount: a };
+        }
+  
+        const tp = a * opt.factor; const p = tp / opt.term; const tb = document.getElementById('amortTableBody'); tb.innerHTML = ''; let b = tp; let d = new Date(); const mr = 260; 
+        for(let i = 1; i <= opt.term; i++) { 
+            if(i > mr && i < opt.term) continue; 
+            if(i === mr && opt.term > mr) { 
+                tb.innerHTML += `<tr><td colspan="4" class="text-center text-muted py-2">... remaining payments ...</td></tr>`; 
+                let ld = new Date(); ld.setDate(ld.getDate() + (opt.term * (opt.frequency === 'weekly' ? 7 : 1.4))); 
+                tb.innerHTML += `<tr><td>${opt.term}</td><td>${ld.toLocaleDateString()}</td><td>${formatCurrency(p)}</td><td>$0.00</td></tr>`; 
+                break; 
+            } 
+            if(opt.frequency === 'weekly') d.setDate(d.getDate() + 7); 
+            else if(opt.frequency === 'monthly') d.setMonth(d.getMonth() + 1); 
+            else { d.setDate(d.getDate() + 1); if(d.getDay() === 0) d.setDate(d.getDate() + 1); if(d.getDay() === 6) d.setDate(d.getDate() + 2); } 
+            b -= p; if(b < 0) b = 0; 
+            const tr = document.createElement('tr'); 
+            tr.innerHTML = `<td>${i}</td><td>${d.toLocaleDateString()}</td><td>${formatCurrency(p)}</td><td>${formatCurrency(b)}</td>`; 
+            tb.appendChild(tr); 
+        } 
+        document.getElementById('amortModal').classList.remove('hidden'); 
+    }
+  
+    function switchView(view) {
+      currentView = view; 
+      if (window.innerWidth <= 768) { const sb = document.getElementById('sidebar'); if(sb) sb.classList.remove('open'); }
+      document.querySelectorAll('.nav-item').forEach(i => { i.classList.remove('active'); if (i.dataset.view === view) i.classList.add('active'); });
+      
+      const titles = { dashboard: ['Dashboard', 'Welcome back! Here\'s your offer activity.'], calculator: ['Create New Offer', 'Build and share a funding offer with your client.'], offers: ['All Offers', 'Manage and track all your sent offers.'], accepted: ['Accepted Offers', 'View all accepted funding offers.'], declined: ['Declined Offers', 'View all declined or expired offers.'], clients: ['Clients', 'View all your clients and their offer history.'], settings: ['Settings', 'Configure your profile and preferences.'] };
+      const pageTitle = (view === 'calculator' && editingOfferId) ? 'Edit Offer' : (titles[view] ? titles[view][0] : 'Dashboard');
+      const pageSub = (view === 'calculator' && editingOfferId) ? 'Update existing offer details.' : (titles[view] ? titles[view][1] : '');
+      const pt = document.getElementById('pageTitle'); const ps = document.getElementById('pageSubtitle');
+      if(pt) pt.textContent = pageTitle; if(ps) ps.textContent = pageSub;
+      
+      ['dashboardView','calculatorView','offersView','clientsView','settingsView'].forEach(id => { const el = document.getElementById(id); if(el) el.classList.add('hidden'); });
+      if(['offers','accepted','declined'].includes(view)) { const el = document.getElementById('offersView'); if(el) el.classList.remove('hidden'); } 
+      else { const el = document.getElementById(view+'View'); if(el) el.classList.remove('hidden'); }
+      refreshView();
+    }
+  
+    function refreshView() {
+      if(typeof updateStats === 'function') updateStats();
+      if (currentView === 'dashboard') { const el = document.getElementById('recentOffersList'); if(el) renderOffers(el, currentFilter, 5); } 
+      else if (['offers','accepted','declined'].includes(currentView)) { const filter = currentView === 'offers' ? 'all' : currentView; const el = document.getElementById('allOffersList'); if(el) renderOffers(el, filter); } 
+      else if (currentView === 'clients') { renderClients(); }
+    }
+  
+    function toggleSidebar() { const sb = document.getElementById('sidebar'); if(sb) sb.classList.toggle('open'); }
+    function showToast(msg) { const t = document.getElementById('toast'); const tm = document.getElementById('toastMessage'); if(t && tm) { tm.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); } }
+  
+    // Event Listeners
+    document.getElementById('calcAmountSlider').addEventListener('input', function() { document.getElementById('calcAmount').value = formatNumber(this.value); updateSliderFill(this); updateCalculatorPreview(); });
+    document.getElementById('calcAmount').addEventListener('input', function() { const v = parseNumber(this.value); if(v >= 5000) document.getElementById('calcAmountSlider').value = v; updateSliderFill(document.getElementById('calcAmountSlider')); updateCalculatorPreview(); });
+    document.getElementById('calcFactorSlider').addEventListener('input', function() { document.getElementById('calcFactor').value = this.value; updateSliderFill(this); updateCalculatorPreview(); });
+    document.getElementById('calcFactor').addEventListener('input', function() { document.getElementById('calcFactorSlider').value = this.value; updateSliderFill(document.getElementById('calcFactorSlider')); updateCalculatorPreview(); });
+    document.getElementById('calcTermSlider').addEventListener('input', function() { document.getElementById('calcTerm').value = this.value; updateSliderFill(this); updateCalculatorPreview(); });
+    document.getElementById('calcTerm').addEventListener('input', function() { document.getElementById('calcTermSlider').value = this.value; updateSliderFill(document.getElementById('calcTermSlider')); updateCalculatorPreview(); });
+    document.getElementById('calcFeeSlider').addEventListener('input', function() { document.getElementById('calcFee').value = this.value; updateSliderFill(this); updateCalculatorPreview(); });
+    document.getElementById('calcFee').addEventListener('input', function() { document.getElementById('calcFeeSlider').value = this.value; updateSliderFill(document.getElementById('calcFeeSlider')); updateCalculatorPreview(); });
+    document.getElementById('calcPrepaySlider').addEventListener('input', function() { document.getElementById('calcPrepay').value = this.value; updateSliderFill(this); });
+    document.getElementById('calcPrepay').addEventListener('input', function() { document.getElementById('calcPrepaySlider').value = this.value; updateSliderFill(document.getElementById('calcPrepaySlider')); });
+    document.getElementById('calcTermOverride').addEventListener('input', updateCalculatorPreview);
+    document.getElementById('calcBusinessName').addEventListener('input', updateCalculatorPreview);
+    document.getElementById('calcNotes').addEventListener('input', updateCalculatorPreview);
+  
+    window.addEventListener('load', init);
+    function init() {
+      const params = new URLSearchParams(window.location.search); const offerId = params.get('offer');
+      loadTheme(); loadSettings(); loadOffers();
+      
+      if (offerId) { showClientView(offerId); return; }
+      
+      document.querySelectorAll('.nav-item[data-view]').forEach(item => { item.addEventListener('click', () => switchView(item.dataset.view)); });
+      document.querySelectorAll('[data-filter]').forEach(btn => { btn.addEventListener('click', () => { currentFilter = btn.dataset.filter; document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active')); btn.classList.add('active'); refreshView(); }); });
+      resetCalculator(); refreshView(); updateSliderFills();
+    }
+    
+    function showClientView(offerId) {
+      const o = offers.find(x => x.id === offerId);
+      if (!o) { alert('Offer not found'); return; }
+      
+      document.getElementById('dashboardContainer').classList.add('hidden');
+      document.getElementById('clientContainer').classList.remove('hidden');
+      
+      window.currentClientOfferId = offerId;
+      activeClientOptionIdx = 0;
+      
+      // Update Logo/Name
+      const companyNameEl = document.getElementById('clientCompanyName');
+      if(companyNameEl) companyNameEl.textContent = o.companyName || 'Sutton Funding';
+      const logoEl = document.getElementById('clientLogo');
+      const logoPh = document.getElementById('clientLogoPlaceholder');
+      if(o.logoUrl && logoEl) { logoEl.src = o.logoUrl; logoEl.classList.remove('hidden'); logoPh.classList.add('hidden'); }
+      else { logoEl.classList.add('hidden'); logoPh.classList.remove('hidden'); }
+  
+      // Rep Info
+      if(o.repName || o.repEmail) {
+          document.getElementById('clientRepInfo').classList.remove('hidden');
+          document.getElementById('clientRepName').textContent = o.repName;
+          document.getElementById('clientRepEmail').textContent = o.repEmail;
+          document.getElementById('clientRepPhone').textContent = o.repPhone;
+      }
+  
+      // Banner
+      if(o.status === 'pending' && o.hasExpiration && o.expiresAt) {
+          document.getElementById('clientExpirationBanner').classList.remove('hidden');
+          startClientTimer(o.expiresAt);
+      } else {
+          document.getElementById('clientExpirationBanner').classList.add('hidden');
+      }
+
+      // Apply accent color if saved
+      if(o.accent) {
+          setAccent(o.accent, false);
+      }
+      
+      populateClientView(o);
+    }
+  </script>
+</body>
+</html>
