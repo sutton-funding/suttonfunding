@@ -304,13 +304,13 @@
       --accent-rgb: 16, 185, 129;
     }
 
-    .accent-orange {
-      --accent: #f97316;
-      --accent-light: #fb923c;
-      --accent-dark: #ea580c;
-      --accent-glow: rgba(249, 115, 22, 0.15);
-      --accent-text: #ffffff;
-      --accent-rgb: 249, 115, 22;
+    .accent-white {
+      --accent: #ffffff;
+      --accent-light: #ffffff;
+      --accent-dark: #e5e5e5;
+      --accent-glow: rgba(255, 255, 255, 0.15);
+      --accent-text: #000000;
+      --accent-rgb: 255, 255, 255;
     }
 
     .accent-cyan {
@@ -358,13 +358,13 @@
       --accent-rgb: 136, 19, 55;
     }
 
-    .accent-indigo {
-      --accent: #64748b;
-      --accent-light: #94a3b8;
-      --accent-dark: #475569;
-      --accent-glow: rgba(100, 116, 139, 0.15);
+    .accent-amber {
+      --accent: #d97706;
+      --accent-light: #f59e0b;
+      --accent-dark: #b45309;
+      --accent-glow: rgba(217, 119, 6, 0.15);
       --accent-text: #ffffff;
-      --accent-rgb: 100, 116, 139;
+      --accent-rgb: 217, 119, 6;
     }
 
     * {
@@ -1227,14 +1227,14 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .swatch-orange { background: linear-gradient(135deg, #f97316, #ea580c); }
+    .swatch-white { background: linear-gradient(135deg, #ffffff, #e5e5e5); border: 1px solid #ccc; }
     .swatch-cyan { background: linear-gradient(135deg, #06b6d4, #0891b2); }
     .swatch-gold { background: linear-gradient(135deg, #eab308, #ca8a04); }
     .swatch-slate { background: linear-gradient(135deg, #525252, #404040); }
     .swatch-lime { background: linear-gradient(135deg, #166534, #14532d); }
     .swatch-teal { background: linear-gradient(135deg, #1e3a5f, #172554); }
     .swatch-pink { background: linear-gradient(135deg, #881337, #4c0519); }
-    .swatch-indigo { background: linear-gradient(135deg, #64748b, #475569); }
+    .swatch-amber { background: linear-gradient(135deg, #d97706, #b45309); }
 
     /* Logo Input in Theme Dropdown */
     .logo-input-container {
@@ -4597,13 +4597,13 @@
                                 <div onclick="setAccentColor('mint')" class="color-swatch swatch-mint" data-accent="mint" title="Mint"></div>
                                 <div onclick="setAccentColor('blue')" class="color-swatch swatch-blue" data-accent="blue" title="Blue"></div>
                                 <div onclick="setAccentColor('purple')" class="color-swatch swatch-purple" data-accent="purple" title="Purple"></div>
-                                <div onclick="setAccentColor('orange')" class="color-swatch swatch-orange" data-accent="orange" title="Orange"></div>
+                                <div onclick="setAccentColor('white')" class="color-swatch swatch-white" data-accent="white" title="White"></div>
                                 <div onclick="setAccentColor('cyan')" class="color-swatch swatch-cyan" data-accent="cyan" title="Cyan"></div>
                                 <div onclick="setAccentColor('slate')" class="color-swatch swatch-slate" data-accent="slate" title="Slate"></div>
                                 <div onclick="setAccentColor('lime')" class="color-swatch swatch-lime" data-accent="lime" title="Forest"></div>
                                 <div onclick="setAccentColor('teal')" class="color-swatch swatch-teal" data-accent="teal" title="Navy"></div>
                                 <div onclick="setAccentColor('pink')" class="color-swatch swatch-pink" data-accent="pink" title="Burgundy"></div>
-                                <div onclick="setAccentColor('indigo')" class="color-swatch swatch-indigo" data-accent="indigo" title="Steel"></div>
+                                <div onclick="setAccentColor('amber')" class="color-swatch swatch-amber" data-accent="amber" title="Amber"></div>
                             </div>
                             
                             <!-- Reset Button -->
@@ -4775,18 +4775,18 @@
                             <div id="factorRateCard" class="option-card hidden">
                                 <label class="text-xs font-bold uppercase tracking-wide mb-4 block" style="color: var(--text-muted);">Factor Rate</label>
                                 <div class="flex items-center justify-between mb-4 p-2.5 rounded-lg border" style="background: var(--bg-card); border-color: var(--border-primary);">
-                                    <input id="calcFactor" type="number" step="0.001" class="bg-transparent font-bold outline-none w-20 text-lg" style="color: var(--text-primary);" value="1.25" />
+                                    <input id="calcFactor" type="number" step="0.001" min="1" max="2" class="bg-transparent font-bold outline-none w-24 text-lg" style="color: var(--text-primary);" value="1.25" onchange="setVal('calcFactorSlider', this.value); updateSliderFill($('calcFactorSlider')); updatePreview()" />
                                     <span class="text-[10px] font-bold px-2.5 py-1 rounded border uppercase tracking-wider" style="color: var(--text-muted); background: var(--bg-option-card); border-color: var(--border-secondary);">PTR</span>
                                 </div>
-                                <input id="calcFactorSlider" type="range" min="1.05" max="1.7" step="0.001" value="1.25" class="slider w-full" />
+                                <input id="calcFactorSlider" type="range" min="1.05" max="1.7" step="0.001" value="1.25" class="slider w-full" oninput="setVal('calcFactor', this.value); updatePreview(); updateSliderFill(this);" />
                             </div>
                             <div class="option-card">
                                 <label class="text-xs font-bold uppercase tracking-wide mb-4 block" style="color: var(--text-muted);">Term Length</label>
                                 <div class="flex items-center justify-between mb-4 p-2.5 rounded-lg border" style="background: var(--bg-card); border-color: var(--border-primary);">
-                                    <input id="calcTerm" type="number" class="bg-transparent font-bold outline-none w-20 text-lg" style="color: var(--text-primary);" value="130" />
+                                    <input id="calcTerm" type="number" class="bg-transparent font-bold outline-none w-20 text-lg" style="color: var(--text-primary);" value="130" oninput="setVal('calcTermSlider', this.value); updateSliderFill($('calcTermSlider')); updatePreview()" />
                                     <span class="text-[10px] font-bold px-2.5 py-1 rounded border uppercase tracking-wider" style="color: var(--text-muted); background: var(--bg-option-card); border-color: var(--border-secondary);">Pmts</span>
                                 </div>
-                                <input id="calcTermSlider" type="range" min="5" max="520" step="1" value="130" class="slider w-full" />
+                                <input id="calcTermSlider" type="range" min="5" max="520" step="1" value="130" class="slider w-full" oninput="setVal('calcTerm', this.value); updatePreview(); updateSliderFill(this);" />
                             </div>
                             
                             <!-- Payment Frequency -->
@@ -4832,7 +4832,7 @@
                                     <div>
                                         <label class="text-xs font-bold uppercase tracking-wide mb-2 block" style="color: var(--text-muted);">Buy Rate (ISO)</label>
                                         <div class="flex items-center justify-between mb-2 p-2.5 rounded-lg border" style="background: var(--bg-card); border-color: var(--border-primary);">
-                                            <input id="lenderBuyRate" type="number" step="0.001" min="1.05" max="1.60" class="bg-transparent font-bold outline-none w-20 text-lg" style="color: var(--text-primary);" value="1.15" />
+                                            <input id="lenderBuyRate" type="number" step="0.001" min="1.05" max="1.60" class="bg-transparent font-bold outline-none w-24 text-lg" style="color: var(--text-primary);" value="1.15" />
                                             <span class="text-[10px] font-bold px-2 py-1 rounded border uppercase tracking-wider" style="color: var(--text-muted); background: var(--bg-option-card); border-color: var(--border-secondary);">BUY</span>
                                         </div>
                                         <input id="lenderBuyRateSlider" type="range" min="1.05" max="1.60" step="0.001" value="1.15" class="slider w-full" />
@@ -4842,7 +4842,7 @@
                                     <div>
                                         <label class="text-xs font-bold uppercase tracking-wide mb-2 block" style="color: var(--text-muted);">Max Sell Rate (ISO Ceiling)</label>
                                         <div class="flex items-center justify-between mb-2 p-2.5 rounded-lg border" style="background: var(--bg-card); border-color: var(--border-primary);">
-                                            <input id="lenderMaxSell" type="number" step="0.001" min="1.10" max="1.70" class="bg-transparent font-bold outline-none w-20 text-lg" style="color: var(--text-primary);" value="1.25" />
+                                            <input id="lenderMaxSell" type="number" step="0.001" min="1.10" max="1.70" class="bg-transparent font-bold outline-none w-24 text-lg" style="color: var(--text-primary);" value="1.25" />
                                             <span class="text-[10px] font-bold px-2 py-1 rounded border uppercase tracking-wider" style="color: var(--text-muted); background: var(--bg-option-card); border-color: var(--border-secondary);">MAX</span>
                                         </div>
                                         <input id="lenderMaxSellSlider" type="range" min="1.10" max="1.70" step="0.001" value="1.25" class="slider w-full" />
@@ -4886,7 +4886,7 @@
                                 </div>
                                 <p class="text-xs mb-3" style="color: var(--text-muted);">Adjust your sell rate to set your profit margin</p>
                                 <div class="flex items-center justify-between mb-4 p-2.5 rounded-lg border" style="background: var(--bg-card); border-color: var(--border-primary);">
-                                    <input id="isoSellRate" type="number" step="0.001" min="1.05" max="1.70" class="bg-transparent font-bold outline-none w-20 text-lg" style="color: var(--text-primary);" value="1.25" />
+                                    <input id="isoSellRate" type="number" step="0.001" min="1.05" max="1.70" class="bg-transparent font-bold outline-none w-24 text-lg" style="color: var(--text-primary);" value="1.25" />
                                     <span class="text-[10px] font-bold px-2.5 py-1 rounded border uppercase tracking-wider" style="color: var(--text-muted); background: var(--bg-option-card); border-color: var(--border-secondary);">SELL</span>
                                 </div>
                                 <input id="isoSellRateSlider" type="range" min="1.05" max="1.70" step="0.001" value="1.25" class="slider w-full" />
@@ -5791,7 +5791,7 @@ Government Issued ID</textarea>
             opt.lockedFrequency = opt.frequency;
             opt.lockedBuyRate = optBuyRate;
             opt.lockedMaxSell = optMaxSell;
-            lockedSummary.push(`${getLetter(i)}: $${formatNumber(opt.amount)} @${optMaxSell.toFixed(3)}`);
+            lockedSummary.push(`${getLetter(i)}: $${formatNumber(opt.amount)} @${optMaxSell.toFixed(2)}`);
         });
         
         console.log('All options after locking:', JSON.stringify(calcOptions.map(o => ({locked: o.locked, lb: o.lockedBuyRate, lm: o.lockedMaxSell}))));
@@ -6101,16 +6101,16 @@ Government Issued ID</textarea>
             sellSlider.min = buyRate;
             sellSlider.max = maxSell;
             sellSlider.value = maxSell; // Set to max so slider is at right edge
-            sellInput.value = maxSell.toFixed(3);
+            sellInput.value = maxSell.toFixed(2);
             sellInput.max = maxSell;
             sellInput.min = buyRate;
             updateSliderFill(sellSlider);
             
             // Update buy rate display
-            if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = buyRate.toFixed(3);
+            if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = buyRate.toFixed(2);
             
             // Update factor rate as well
-            if ($('calcFactor')) $('calcFactor').value = maxSell.toFixed(3);
+            if ($('calcFactor')) $('calcFactor').value = maxSell.toFixed(2);
             if ($('calcFactorSlider')) {
                 $('calcFactorSlider').value = maxSell;
                 updateSliderFill($('calcFactorSlider'));
@@ -6194,14 +6194,14 @@ Government Issued ID</textarea>
     
     function syncTierPresetInputs() {
         // Sync Tier A
-        if ($('tierABuy')) $('tierABuy').value = LENDER_TIERS[1].buyRate.toFixed(3);
-        if ($('tierAMax')) $('tierAMax').value = LENDER_TIERS[1].maxSell.toFixed(3);
+        if ($('tierABuy')) $('tierABuy').value = LENDER_TIERS[1].buyRate.toFixed(2);
+        if ($('tierAMax')) $('tierAMax').value = LENDER_TIERS[1].maxSell.toFixed(2);
         // Sync Tier B
-        if ($('tierBBuy')) $('tierBBuy').value = LENDER_TIERS[2].buyRate.toFixed(3);
-        if ($('tierBMax')) $('tierBMax').value = LENDER_TIERS[2].maxSell.toFixed(3);
+        if ($('tierBBuy')) $('tierBBuy').value = LENDER_TIERS[2].buyRate.toFixed(2);
+        if ($('tierBMax')) $('tierBMax').value = LENDER_TIERS[2].maxSell.toFixed(2);
         // Sync Tier C
-        if ($('tierCBuy')) $('tierCBuy').value = LENDER_TIERS[3].buyRate.toFixed(3);
-        if ($('tierCMax')) $('tierCMax').value = LENDER_TIERS[3].maxSell.toFixed(3);
+        if ($('tierCBuy')) $('tierCBuy').value = LENDER_TIERS[3].buyRate.toFixed(2);
+        if ($('tierCMax')) $('tierCMax').value = LENDER_TIERS[3].maxSell.toFixed(2);
     }
 
     function closeThemeDropdownOnClickOutside(e) {
@@ -6290,16 +6290,16 @@ Government Issued ID</textarea>
         }
         
         // Remove all accent classes
-        html.classList.remove('accent-mint', 'accent-blue', 'accent-purple', 'accent-rainbow', 'accent-orange', 'accent-cyan', 'accent-gold', 'accent-slate', 'accent-lime', 'accent-teal', 'accent-pink', 'accent-indigo', 'rainbow-mode');
+        html.classList.remove('accent-mint', 'accent-blue', 'accent-purple', 'accent-rainbow', 'accent-white', 'accent-cyan', 'accent-gold', 'accent-slate', 'accent-lime', 'accent-teal', 'accent-pink', 'accent-amber', 'rainbow-mode');
         
         if (accent === 'rainbow') {
             // Rainbow mode - cycle through colors
             html.classList.add('rainbow-mode');
-            const rainbowColors = ['mint', 'blue', 'purple', 'orange', 'cyan', 'gold', 'slate', 'lime', 'teal', 'pink', 'indigo'];
+            const rainbowColors = ['mint', 'blue', 'purple', 'white', 'cyan', 'gold', 'slate', 'lime', 'teal', 'pink', 'amber'];
             let colorIndex = 0;
             
             const applyColor = () => {
-                html.classList.remove('accent-mint', 'accent-blue', 'accent-purple', 'accent-orange', 'accent-cyan', 'accent-gold', 'accent-slate', 'accent-lime', 'accent-teal', 'accent-pink', 'accent-indigo');
+                html.classList.remove('accent-mint', 'accent-blue', 'accent-purple', 'accent-white', 'accent-cyan', 'accent-gold', 'accent-slate', 'accent-lime', 'accent-teal', 'accent-pink', 'accent-amber');
                 html.classList.add(`accent-${rainbowColors[colorIndex]}`);
                 colorIndex = (colorIndex + 1) % rainbowColors.length;
             };
@@ -6435,13 +6435,13 @@ Government Issued ID</textarea>
                     updateSliderFill(sellSlider);
                 }
                 if (sellInput) {
-                    sellInput.value = maxSell.toFixed(3);
+                    sellInput.value = maxSell.toFixed(2);
                     sellInput.min = buyRate;
                     sellInput.max = maxSell;
                 }
                 
                 // Update buy rate display
-                if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = buyRate.toFixed(3);
+                if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = buyRate.toFixed(2);
                 
                 if ($('calcFactor')) $('calcFactor').value = maxSell;
                 if ($('calcFactorSlider')) $('calcFactorSlider').value = maxSell;
@@ -6456,7 +6456,7 @@ Government Issued ID</textarea>
                     updateSliderFill(sellSlider);
                 }
                 if (sellInput) {
-                    sellInput.value = defaultRate.toFixed(3);
+                    sellInput.value = defaultRate.toFixed(2);
                 }
                 
                 // Update global vars for ISO calculations
@@ -6504,7 +6504,7 @@ Government Issued ID</textarea>
         // Enforce minimum spread
         if (maxSell <= buyRate + 0.04) {
             maxSell = buyRate + 0.05;
-            maxInput.value = maxSell.toFixed(3);
+            maxInput.value = maxSell.toFixed(2);
         }
         
         // Update the tier preset
@@ -6515,7 +6515,7 @@ Government Issued ID</textarea>
         if (tierBtn) {
             const rateDisplay = tierBtn.querySelector('span:last-child');
             if (rateDisplay) {
-                rateDisplay.textContent = buyRate.toFixed(3) + ' / ' + maxSell.toFixed(3);
+                rateDisplay.textContent = buyRate.toFixed(2) + ' / ' + maxSell.toFixed(2);
             }
         }
         
@@ -6584,7 +6584,7 @@ Government Issued ID</textarea>
         const maxSpread = maxSell - buyRate;
         const maxProfit = fundingAmount * maxSpread;
         
-        if ($('lenderMaxSpread')) $('lenderMaxSpread').textContent = maxSpread.toFixed(3);
+        if ($('lenderMaxSpread')) $('lenderMaxSpread').textContent = maxSpread.toFixed(2);
         if ($('lenderMaxProfit')) $('lenderMaxProfit').textContent = '$' + maxProfit.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
         
         // Sync factor rate with buy rate in lender mode
@@ -6609,8 +6609,8 @@ Government Issued ID</textarea>
         const baseUrl = window.location.origin + window.location.pathname;
         const params = new URLSearchParams();
         params.set('iso', '1');
-        params.set('buy', buyRate.toFixed(3));
-        params.set('max', maxSell.toFixed(3));
+        params.set('buy', buyRate.toFixed(2));
+        params.set('max', maxSell.toFixed(2));
         
         // Include option data with locks
         const optData = calcOptions.map(op => ({
@@ -6760,12 +6760,12 @@ Government Issued ID</textarea>
                 sellSlider.min = effectiveBuy;
                 sellSlider.max = effectiveMax;
                 sellSlider.value = effectiveMax;
-                sellInput.value = effectiveMax.toFixed(3);
+                sellInput.value = effectiveMax.toFixed(2);
                 updateSliderFill(sellSlider);
             }
             
             // Update display
-            if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = effectiveBuy.toFixed(3);
+            if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = effectiveBuy.toFixed(2);
             
             // Show ISO section, hide lender section
             const isoUpsellSection = $('isoUpsellSection');
@@ -6820,11 +6820,11 @@ Government Issued ID</textarea>
             // If buy rate changed more, adjust max sell up
             if (Math.abs(buyFromMenu - currentBuy) > Math.abs(maxFromMenu - currentMax)) {
                 maxFromMenu = Math.min(buyFromMenu + 0.05, 1.70);
-                if ($('maxSellRateInput')) $('maxSellRateInput').value = maxFromMenu.toFixed(3);
+                if ($('maxSellRateInput')) $('maxSellRateInput').value = maxFromMenu.toFixed(2);
             } else {
                 // Max sell changed more, adjust buy rate down
                 buyFromMenu = Math.max(maxFromMenu - 0.05, 1.05);
-                if ($('buyRateInput')) $('buyRateInput').value = buyFromMenu.toFixed(3);
+                if ($('buyRateInput')) $('buyRateInput').value = buyFromMenu.toFixed(2);
             }
         }
         
@@ -6868,8 +6868,8 @@ Government Issued ID</textarea>
         const spread = sellRate - effectiveBuyRate;
         const isoProfit = fundingAmount * spread;
         
-        if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = effectiveBuyRate.toFixed(3);
-        if ($('isoSpreadDisplay')) $('isoSpreadDisplay').textContent = spread.toFixed(3);
+        if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = effectiveBuyRate.toFixed(2);
+        if ($('isoSpreadDisplay')) $('isoSpreadDisplay').textContent = spread.toFixed(2);
         if ($('isoProfitDisplay')) $('isoProfitDisplay').textContent = '$' + isoProfit.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
         
         // When in ISO mode, the sell rate becomes the client's factor rate
@@ -7150,9 +7150,9 @@ Government Issued ID</textarea>
         // Hide welcome screen first (keeps rainbow theme active)
         hideWelcomeScreen();
         updateAuthUI();
-        // Do rainbow rotation (15s) then switch to indigo
+        // Do rainbow rotation (15s) then switch to amber
         setTimeout(() => {
-            setAccentColor('indigo');
+            setAccentColor('amber');
         }, 15000);
     }
 
@@ -7514,7 +7514,7 @@ Government Issued ID</textarea>
                     factorSlider.value = o.lockedMaxSell;
                     updateSliderFill(factorSlider);
                 }
-                setVal('calcFactor', o.lockedMaxSell.toFixed(3));
+                setVal('calcFactor', o.lockedMaxSell.toFixed(2));
                 
                 // ISO sell rate slider
                 const sellSlider = $('isoSellRateSlider');
@@ -7523,26 +7523,26 @@ Government Issued ID</textarea>
                     sellSlider.min = o.lockedBuyRate || 1.0;
                     sellSlider.max = o.lockedMaxSell;
                     sellSlider.value = o.lockedMaxSell;
-                    sellInput.value = o.lockedMaxSell.toFixed(3);
+                    sellInput.value = o.lockedMaxSell.toFixed(2);
                     sellInput.min = o.lockedBuyRate || 1.0;
                     sellInput.max = o.lockedMaxSell;
                     updateSliderFill(sellSlider);
                 }
                 
                 // Update buy rate display
-                if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = (o.lockedBuyRate || 1.0).toFixed(3);
+                if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = (o.lockedBuyRate || 1.0).toFixed(2);
             }
             
             // Frequency
             if (o.frequency) setFrequency(o.frequency);
             
             // Fee/prepay/notes/etc
-            const hf = o.fee > 0; $('toggleFee').checked = hf; toggleSection('Fee', hf); if(hf) { setVal('calcFee', o.fee); setVal('calcFeeSlider', o.fee); }
-            const hp = o.prepay > 0; $('togglePrepay').checked = hp; toggleSection('Prepay', hp); if(hp) { setVal('calcPrepay', o.prepay); setVal('calcPrepaySlider', o.prepay); } if(o.prepayDate) setVal('calcPrepayDate', o.prepayDate);
-            const ho = !!o.termOverride; $('toggleOverride').checked = ho; toggleSection('Override', ho); if(ho) setVal('calcTermOverride', o.termOverride);
-            const hn = !!o.notes; $('toggleNotes').checked = hn; toggleSection('Notes', hn); if(hn) setVal('calcNotes', o.notes);
-            const he = !!o.expiry; $('toggleExpiry').checked = he; toggleSection('Expiry', he); if(o.expiryDate) setVal('calcExpiryDate', o.expiryDate);
-            const hd = !!o.docs; $('toggleDocs').checked = hd; toggleSection('Docs', hd); setVal('calcDocs', o.docsText || "Voided Check\nGovernment Issued ID");
+            const hf = o.fee > 0; if($('toggleFee')) $('toggleFee').checked = hf; toggleSection('Fee', hf); if(hf) { setVal('calcFee', o.fee); setVal('calcFeeSlider', o.fee); }
+            const hp = o.prepay > 0; if($('togglePrepay')) $('togglePrepay').checked = hp; toggleSection('Prepay', hp); if(hp) { setVal('calcPrepay', o.prepay); setVal('calcPrepaySlider', o.prepay); } if(o.prepayDate) setVal('calcPrepayDate', o.prepayDate);
+            const ho = !!o.termOverride; if($('toggleOverride')) $('toggleOverride').checked = ho; toggleSection('Override', ho); if(ho) setVal('calcTermOverride', o.termOverride);
+            const hn = !!o.notes; if($('toggleNotes')) $('toggleNotes').checked = hn; toggleSection('Notes', hn); if(hn) setVal('calcNotes', o.notes);
+            const he = !!o.expiry; if($('toggleExpiry')) $('toggleExpiry').checked = he; toggleSection('Expiry', he); if(o.expiryDate) setVal('calcExpiryDate', o.expiryDate);
+            const hd = !!o.docs; if($('toggleDocs')) $('toggleDocs').checked = hd; toggleSection('Docs', hd); setVal('calcDocs', o.docsText || "Voided Check\nGovernment Issued ID");
             
             return; // Done for ISO mode
         }
@@ -7552,14 +7552,14 @@ Government Issued ID</textarea>
         setVal('calcFactor', o.factor); setVal('calcFactorSlider', o.factor); 
         setVal('calcTerm', o.term); setVal('calcTermSlider', o.term); 
         
-        const hf = o.fee > 0; $('toggleFee').checked = hf; toggleSection('Fee', hf); if(hf) { setVal('calcFee', o.fee); setVal('calcFeeSlider', o.fee); }
-        const hp = o.prepay > 0; $('togglePrepay').checked = hp; toggleSection('Prepay', hp); if(hp) { setVal('calcPrepay', o.prepay); setVal('calcPrepaySlider', o.prepay); } if(o.prepayDate) setVal('calcPrepayDate', o.prepayDate);
-        const ho = !!o.termOverride; $('toggleOverride').checked = ho; toggleSection('Override', ho); if(ho) setVal('calcTermOverride', o.termOverride);
-        const hn = !!o.notes; $('toggleNotes').checked = hn; toggleSection('Notes', hn); if(hn) setVal('calcNotes', o.notes);
-        const he = !!o.expiry; $('toggleExpiry').checked = he; toggleSection('Expiry', he); if(o.expiryDate) setVal('calcExpiryDate', o.expiryDate);
+        const hf = o.fee > 0; if($('toggleFee')) $('toggleFee').checked = hf; toggleSection('Fee', hf); if(hf) { setVal('calcFee', o.fee); setVal('calcFeeSlider', o.fee); }
+        const hp = o.prepay > 0; if($('togglePrepay')) $('togglePrepay').checked = hp; toggleSection('Prepay', hp); if(hp) { setVal('calcPrepay', o.prepay); setVal('calcPrepaySlider', o.prepay); } if(o.prepayDate) setVal('calcPrepayDate', o.prepayDate);
+        const ho = !!o.termOverride; if($('toggleOverride')) $('toggleOverride').checked = ho; toggleSection('Override', ho); if(ho) setVal('calcTermOverride', o.termOverride);
+        const hn = !!o.notes; if($('toggleNotes')) $('toggleNotes').checked = hn; toggleSection('Notes', hn); if(hn) setVal('calcNotes', o.notes);
+        const he = !!o.expiry; if($('toggleExpiry')) $('toggleExpiry').checked = he; toggleSection('Expiry', he); if(o.expiryDate) setVal('calcExpiryDate', o.expiryDate);
         
         const hd = !!o.docs;
-        $('toggleDocs').checked = hd;
+        if($('toggleDocs')) $('toggleDocs').checked = hd;
         toggleSection('Docs', hd);
         setVal('calcDocs', o.docsText || "Voided Check\nGovernment Issued ID");
         
@@ -7569,8 +7569,8 @@ Government Issued ID</textarea>
         if (currentClientMode === 'lender' && o.buyRate && o.maxSell) {
             if ($('lenderBuyRate')) $('lenderBuyRate').value = o.buyRate;
             if ($('lenderMaxSell')) $('lenderMaxSell').value = o.maxSell;
-            if ($('buyRateInput')) $('buyRateInput').value = o.buyRate.toFixed(3);
-            if ($('maxSellRateInput')) $('maxSellRateInput').value = o.maxSell.toFixed(3);
+            if ($('buyRateInput')) $('buyRateInput').value = o.buyRate.toFixed(2);
+            if ($('maxSellRateInput')) $('maxSellRateInput').value = o.maxSell.toFixed(2);
             if ($('lenderBuyRateSlider')) { $('lenderBuyRateSlider').value = o.buyRate; updateSliderFill($('lenderBuyRateSlider')); }
             if ($('lenderMaxSellSlider')) { $('lenderMaxSellSlider').value = o.maxSell; updateSliderFill($('lenderMaxSellSlider')); }
             updateLenderDisplay();
@@ -7793,13 +7793,13 @@ Government Issued ID</textarea>
                 numVal = parseInt(rawValue.replace(/[^\d]/g, '')) || 6;
                 // Check for term override (if it has text like "months")
                 if (rawValue.toLowerCase().includes('month') || rawValue.toLowerCase().includes('week')) {
-                    $('toggleTermOverride').checked = true;
-                    $('termOverrideContainer').classList.remove('hidden');
-                    $('calcTermOverride').value = rawValue;
+                    if($('toggleTermOverride')) $('toggleTermOverride').checked = true;
+                    if($('termOverrideContainer')) $('termOverrideContainer').classList.remove('hidden');
+                    if($('calcTermOverride')) $('calcTermOverride').value = rawValue;
                 } else {
                     // Just a number - use as term
-                    $('calcTerm').value = numVal;
-                    $('calcTermSlider').value = Math.min(numVal, 365);
+                    if($('calcTerm')) $('calcTerm').value = numVal;
+                    if($('calcTermSlider')) $('calcTermSlider').value = Math.min(numVal, 365);
                 }
                 break;
                 
@@ -8082,14 +8082,14 @@ Government Issued ID</textarea>
                 
                 // Default to max sell rate (full margin for ISO)
                 sellSlider.value = maxSell;
-                sellInput.value = maxSell.toFixed(3);
+                sellInput.value = maxSell.toFixed(2);
                 
                 updateSliderFill(sellSlider);
                 console.log('Slider configured');
             }
             
             // Update buy rate display
-            if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = buyRate.toFixed(3);
+            if ($('isoBuyRateDisplay')) $('isoBuyRateDisplay').textContent = buyRate.toFixed(2);
             
             // Show ISO section, hide lender section
             const isoUpsellSection = $('isoUpsellSection');
@@ -8108,7 +8108,7 @@ Government Issued ID</textarea>
             // Set factor rate to max sell rate (ISO's default sell rate)
             const calcFactor = $('calcFactor');
             const calcFactorSlider = $('calcFactorSlider');
-            if (calcFactor) calcFactor.value = maxSell.toFixed(3);
+            if (calcFactor) calcFactor.value = maxSell.toFixed(2);
             if (calcFactorSlider) {
                 calcFactorSlider.value = maxSell;
                 updateSliderFill(calcFactorSlider);
@@ -10197,7 +10197,7 @@ Government Issued ID</textarea>
     
     // ISO Sell Rate slider
     $('isoSellRateSlider')?.addEventListener('input', function() {
-        if ($('isoSellRate')) $('isoSellRate').value = parseFloat(this.value).toFixed(3);
+        if ($('isoSellRate')) $('isoSellRate').value = parseFloat(this.value).toFixed(2);
         updateSliderFill(this);
         updateIsoUpsell();
         // Mark ISO as having used the calculator
@@ -10207,14 +10207,13 @@ Government Issued ID</textarea>
         }
     });
     
-    $('isoSellRate')?.addEventListener('input', function() {
+    $('isoSellRate')?.addEventListener('change', function() {
         const slider = $('isoSellRateSlider');
         const minVal = parseFloat(slider?.min) || 1.05;
         const maxVal = parseFloat(slider?.max) || 1.70;
         
         let val = parseFloat(this.value) || minVal;
         val = Math.max(minVal, Math.min(maxVal, val));
-        this.value = val.toFixed(3);
         
         if (slider) {
             slider.value = val;
@@ -10239,26 +10238,25 @@ Government Issued ID</textarea>
         // If buy rate >= max sell, push max sell up (maintain 0.05 min spread)
         if (buyVal >= maxSellVal - 0.04) {
             maxSellVal = Math.min(buyVal + 0.05, 1.70);
-            if (maxSellEl) maxSellEl.value = maxSellVal.toFixed(3);
+            if (maxSellEl) maxSellEl.value = maxSellVal.toFixed(2);
             if (maxSellSlider) {
                 maxSellSlider.value = maxSellVal;
                 updateSliderFill(maxSellSlider);
             }
-            if ($('maxSellRateInput')) $('maxSellRateInput').value = maxSellVal.toFixed(3);
+            if ($('maxSellRateInput')) $('maxSellRateInput').value = maxSellVal.toFixed(2);
         }
         
-        if ($('lenderBuyRate')) $('lenderBuyRate').value = buyVal.toFixed(3);
-        if ($('buyRateInput')) $('buyRateInput').value = buyVal.toFixed(3); // Sync to theme menu
+        if ($('lenderBuyRate')) $('lenderBuyRate').value = buyVal.toFixed(2);
+        if ($('buyRateInput')) $('buyRateInput').value = buyVal.toFixed(2); // Sync to theme menu
         updateSliderFill(this);
         updateLenderDisplay();
     });
     
-    $('lenderBuyRate')?.addEventListener('input', function() {
+    $('lenderBuyRate')?.addEventListener('change', function() {
         clearTierSelection();
         // Clamp value to slider bounds
         let buyVal = parseFloat(this.value) || 1.15;
         buyVal = Math.max(1.05, Math.min(1.60, buyVal));
-        this.value = buyVal.toFixed(3);
         
         const maxSellEl = $('lenderMaxSell');
         const maxSellSlider = $('lenderMaxSellSlider');
@@ -10267,19 +10265,19 @@ Government Issued ID</textarea>
         // If buy rate >= max sell, push max sell up (maintain 0.05 min spread)
         if (buyVal >= maxSellVal - 0.04) {
             maxSellVal = Math.min(buyVal + 0.05, 1.70);
-            if (maxSellEl) maxSellEl.value = maxSellVal.toFixed(3);
+            if (maxSellEl) maxSellEl.value = maxSellVal.toFixed(2);
             if (maxSellSlider) {
                 maxSellSlider.value = maxSellVal;
                 updateSliderFill(maxSellSlider);
             }
-            if ($('maxSellRateInput')) $('maxSellRateInput').value = maxSellVal.toFixed(3);
+            if ($('maxSellRateInput')) $('maxSellRateInput').value = maxSellVal.toFixed(2);
         }
         
         if ($('lenderBuyRateSlider')) {
             $('lenderBuyRateSlider').value = buyVal;
             updateSliderFill($('lenderBuyRateSlider'));
         }
-        if ($('buyRateInput')) $('buyRateInput').value = buyVal.toFixed(3); // Sync to theme menu
+        if ($('buyRateInput')) $('buyRateInput').value = buyVal.toFixed(2); // Sync to theme menu
         updateLenderDisplay();
     });
     
@@ -10294,20 +10292,20 @@ Government Issued ID</textarea>
         // If max sell <= buy rate, push buy rate down (maintain 0.05 min spread)
         if (maxSellVal <= buyVal + 0.04) {
             buyVal = Math.max(maxSellVal - 0.05, 1.05);
-            if (buyRateEl) buyRateEl.value = buyVal.toFixed(3);
+            if (buyRateEl) buyRateEl.value = buyVal.toFixed(2);
             if (buyRateSlider) {
                 buyRateSlider.value = buyVal;
                 updateSliderFill(buyRateSlider);
             }
-            if ($('buyRateInput')) $('buyRateInput').value = buyVal.toFixed(3);
+            if ($('buyRateInput')) $('buyRateInput').value = buyVal.toFixed(2);
         }
         
-        if ($('lenderMaxSell')) $('lenderMaxSell').value = maxSellVal.toFixed(3);
-        if ($('maxSellRateInput')) $('maxSellRateInput').value = maxSellVal.toFixed(3); // Sync to theme menu
+        if ($('lenderMaxSell')) $('lenderMaxSell').value = maxSellVal.toFixed(2);
+        if ($('maxSellRateInput')) $('maxSellRateInput').value = maxSellVal.toFixed(2); // Sync to theme menu
         updateSliderFill(this);
         // In ISO mode, calcFactor should match max sell rate
         if (currentClientMode === 'iso') {
-            if ($('calcFactor')) $('calcFactor').value = maxSellVal.toFixed(3);
+            if ($('calcFactor')) $('calcFactor').value = maxSellVal.toFixed(2);
             if ($('calcFactorSlider')) {
                 $('calcFactorSlider').value = maxSellVal;
                 updateSliderFill($('calcFactorSlider'));
@@ -10317,12 +10315,11 @@ Government Issued ID</textarea>
         updateLenderDisplay();
     });
     
-    $('lenderMaxSell')?.addEventListener('input', function() {
+    $('lenderMaxSell')?.addEventListener('change', function() {
         clearTierSelection();
         // Clamp value to slider bounds
         let maxSellVal = parseFloat(this.value) || 1.25;
         maxSellVal = Math.max(1.10, Math.min(1.70, maxSellVal));
-        this.value = maxSellVal.toFixed(3);
         
         const buyRateEl = $('lenderBuyRate');
         const buyRateSlider = $('lenderBuyRateSlider');
@@ -10331,19 +10328,19 @@ Government Issued ID</textarea>
         // If max sell <= buy rate, push buy rate down (maintain 0.05 min spread)
         if (maxSellVal <= buyVal + 0.04) {
             buyVal = Math.max(maxSellVal - 0.05, 1.05);
-            if (buyRateEl) buyRateEl.value = buyVal.toFixed(3);
+            if (buyRateEl) buyRateEl.value = buyVal.toFixed(2);
             if (buyRateSlider) {
                 buyRateSlider.value = buyVal;
                 updateSliderFill(buyRateSlider);
             }
-            if ($('buyRateInput')) $('buyRateInput').value = buyVal.toFixed(3);
+            if ($('buyRateInput')) $('buyRateInput').value = buyVal.toFixed(2);
         }
         
         if ($('lenderMaxSellSlider')) {
             $('lenderMaxSellSlider').value = maxSellVal;
             updateSliderFill($('lenderMaxSellSlider'));
         }
-        if ($('maxSellRateInput')) $('maxSellRateInput').value = maxSellVal.toFixed(3); // Sync to theme menu
+        if ($('maxSellRateInput')) $('maxSellRateInput').value = maxSellVal.toFixed(2); // Sync to theme menu
         // In ISO mode, calcFactor should match max sell rate
         if (currentClientMode === 'iso') {
             if ($('calcFactor')) $('calcFactor').value = maxSellVal;
