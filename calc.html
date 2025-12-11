@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" class="theme-black accent-rainbow rainbow-mode">
+<html lang="en" class="theme-obsidian accent-gold">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Approval Toolbox | AblesAI</title>
+  <title>Funding Calculator | Sutton Funding</title>
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><ellipse cx=%2232%22 cy=%2232%22 rx=%2228%22 ry=%228%22 stroke=%22%23ea580c%22 stroke-width=%222.5%22 fill=%22none%22 transform=%22rotate(-20 32 32)%22 stroke-dasharray=%2270 140%22/><circle cx=%2232%22 cy=%2232%22 r=%2212%22 fill=%22%23eab308%22/><ellipse cx=%2232%22 cy=%2232%22 rx=%2228%22 ry=%228%22 stroke=%22%23ea580c%22 stroke-width=%222.5%22 fill=%22none%22 transform=%22rotate(-20 32 32)%22 stroke-dasharray=%2270 140%22 stroke-dashoffset=%22-70%22/><circle cx=%2254%22 cy=%2228%22 r=%224%22 fill=%22%23a855f7%22/></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect width=%2224%22 height=%2224%22 rx=%222%22 fill=%22%23EAB308%22/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: { 
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            sans: ['Manrope', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
             mono: ['monospace']
           },
           colors: {
@@ -48,14 +48,15 @@
       height: 32px;
     }
     .header-logo h1 {
+      font-family: 'Playfair Display', serif;
       font-size: 1.25rem;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: -0.5px;
       color: var(--text-primary);
       margin: 0;
     }
     .header-logo h1 span {
-      color: #888;
+      color: #EAB308;
     }
     .header-logo-sm svg {
       width: 24px;
@@ -90,7 +91,10 @@
        DESIGN SYSTEM VARIABLES - LIGHT THEME (DEFAULT)
        ============================================ */
     :root,
-    .theme-light {
+    /* ============================================
+       SUTTON PLATINUM THEME - Light Professional
+       ============================================ */
+    .theme-platinum {
       --bg-body: #f8fafc;
       --bg-body-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
       --bg-card: #ffffff;
@@ -98,7 +102,7 @@
       --bg-input: #ffffff;
       --bg-toggle: #f1f5f9;
       --bg-option-card: #f8fafc;
-      --bg-stat-hover: rgba(16, 185, 129, 0.08);
+      --bg-stat-hover: rgba(234, 179, 8, 0.08);
       --border-primary: #e2e8f0;
       --border-secondary: #f1f5f9;
       --text-primary: #0f172a;
@@ -117,9 +121,9 @@
     }
 
     /* ============================================
-       DARK THEME - Deep Navy
+       SUTTON NAVY THEME - Deep Blue Professional
        ============================================ */
-    .theme-dark {
+    .theme-navy {
       --bg-body: #0a0f1a;
       --bg-body-gradient: linear-gradient(135deg, #0a0f1a 0%, #111827 100%);
       --bg-card: #141c2e;
@@ -127,7 +131,7 @@
       --bg-input: #1e293b;
       --bg-toggle: #1e293b;
       --bg-option-card: #0d1321;
-      --bg-stat-hover: rgba(16, 185, 129, 0.15);
+      --bg-stat-hover: rgba(234, 179, 8, 0.15);
       --border-primary: #1e293b;
       --border-secondary: #141c2e;
       --text-primary: #f1f5f9;
@@ -146,8 +150,85 @@
     }
 
     /* ============================================
-       BLACK THEME (AMOLED)
+       SUTTON OBSIDIAN THEME - True Black Premium
        ============================================ */
+    .theme-obsidian {
+      --bg-body: #000000;
+      --bg-body-gradient: linear-gradient(135deg, #000000 0%, #050505 100%);
+      --bg-card: #121212;
+      --bg-card-inner: #0a0a0a;
+      --bg-input: #1f1f1f;
+      --bg-toggle: #1f1f1f;
+      --bg-option-card: #0a0a0a;
+      --bg-stat-hover: rgba(234, 179, 8, 0.2);
+      --border-primary: #2a2a2a;
+      --border-secondary: #1a1a1a;
+      --text-primary: #f5f5f5;
+      --text-secondary: #a3a3a3;
+      --text-muted: #666666;
+      --slider-track: #2a2a2a;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.6), 0 2px 4px -2px rgb(0 0 0 / 0.5);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.7), 0 4px 6px -4px rgb(0 0 0 / 0.6);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.7), 0 8px 10px -6px rgb(0 0 0 / 0.6);
+      --preview-header-bg: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+      --preview-header-text: #f5f5f5;
+      --pattern-color: rgba(255,255,255,0.01);
+      --chart-bg: #1f1f1f;
+      --modal-overlay: rgba(0, 0, 0, 0.9);
+    }
+
+    /* Legacy theme aliases - duplicate the variables for backwards compatibility */
+    .theme-light {
+      --bg-body: #f8fafc;
+      --bg-body-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      --bg-card: #ffffff;
+      --bg-card-inner: #f8fafc;
+      --bg-input: #ffffff;
+      --bg-toggle: #f1f5f9;
+      --bg-option-card: #f8fafc;
+      --bg-stat-hover: rgba(234, 179, 8, 0.08);
+      --border-primary: #e2e8f0;
+      --border-secondary: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --slider-track: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+      --preview-header-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      --preview-header-text: #ffffff;
+      --pattern-color: rgba(0,0,0,0.02);
+      --chart-bg: #e2e8f0;
+      --modal-overlay: rgba(15, 23, 42, 0.6);
+    }
+    .theme-dark {
+      --bg-body: #0a0f1a;
+      --bg-body-gradient: linear-gradient(135deg, #0a0f1a 0%, #111827 100%);
+      --bg-card: #141c2e;
+      --bg-card-inner: #0a0f1a;
+      --bg-input: #1e293b;
+      --bg-toggle: #1e293b;
+      --bg-option-card: #0d1321;
+      --bg-stat-hover: rgba(234, 179, 8, 0.15);
+      --border-primary: #1e293b;
+      --border-secondary: #141c2e;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #64748b;
+      --slider-track: #1e293b;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.6), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.6), 0 8px 10px -6px rgb(0 0 0 / 0.5);
+      --preview-header-bg: linear-gradient(135deg, #020617 0%, #0a0f1a 50%, #020617 100%);
+      --preview-header-text: #f1f5f9;
+      --pattern-color: rgba(255,255,255,0.02);
+      --chart-bg: #1e293b;
+      --modal-overlay: rgba(0, 0, 0, 0.85);
+    }
     .theme-black {
       --bg-body: #000000;
       --bg-body-gradient: linear-gradient(135deg, #000000 0%, #050505 100%);
@@ -156,7 +237,7 @@
       --bg-input: #1f1f1f;
       --bg-toggle: #1f1f1f;
       --bg-option-card: #0a0a0a;
-      --bg-stat-hover: rgba(16, 185, 129, 0.2);
+      --bg-stat-hover: rgba(234, 179, 8, 0.2);
       --border-primary: #2a2a2a;
       --border-secondary: #1a1a1a;
       --text-primary: #f5f5f5;
@@ -175,9 +256,18 @@
     }
 
     /* ============================================
-       ACCENT COLORS - MINT (DEFAULT)
+       ACCENT COLORS
        ============================================ */
     :root,
+    .accent-gold {
+      --accent: #EAB308;
+      --accent-light: #FACC15;
+      --accent-dark: #CA8A04;
+      --accent-glow: rgba(234, 179, 8, 0.15);
+      --accent-text: #000000;
+      --accent-rgb: 234, 179, 8;
+    }
+
     .accent-mint {
       --accent: #10b981;
       --accent-light: #34d399;
@@ -187,7 +277,6 @@
       --accent-rgb: 16, 185, 129;
     }
 
-    /* BLUE ACCENT */
     .accent-blue {
       --accent: #3b82f6;
       --accent-light: #60a5fa;
@@ -197,7 +286,6 @@
       --accent-rgb: 59, 130, 246;
     }
 
-    /* PURPLE ACCENT */
     .accent-purple {
       --accent: #8b5cf6;
       --accent-light: #a78bfa;
@@ -207,7 +295,6 @@
       --accent-rgb: 139, 92, 246;
     }
 
-    /* RAINBOW ACCENT - cycles via JavaScript */
     .accent-rainbow {
       --accent: #10b981;
       --accent-light: #34d399;
@@ -217,7 +304,6 @@
       --accent-rgb: 16, 185, 129;
     }
 
-    /* ORANGE ACCENT */
     .accent-orange {
       --accent: #f97316;
       --accent-light: #fb923c;
@@ -227,7 +313,6 @@
       --accent-rgb: 249, 115, 22;
     }
 
-    /* CYAN ACCENT */
     .accent-cyan {
       --accent: #06b6d4;
       --accent-light: #22d3ee;
@@ -237,17 +322,6 @@
       --accent-rgb: 6, 182, 212;
     }
 
-    /* GOLD ACCENT */
-    .accent-gold {
-      --accent: #eab308;
-      --accent-light: #facc15;
-      --accent-dark: #ca8a04;
-      --accent-glow: rgba(234, 179, 8, 0.15);
-      --accent-text: #0f172a;
-      --accent-rgb: 234, 179, 8;
-    }
-
-    /* SLATE ACCENT (Monochrome) */
     .accent-slate {
       --accent: #525252;
       --accent-light: #737373;
@@ -257,7 +331,6 @@
       --accent-rgb: 82, 82, 82;
     }
 
-    /* FOREST ACCENT */
     .accent-lime {
       --accent: #166534;
       --accent-light: #22c55e;
@@ -267,7 +340,6 @@
       --accent-rgb: 22, 101, 52;
     }
 
-    /* NAVY ACCENT */
     .accent-teal {
       --accent: #1e3a5f;
       --accent-light: #3b82f6;
@@ -277,7 +349,6 @@
       --accent-rgb: 30, 58, 95;
     }
 
-    /* BURGUNDY ACCENT */
     .accent-pink {
       --accent: #881337;
       --accent-light: #be185d;
@@ -287,7 +358,6 @@
       --accent-rgb: 136, 19, 55;
     }
 
-    /* STEEL ACCENT */
     .accent-indigo {
       --accent: #64748b;
       --accent-light: #94a3b8;
@@ -1157,7 +1227,6 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    
     .swatch-orange { background: linear-gradient(135deg, #f97316, #ea580c); }
     .swatch-cyan { background: linear-gradient(135deg, #06b6d4, #0891b2); }
     .swatch-gold { background: linear-gradient(135deg, #eab308, #ca8a04); }
@@ -2046,7 +2115,7 @@
        TABLE STYLES
        ============================================ */
     .amort-table {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
     }
 
     .amort-table th {
@@ -2323,20 +2392,23 @@
     }
 
     /* Light theme trust badge */
-    .theme-light .trust-badge {
+    .theme-light .trust-badge,
+    .theme-platinum .trust-badge {
       background: white;
       border-color: rgba(var(--accent-rgb), 0.2);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(var(--accent-rgb), 0.1);
     }
 
     /* Dark theme trust badge */
-    .theme-dark .trust-badge {
+    .theme-dark .trust-badge,
+    .theme-navy .trust-badge {
       background: rgba(30, 41, 59, 0.9);
       border-color: rgba(var(--accent-rgb), 0.3);
     }
 
     /* Black theme trust badge */
-    .theme-black .trust-badge {
+    .theme-black .trust-badge,
+    .theme-obsidian .trust-badge {
       background: rgba(20, 20, 20, 0.95);
       border-color: rgba(var(--accent-rgb), 0.4);
     }
@@ -2347,74 +2419,93 @@
       color: var(--accent);
     }
 
-    /* Dark theme specific overrides */
-    .theme-dark .preview-header .amount-display {
+    /* Dark/Navy theme specific overrides */
+    .theme-dark .preview-header .amount-display,
+    .theme-navy .preview-header .amount-display {
       background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .theme-dark .btn-secondary:hover {
+    .theme-dark .btn-secondary:hover,
+    .theme-navy .btn-secondary:hover {
       background: var(--accent-glow);
     }
 
     .theme-dark input,
     .theme-dark textarea,
-    .theme-dark select {
+    .theme-dark select,
+    .theme-navy input,
+    .theme-navy textarea,
+    .theme-navy select {
       color: var(--text-primary);
       background: var(--bg-input);
     }
 
     /* Gradient fix for dark mode inputs */
     .theme-dark .option-card input,
-    .theme-dark .option-card textarea {
+    .theme-dark .option-card textarea,
+    .theme-navy .option-card input,
+    .theme-navy .option-card textarea {
       background: var(--bg-card);
       border-color: var(--border-primary);
     }
 
-    .theme-dark .stats-grid {
+    .theme-dark .stats-grid,
+    .theme-navy .stats-grid {
       background: var(--bg-card-inner);
     }
 
-    .theme-dark .stat-cell {
+    .theme-dark .stat-cell,
+    .theme-navy .stat-cell {
       border-color: var(--border-primary) !important;
     }
 
-    /* Black theme specific overrides */
-    .theme-black .preview-header .amount-display {
+    /* Black/Obsidian theme specific overrides */
+    .theme-black .preview-header .amount-display,
+    .theme-obsidian .preview-header .amount-display {
       background: linear-gradient(180deg, #ffffff 0%, #a3a3a3 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .theme-black .btn-secondary:hover {
+    .theme-black .btn-secondary:hover,
+    .theme-obsidian .btn-secondary:hover {
       background: var(--accent-glow);
     }
 
     .theme-black input,
     .theme-black textarea,
-    .theme-black select {
+    .theme-black select,
+    .theme-obsidian input,
+    .theme-obsidian textarea,
+    .theme-obsidian select {
       color: var(--text-primary);
       background: var(--bg-input);
     }
 
     .theme-black .option-card input,
-    .theme-black .option-card textarea {
+    .theme-black .option-card textarea,
+    .theme-obsidian .option-card input,
+    .theme-obsidian .option-card textarea {
       background: var(--bg-card);
       border-color: var(--border-primary);
     }
 
-    .theme-black .stats-grid {
+    .theme-black .stats-grid,
+    .theme-obsidian .stats-grid {
       background: #0a0a0a;
     }
 
-    .theme-black .stats-grid:nth-child(even) {
+    .theme-black .stats-grid:nth-child(even),
+    .theme-obsidian .stats-grid:nth-child(even) {
       background: #0f0f0f;
     }
 
-    .theme-black .stat-cell {
+    .theme-black .stat-cell,
+    .theme-obsidian .stat-cell {
       border-color: var(--border-primary) !important;
     }
 
@@ -3982,25 +4073,19 @@
     </defs>
   </svg>
 
-  <!-- WELCOME SCREEN -->
-  <div id="welcomeScreen" class="welcome-screen">
+  <!-- WELCOME SCREEN - HIDDEN -->
+  <div id="welcomeScreen" class="welcome-screen hidden">
     <div class="welcome-card">
-      <!-- Icon -->
-      <a href="index.html" class="welcome-logo header-logo" title="Back to Home">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Back half of ring (behind planet) -->
-          <ellipse cx="32" cy="32" rx="28" ry="8" stroke="#ea580c" stroke-width="2.5" fill="none" transform="rotate(-20 32 32)" stroke-dasharray="70 140"/>
-          <!-- Planet -->
-          <circle cx="32" cy="32" r="12" fill="#eab308"/>
-          <!-- Front half of ring (in front of planet) -->
-          <ellipse cx="32" cy="32" rx="28" ry="8" stroke="#ea580c" stroke-width="2.5" fill="none" transform="rotate(-20 32 32)" stroke-dasharray="70 140" stroke-dashoffset="-70"/>
-          <!-- Orbiting moon -->
-          <circle class="orbiting-moon" cx="32" cy="32" r="4" fill="#a855f7"/>
-        </svg>
-      </a>
+      <!-- Sutton Logo -->
+      <div class="welcome-logo" style="display: flex; justify-content: center; margin-bottom: 1rem;">
+        <div style="position: relative; width: 64px; height: 64px;">
+          <div style="position: absolute; inset: -8px; background: radial-gradient(circle, rgba(234, 179, 8, 0.5) 0%, rgba(234, 179, 8, 0) 70%); filter: blur(6px);"></div>
+          <img src="https://i.imgur.com/MXMqYLc.png" alt="Sutton Logo" style="position: relative; width: 100%; height: 100%; object-fit: contain;">
+        </div>
+      </div>
       
       <!-- Title -->
-      <h1 class="welcome-title">Ables<span style="color: #888;">AI</span></h1>
+      <h1 class="welcome-title" style="font-family: 'Playfair Display', serif;">Sutton<span style="color: #EAB308;"> Funding</span></h1>
       <p class="welcome-subtitle">&nbsp;</p>
       
       <!-- Form -->
@@ -4083,22 +4168,16 @@
       
       <!-- Content -->
       <div class="login-modal-content">
-        <!-- Icon -->
-        <div class="login-modal-icon header-logo" style="justify-content: center;">
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Back half of ring (behind planet) -->
-            <ellipse cx="32" cy="32" rx="28" ry="8" stroke="#ea580c" stroke-width="2.5" fill="none" transform="rotate(-20 32 32)" stroke-dasharray="70 140"/>
-            <!-- Planet -->
-            <circle cx="32" cy="32" r="12" fill="#eab308"/>
-            <!-- Front half of ring (in front of planet) -->
-            <ellipse cx="32" cy="32" rx="28" ry="8" stroke="#ea580c" stroke-width="2.5" fill="none" transform="rotate(-20 32 32)" stroke-dasharray="70 140" stroke-dashoffset="-70"/>
-            <!-- Orbiting moon -->
-            <circle class="orbiting-moon" cx="32" cy="32" r="4" fill="#a855f7"/>
-          </svg>
+        <!-- Sutton Logo -->
+        <div class="login-modal-icon" style="display: flex; justify-content: center;">
+          <div style="position: relative; width: 64px; height: 64px;">
+            <div style="position: absolute; inset: -8px; background: radial-gradient(circle, rgba(234, 179, 8, 0.5) 0%, rgba(234, 179, 8, 0) 70%); filter: blur(6px);"></div>
+            <img src="https://i.imgur.com/MXMqYLc.png" alt="Sutton Logo" style="position: relative; width: 100%; height: 100%; object-fit: contain;">
+          </div>
         </div>
         
         <!-- Title -->
-        <h2 class="login-modal-title">Ables<span style="color: #888;">AI</span></h2>
+        <h2 class="login-modal-title" style="font-family: 'Playfair Display', serif;">Sutton<span style="color: #EAB308;"> Funding</span></h2>
         <p class="login-modal-subtitle">&nbsp;</p>
         
         <!-- Form -->
@@ -4325,27 +4404,14 @@
           <!-- HEADER -->
           <header class="header-main flex flex-wrap items-center justify-between gap-3 mb-4 py-2 sticky top-0 z-30" style="background: var(--bg-card); position: relative;">
                 <!-- Logo and Title -->
-                <div class="header-brand header-logo header-logo-sm flex items-center gap-2">
-                    <a href="index.html" class="transition-transform hover:scale-105" title="Back to Home">
-                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <!-- Back half of ring (behind planet) -->
-                          <ellipse cx="32" cy="32" rx="28" ry="8" stroke="#ea580c" stroke-width="2.5" fill="none" transform="rotate(-20 32 32)" stroke-dasharray="70 140"/>
-                          <!-- Planet -->
-                          <circle cx="32" cy="32" r="12" fill="#eab308"/>
-                          <!-- Front half of ring (in front of planet) -->
-                          <ellipse cx="32" cy="32" rx="28" ry="8" stroke="#ea580c" stroke-width="2.5" fill="none" transform="rotate(-20 32 32)" stroke-dasharray="70 140" stroke-dashoffset="-70"/>
-                          <!-- Orbiting moon -->
-                          <circle class="orbiting-moon" cx="32" cy="32" r="4" fill="#a855f7"/>
-                        </svg>
-                    </a>
-                    <h1>Ables<span>AI</span></h1>
+                <div class="header-brand flex items-center gap-3">
+                    <div class="relative" style="width: 36px; height: 36px;">
+                        <div style="position: absolute; inset: -6px; background: radial-gradient(circle, rgba(234, 179, 8, 0.4) 0%, rgba(234, 179, 8, 0) 70%); filter: blur(4px);"></div>
+                        <img src="https://i.imgur.com/MXMqYLc.png" alt="Sutton Logo" style="position: relative; width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <span style="font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">Sutton Funding</span>
                 </div>
-                <div id="userBadge" class="user-badge hidden" style="cursor: pointer;" onclick="handleLogout()" title="Click to logout">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    <span id="userBadgeName">User</span>
-                </div>
+                <!-- User badge removed -->
                 <!-- Mode Toggle -->
                 <div id="modeToggleContainer" class="header-mode-toggle flex items-center rounded-full overflow-hidden" style="background: var(--accent-glow); border: 1px solid var(--accent); padding: 6px 4px;">
                     <button id="lenderModeBtn" onclick="setClientMode('lender')" class="mode-toggle-btn flex items-center gap-1.5 transition-all" style="color: var(--accent); padding: 0 8px; font-size: 12px; font-weight: 600;">
@@ -4400,23 +4466,23 @@
                             <!-- Theme Mode Section -->
                             <div class="theme-section-title">Theme</div>
                             <div class="theme-mode-toggle">
-                                <button onclick="setThemeMode('light')" class="theme-mode-btn" data-mode="light">
+                                <button onclick="setThemeMode('platinum')" class="theme-mode-btn" data-mode="platinum">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                                     </svg>
-                                    Light
+                                    Platinum
                                 </button>
-                                <button onclick="setThemeMode('dark')" class="theme-mode-btn" data-mode="dark">
+                                <button onclick="setThemeMode('navy')" class="theme-mode-btn" data-mode="navy">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                                     </svg>
-                                    Dark
+                                    Navy
                                 </button>
-                                <button onclick="setThemeMode('black')" class="theme-mode-btn" data-mode="black">
+                                <button onclick="setThemeMode('obsidian')" class="theme-mode-btn active" data-mode="obsidian">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                                         <circle cx="12" cy="12" r="10" />
                                     </svg>
-                                    Black
+                                    Obsidian
                                 </button>
                             </div>
                             
@@ -4527,13 +4593,12 @@
                             <!-- Accent Color Section -->
                             <div class="theme-section-title" style="margin-top: 16px;">Accent Color</div>
                             <div class="color-swatches">
+                                <div onclick="setAccentColor('gold')" class="color-swatch swatch-gold active" data-accent="gold" title="Gold"></div>
                                 <div onclick="setAccentColor('mint')" class="color-swatch swatch-mint" data-accent="mint" title="Mint"></div>
                                 <div onclick="setAccentColor('blue')" class="color-swatch swatch-blue" data-accent="blue" title="Blue"></div>
                                 <div onclick="setAccentColor('purple')" class="color-swatch swatch-purple" data-accent="purple" title="Purple"></div>
-                                <div onclick="setAccentColor('rainbow')" class="color-swatch swatch-rainbow" data-accent="rainbow" title="Rainbow"></div>
                                 <div onclick="setAccentColor('orange')" class="color-swatch swatch-orange" data-accent="orange" title="Orange"></div>
                                 <div onclick="setAccentColor('cyan')" class="color-swatch swatch-cyan" data-accent="cyan" title="Cyan"></div>
-                                <div onclick="setAccentColor('gold')" class="color-swatch swatch-gold" data-accent="gold" title="Gold"></div>
                                 <div onclick="setAccentColor('slate')" class="color-swatch swatch-slate" data-accent="slate" title="Slate"></div>
                                 <div onclick="setAccentColor('lime')" class="color-swatch swatch-lime" data-accent="lime" title="Forest"></div>
                                 <div onclick="setAccentColor('teal')" class="color-swatch swatch-teal" data-accent="teal" title="Navy"></div>
@@ -5088,7 +5153,17 @@ Government Issued ID</textarea>
                         <!-- Header -->
                         <div class="preview-header p-8 pb-10 text-center">
                           <div class="relative z-10 pt-2">
-                            <!-- Logo Container -->
+                            <!-- Sutton Funding Logo -->
+                            <div class="preview-logo-container mb-4">
+                                <div class="flex flex-col items-center justify-center gap-3">
+                                    <div style="position: relative; width: 72px; height: 72px;">
+                                        <div style="position: absolute; inset: -10px; background: radial-gradient(circle, rgba(234, 179, 8, 0.6) 0%, rgba(234, 179, 8, 0) 70%); filter: blur(8px);"></div>
+                                        <img src="https://i.imgur.com/MXMqYLc.png" alt="Sutton Logo" style="position: relative; width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                    <span style="font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 0.05em;">Sutton Funding</span>
+                                </div>
+                            </div>
+                            <!-- Logo Container (for custom logos) -->
                             <div id="previewLogoContainer" class="preview-logo-container hidden">
                                 <img id="previewLogo" src="" alt="Company Logo" class="preview-logo mx-auto" referrerpolicy="no-referrer" />
                             </div>
@@ -5251,13 +5326,13 @@ Government Issued ID</textarea>
           
           <div class="text-center mb-10">
               <!-- Trust Badge -->
-              <div class="trust-badge inline-flex items-center gap-3 px-5 py-2.5 rounded-full mb-8">
-                  <div class="trust-badge-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <div class="trust-badge inline-flex items-center gap-3 px-5 py-2.5 rounded-full mb-8" style="background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.3);">
+                  <div class="trust-badge-icon" style="color: #EAB308;">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
                           <path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 00.374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.352-.114-2.662-.334-3.908a.75.75 0 00-.722-.515 11.208 11.208 0 01-7.877-3.08zm3.134 7.09a.75.75 0 00-1.06-1.06L11 11.79l-1.09-1.09a.75.75 0 00-1.06 1.06l1.62 1.62a.75.75 0 001.06 0l4.12-4.12z" clip-rule="evenodd" />
                       </svg>
                   </div>
-                  <span class="trust-badge-text"><span class="trust-badge-accent">TrustBureau</span> Verified</span>
+                  <span class="trust-badge-text" style="color: #EAB308; font-weight: 600; font-size: 12px;">Sutton Funding Verified</span>
               </div>
               
               <h1 id="clientGreeting" class="text-3xl font-extrabold mb-3" style="color: var(--text-primary);">Hello, Business Owner</h1>
@@ -5271,7 +5346,17 @@ Government Issued ID</textarea>
                   <!-- Header -->
                   <div class="preview-header p-8 pb-10 text-center">
                     <div class="relative z-10 pt-2">
-                      <!-- Logo Container -->
+                      <!-- Sutton Funding Logo -->
+                      <div class="preview-logo-container mb-4">
+                          <div class="flex flex-col items-center justify-center gap-3">
+                              <div style="position: relative; width: 72px; height: 72px;">
+                                  <div style="position: absolute; inset: -10px; background: radial-gradient(circle, rgba(234, 179, 8, 0.6) 0%, rgba(234, 179, 8, 0) 70%); filter: blur(8px);"></div>
+                                  <img src="https://i.imgur.com/MXMqYLc.png" alt="Sutton Logo" style="position: relative; width: 100%; height: 100%; object-fit: contain;">
+                              </div>
+                              <span style="font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 0.05em;">Sutton Funding</span>
+                          </div>
+                      </div>
+                      <!-- Logo Container (for custom logos) -->
                       <div id="cPreviewLogoContainer" class="preview-logo-container hidden">
                           <img id="cPreviewLogo" src="" alt="Company Logo" class="preview-logo mx-auto" referrerpolicy="no-referrer" />
                       </div>
@@ -5645,7 +5730,7 @@ Government Issued ID</textarea>
     // THEME MANAGEMENT
     // ============================================
     let currentTheme = 'black';
-    let currentAccent = 'rainbow';
+    let currentAccent = 'gold';
     let currentLogoUrl = '';
     let currentCompanyName = '';
     let currentClientMode = 'iso';
@@ -6182,7 +6267,7 @@ Government Issued ID</textarea>
     function setThemeMode(mode) {
         currentTheme = mode;
         const html = document.documentElement;
-        html.classList.remove('theme-light', 'theme-dark', 'theme-black');
+        html.classList.remove('theme-platinum', 'theme-navy', 'theme-obsidian', 'theme-light', 'theme-dark', 'theme-black');
         html.classList.add(`theme-${mode}`);
         
         // Update mode buttons
@@ -6959,7 +7044,12 @@ Government Issued ID</textarea>
         if (saved) {
             try {
                 const pref = JSON.parse(saved);
-                if (pref.mode) setThemeMode(pref.mode);
+                // Map legacy theme names to new ones
+                let mode = pref.mode;
+                if (mode === 'black') mode = 'obsidian';
+                if (mode === 'dark') mode = 'navy';
+                if (mode === 'light') mode = 'platinum';
+                if (mode) setThemeMode(mode);
                 if (pref.accent) {
                     setAccentColor(pref.accent);
                 }
@@ -6975,9 +7065,9 @@ Government Issued ID</textarea>
                 console.error('Failed to load theme preference', e);
             }
         } else {
-            // Default to black theme with rainbow accent
-            setThemeMode('black');
-            setAccentColor('rainbow');
+            // Default to Obsidian theme with Gold accent (Sutton Funding brand)
+            setThemeMode('obsidian');
+            setAccentColor('gold');
         }
         
         // Set initial active states
@@ -6992,8 +7082,8 @@ Government Issued ID</textarea>
     function resetBrandKit() {
         // Reset to defaults
         setThemeMode('black');
-        // Lite users default to indigo (steel), logged-in users get rainbow
-        setAccentColor(currentUser ? 'rainbow' : 'indigo');
+        // Default to Sutton Gold for all users
+        setAccentColor('gold');
         setClientMode('iso');
         
         // Clear brand fields
@@ -7041,7 +7131,7 @@ Government Issued ID</textarea>
         if (username && password.endsWith('!#')) {
             currentUser = username;
             localStorage.setItem('fundingCalcUser', username);
-            // Load user's saved favorite theme (or keep rainbow if none)
+            // Load user's saved favorite theme (or keep gold if none)
             loadFavoriteTheme();
             hideWelcomeScreen();
             updateAuthUI();
@@ -7149,13 +7239,13 @@ Government Issued ID</textarea>
         
         if (currentUser) {
             // Logged in - unlock brand section
-            brandSection.classList.remove('locked');
-            userBadge.classList.remove('hidden');
-            userBadgeName.textContent = currentUser;
+            if (brandSection) brandSection.classList.remove('locked');
+            if (userBadge) userBadge.classList.remove('hidden');
+            if (userBadgeName) userBadgeName.textContent = currentUser;
         } else {
             // Logged out - lock brand section
-            brandSection.classList.add('locked');
-            userBadge.classList.add('hidden');
+            if (brandSection) brandSection.classList.add('locked');
+            if (userBadge) userBadge.classList.add('hidden');
         }
         
         // Update Save Favorite button visibility
@@ -7166,30 +7256,30 @@ Government Issued ID</textarea>
     }
 
     function loadAuthState() {
-        const savedUser = localStorage.getItem('fundingCalcUser');
+        // Sutton Funding branded version - no login required
+        currentUser = 'Sutton';
+        isProUser = true;
+        
+        // Set Sutton Funding default theme (Obsidian + Gold)
+        setThemeMode('obsidian');
+        setAccentColor('gold');
+        
+        // Load saved mode
         const savedMode = localStorage.getItem('trustbureau_client_mode');
-        
-        // Always show rainbow theme on welcome/login screen
-        setAccentColor('rainbow');
-        
-        // Store user but don't load their theme yet - welcome screen still showing
-        if (savedUser) {
-            currentUser = savedUser;
-            // Theme will be loaded after they sign in via handleWelcomeLogin
-        }
-        
-        // Set saved mode for use after welcome screen
         if (savedMode) {
             window.pendingClientMode = savedMode;
-            // Also update welcome screen toggle buttons to reflect saved mode
-            const welcomeIsoBtn = $('welcomeIsoModeBtn');
-            const welcomeLenderBtn = $('welcomeLenderModeBtn');
-            if (welcomeIsoBtn) welcomeIsoBtn.classList.toggle('active', savedMode === 'iso');
-            if (welcomeLenderBtn) welcomeLenderBtn.classList.toggle('active', savedMode === 'lender');
         }
         
-        // Welcome screen always shows on page load
-        // User must sign in or continue as free each session
+        // Apply saved mode
+        if (window.pendingClientMode) {
+            setClientMode(window.pendingClientMode);
+        }
+        
+        // Unlock brand section
+        const brandSection = $('brandSection');
+        if (brandSection) {
+            brandSection.classList.remove('locked');
+        }
         
         updateAuthUI();
     }
@@ -7197,17 +7287,19 @@ Government Issued ID</textarea>
     // Keyboard handlers for modals and welcome screen
     document.addEventListener('keydown', (e) => {
         // Welcome screen - Enter to login
-        if (e.key === 'Enter' && !$('welcomeScreen').classList.contains('hidden')) {
+        const welcomeScreen = $('welcomeScreen');
+        if (e.key === 'Enter' && welcomeScreen && !welcomeScreen.classList.contains('hidden')) {
             const active = document.activeElement;
             if (active && (active.id === 'welcomeUsername' || active.id === 'welcomePassword')) {
                 handleWelcomeLogin();
             }
         }
         // Login modal - Escape to close, Enter to submit
-        if (e.key === 'Escape' && $('loginModal').classList.contains('open')) {
+        const loginModal = $('loginModal');
+        if (e.key === 'Escape' && loginModal && loginModal.classList.contains('open')) {
             closeLoginModal();
         }
-        if (e.key === 'Enter' && $('loginModal').classList.contains('open')) {
+        if (e.key === 'Enter' && loginModal && loginModal.classList.contains('open')) {
             const active = document.activeElement;
             if (active && (active.id === 'loginUsername' || active.id === 'loginPassword')) {
                 handleLogin();
@@ -9978,11 +10070,11 @@ Government Issued ID</textarea>
                                     <div style="display: inline-block; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05)); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 50px; padding: 10px 20px;">
                                         <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
-                                                <td style="width: 20px; height: 20px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; text-align: center; vertical-align: middle;">
+                                                <td style="width: 20px; height: 20px; background: linear-gradient(135deg, #FACC15, #EAB308); border-radius: 50%; text-align: center; vertical-align: middle;">
                                                     <span style="color: white; font-size: 12px; line-height: 20px;">✓</span>
                                                 </td>
                                                 <td style="padding-left: 10px; ${fontMain} font-size: 12px; font-weight: 600; color: #475569;">
-                                                    <span style="color: #10b981; font-weight: 700;">TrustBureau</span> Verified
+                                                    <span style="color: #EAB308; font-weight: 700;">Sutton Funding</span> Verified
                                                 </td>
                                             </tr>
                                         </table>
@@ -10337,11 +10429,14 @@ Government Issued ID</textarea>
         }
         
         // Close login modal on overlay click
-        $('loginModal').addEventListener('click', (e) => {
-            if (e.target === $('loginModal')) {
-                closeLoginModal();
-            }
-        });
+        const loginModalEl = $('loginModal');
+        if (loginModalEl) {
+            loginModalEl.addEventListener('click', (e) => {
+                if (e.target === loginModalEl) {
+                    closeLoginModal();
+                }
+            });
+        }
         
         // Initialize client view if this is a client share link
         if (isClientShareLink && clientShareData) {
