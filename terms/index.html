@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Sutton Funding</title>
+
+  <!-- Favicon -->
+<link rel="icon" type="image/png" href="/bridge-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/bridge-favicon.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        :root {
+            --navy: #000433;
+            --gold: #C2841A;
+            --white: #ffffff;
+            --light-grey: #f8f9fa;
+            --medium-grey: #6c757d;
+            --dark-grey: #343a40;
+            --border-grey: #e9ecef;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-grey);
+            background: var(--light-grey);
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 30, 40, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            left: 0;
+            right: 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 120px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-grey);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .cta-button {
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: #d4941f;
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 140px;
+            padding: 2rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 30, 40, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--medium-grey);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .last-updated {
+            background: var(--light-grey);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--gold);
+        }
+
+        .last-updated strong {
+            color: var(--navy);
+        }
+
+        .content-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .content-section h2 {
+            color: var(--navy);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-grey);
+        }
+
+        .content-section h3 {
+            color: var(--navy);
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            margin-top: 1.5rem;
+            font-weight: 600;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            color: var(--dark-grey);
+        }
+
+        .content-section ul, .content-section ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+            color: var(--dark-grey);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(194, 132, 26, 0.1) 0%, rgba(194, 132, 26, 0.05) 100%);
+            border: 1px solid rgba(194, 132, 26, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-info {
+            background: var(--navy);
+           color: white !important;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            color: white !important;
+        }
+
+        .contact-info a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--light-grey);
+            border: 1px solid var(--border-grey);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .toc h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: var(--dark-grey);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .toc a:hover {
+            color: var(--gold);
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--navy);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-links.show {
+            display: flex;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 30, 40, 0.1);
+            border-top: 1px solid var(--border-grey);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav {
+                padding: 1rem;
+                position: relative;
+            }
+
+            .nav-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .logo img {
+                height: 80px;
+            }
+
+            .main-content {
+                margin-top: 120px;
+                padding: 1.5rem;
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.3rem;
+            }
+
+            .toc {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                margin-top: 110px;
+                padding: 1rem;
+                margin-left: 0.5rem;
+                margin-right: 0.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo img {
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="/sutton-new.png" alt="Sutton Funding" />
+            </div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="https://suttonfunding.com/">Home</a></li>
+                </ul>
+                <a href="https://suttonfunding.fillout.com/applynow" class="cta-button">Get Funded</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Terms of Service</h1>
+            <p>The agreement between you and Sutton Funding when you visit our website, submit an application, or use our services.</p>
+        </div>
+
+        <div class="last-updated">
+            <strong>Effective Date:</strong> May 8, 2026 &nbsp;|&nbsp; <strong>Version:</strong> 1.0.0
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#acceptance">1. Acceptance of Terms</a></li>
+                <li><a href="#about">2. About Sutton Funding</a></li>
+                <li><a href="#eligibility">3. Eligibility</a></li>
+                <li><a href="#services">4. Description of Services</a></li>
+                <li><a href="#applications">5. Applications and Information You Provide</a></li>
+                <li><a href="#no-offer">6. No Offer or Commitment to Fund</a></li>
+                <li><a href="#authorizations">7. Authorizations and Consents</a></li>
+                <li><a href="#sms-terms">8. SMS &amp; Text Messaging Terms</a></li>
+                <li><a href="#tcpa-consent">9. TCPA Telephone Consent</a></li>
+                <li><a href="#acceptable-use">10. Acceptable Use</a></li>
+                <li><a href="#intellectual-property">11. Intellectual Property</a></li>
+                <li><a href="#third-parties">12. Third-Party Services and Links</a></li>
+                <li><a href="#disclaimers">13. Disclaimers</a></li>
+                <li><a href="#limitation">14. Limitation of Liability</a></li>
+                <li><a href="#indemnification">15. Indemnification</a></li>
+                <li><a href="#termination">16. Termination</a></li>
+                <li><a href="#governing-law">17. Governing Law and Dispute Resolution</a></li>
+                <li><a href="#changes">18. Changes to These Terms</a></li>
+                <li><a href="#contact">19. Contact Information</a></li>
+            </ul>
+        </div>
+
+        <section class="content-section" id="acceptance">
+            <h2>1. Acceptance of Terms</h2>
+            <p>These Terms of Service ("Terms") govern your access to and use of the website at <a href="https://www.suttonfunding.com">www.suttonfunding.com</a> and any related online forms, application portals, calculators, SMS programs, and services (collectively, the "Services") provided by Sutton Funding, the trading name of <strong>8CH GEE VENTURES INC</strong> ("Sutton Funding," "we," "our," or "us").</p>
+            <p>By accessing the Services, submitting an application, providing your phone number, or otherwise interacting with us, you agree to be bound by these Terms and by our <a href="/privacy-policy/">Privacy Policy</a>. If you do not agree, do not use the Services.</p>
+        </section>
+
+        <section class="content-section" id="about">
+            <h2>2. About Sutton Funding</h2>
+            <p>Sutton Funding is a New York-based small business funding company. We connect small and mid-sized businesses with working capital, equipment financing, lines of credit, and related products through our own programs and through a network of third-party funders, lenders, and partners. Sutton Funding is not a bank.</p>
+        </section>
+
+        <section class="content-section" id="eligibility">
+            <h2>3. Eligibility</h2>
+            <p>To use the Services and submit an application, you must:</p>
+            <ul>
+                <li>Be at least 18 years of age and legally able to enter into a binding contract;</li>
+                <li>Be a resident of, or legally operating a business in, the United States;</li>
+                <li>Be the owner, principal, or an authorized signer of the business you are applying on behalf of; and</li>
+                <li>Provide accurate, current, and complete information.</li>
+            </ul>
+            <p>The Services are intended for business funding purposes only and are not consumer credit products.</p>
+        </section>
+
+        <section class="content-section" id="services">
+            <h2>4. Description of Services</h2>
+            <p>Through the Services we may, among other things:</p>
+            <ul>
+                <li>Collect application information about you and your business;</li>
+                <li>Pull or request business and personal credit reports, bank statements, and related documentation;</li>
+                <li>Match your application with one or more funders, lenders, or capital providers;</li>
+                <li>Present offers, indicative terms, calculators, and closing documents;</li>
+                <li>Communicate with you by phone, email, and SMS regarding your application and account.</li>
+            </ul>
+            <p>Specific products, terms, pricing, and availability may change at any time and are subject to underwriting, verification, and final approval by the applicable funder or lender.</p>
+        </section>
+
+        <section class="content-section" id="applications">
+            <h2>5. Applications and Information You Provide</h2>
+            <p>You represent and warrant that all information you provide to us — including business information, financial information, identification documents, bank statements, and contact information for you and any guarantors — is true, accurate, current, and complete, and that you are authorized to share it with us.</p>
+            <p>You agree that we (and our funding partners) may verify any information you submit, including by contacting third parties such as banks, credit bureaus, public records, and references, and by using fraud-prevention and identity-verification services.</p>
+        </section>
+
+        <section class="content-section" id="no-offer">
+            <h2>6. No Offer or Commitment to Fund</h2>
+            <p>Submission of an application does not create any obligation on the part of Sutton Funding or any funder to extend funding. Indicative numbers, calculator outputs, pre-qualification messages, and prospective term sheets are <strong>not</strong> binding offers and may be withdrawn or modified at any time. A binding agreement only exists once you and the applicable funder execute final, written closing documents.</p>
+        </section>
+
+        <section class="content-section" id="authorizations">
+            <h2>7. Authorizations and Consents</h2>
+            <p>By submitting an application or otherwise providing information through the Services, you authorize Sutton Funding and its funding partners to:</p>
+            <ul>
+                <li>Obtain business and personal credit reports and other consumer reports about you and any guarantors;</li>
+                <li>Verify any information you provide with banks, credit bureaus, references, public records, and other third parties;</li>
+                <li>Share your information with prospective funders, lenders, brokers, and service providers in order to evaluate, process, fund, and service your transaction;</li>
+                <li>Contact you about your application and account as further described in Sections 8 and 9 below.</li>
+            </ul>
+        </section>
+
+        <section class="content-section" id="sms-terms">
+            <h2>8. SMS &amp; Text Messaging Terms</h2>
+            <p>When you provide a mobile phone number to us — whether on our website, on an application, by replying to an outreach, or otherwise — and you opt in to text messages, you agree to receive SMS messages from Sutton Funding related to your application, account, offers, document requests, status updates, and marketing.</p>
+
+            <div class="highlight-box">
+                <h4>SMS Program Disclosure</h4>
+                <ul>
+                    <li><strong>Program:</strong> Sutton Funding SMS Program (account servicing, application updates, marketing).</li>
+                    <li><strong>Message Frequency:</strong> Varies based on your activity and our outreach. Frequency is not fixed.</li>
+                    <li><strong>Message &amp; Data Rates:</strong> Standard message and data rates may apply from your wireless carrier.</li>
+                    <li><strong>Opt-Out:</strong> Reply <strong>STOP</strong> to any message at any time to unsubscribe. After you reply STOP, we will send a single confirmation message and you will not receive further marketing SMS from that program.</li>
+                    <li><strong>Help:</strong> Reply <strong>HELP</strong> for assistance, or contact us at <a href="mailto:henry@suttonfunding.com">henry@suttonfunding.com</a> or 877-578-8866.</li>
+                    <li><strong>Carriers:</strong> Carriers (including but not limited to AT&amp;T, T-Mobile, Verizon, and their affiliates) are not liable for delayed or undelivered messages.</li>
+                </ul>
+            </div>
+
+            <p>Mobile phone numbers and SMS opt-in data are <strong>not</strong> sold, rented, or shared with third parties for their own marketing. Information collected through our SMS program is used only by Sutton Funding and the service providers operating our messaging platform on our behalf.</p>
+            <p>Full details on how we collect, use, and protect SMS information are set out in our <a href="/privacy-policy/#sms">Privacy Policy &mdash; SMS &amp; Text Messaging Program</a>.</p>
+        </section>
+
+        <section class="content-section" id="tcpa-consent">
+            <h2>9. TCPA Telephone Consent</h2>
+            <p>By submitting an application, providing your phone number, or otherwise asking us to contact you, you expressly consent under the Telephone Consumer Protection Act (TCPA) and applicable state law for Sutton Funding, our affiliates, agents, funding partners, and service providers to contact you at any phone number you have provided — including by automated dialing systems, prerecorded or artificial voice messages, and SMS / text messages — about your application, account, offers, and our services.</p>
+            <p>This consent is not a condition of any purchase or of the funding decision. You may revoke consent at any time by replying STOP to any text message, by asking the agent to remove you from outbound calls, or by emailing <a href="mailto:henry@suttonfunding.com">henry@suttonfunding.com</a>. Standard call and message rates may apply.</p>
+        </section>
+
+        <section class="content-section" id="acceptable-use">
+            <h2>10. Acceptable Use</h2>
+            <p>You agree not to:</p>
+            <ul>
+                <li>Submit false, misleading, fraudulent, or stolen information;</li>
+                <li>Apply on behalf of another person or business without authorization;</li>
+                <li>Use the Services in violation of any law, regulation, or contractual obligation;</li>
+                <li>Interfere with or disrupt the Services, our networks, or the security of any account;</li>
+                <li>Attempt to gain unauthorized access to the Services or to any related systems; or</li>
+                <li>Use the Services to harass, defraud, or harm any other person.</li>
+            </ul>
+        </section>
+
+        <section class="content-section" id="intellectual-property">
+            <h2>11. Intellectual Property</h2>
+            <p>All content on the Services — including text, graphics, logos, images, software, and the "Sutton Funding" name and marks — is owned by Sutton Funding or its licensors and is protected by U.S. and international intellectual property laws. You may view and use the Services for the purpose of evaluating and applying for funding from Sutton Funding. Any other use, including copying, reproducing, scraping, framing, or creating derivative works, is prohibited without our prior written consent.</p>
+        </section>
+
+        <section class="content-section" id="third-parties">
+            <h2>12. Third-Party Services and Links</h2>
+            <p>The Services may contain links to, or be integrated with, third-party websites, applications, and services (for example, application platforms, e-signature providers, payment processors, and funding partners). We do not control these third parties and are not responsible for their content, terms, or practices. Your use of any third-party service is governed by that third party's own terms and privacy policy.</p>
+        </section>
+
+        <section class="content-section" id="disclaimers">
+            <h2>13. Disclaimers</h2>
+            <p>THE SERVICES ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS, WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, SECURE, ERROR-FREE, OR THAT ANY APPLICATION WILL RESULT IN AN OFFER OR FUNDING.</p>
+            <p>Calculators, illustrations, and indicative numbers are for informational purposes only and do not constitute legal, tax, accounting, or financial advice. You should consult your own advisors before entering into any funding transaction.</p>
+        </section>
+
+        <section class="content-section" id="limitation">
+            <h2>14. Limitation of Liability</h2>
+            <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL SUTTON FUNDING, ITS AFFILIATES, OWNERS, OFFICERS, EMPLOYEES, AGENTS, OR LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF PROFITS, REVENUE, DATA, GOODWILL, OR BUSINESS OPPORTUNITY, ARISING OUT OF OR RELATING TO THESE TERMS OR THE SERVICES, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+            <p>OUR TOTAL CUMULATIVE LIABILITY ARISING OUT OF OR RELATING TO THESE TERMS OR THE SERVICES WILL NOT EXCEED ONE HUNDRED U.S. DOLLARS (US$100). SOME JURISDICTIONS DO NOT ALLOW THE LIMITATION OR EXCLUSION OF CERTAIN DAMAGES, SO PORTIONS OF THIS SECTION MAY NOT APPLY TO YOU.</p>
+        </section>
+
+        <section class="content-section" id="indemnification">
+            <h2>15. Indemnification</h2>
+            <p>You agree to defend, indemnify, and hold harmless Sutton Funding and its affiliates, owners, officers, employees, and agents from and against any and all claims, liabilities, damages, losses, and expenses (including reasonable attorneys' fees) arising out of or in any way connected with: (a) your use of the Services; (b) your violation of these Terms; (c) any information you submit; or (d) your violation of any rights of a third party.</p>
+        </section>
+
+        <section class="content-section" id="termination">
+            <h2>16. Termination</h2>
+            <p>We may suspend or terminate your access to the Services at any time, with or without notice, for any reason, including if we believe you have violated these Terms or applicable law. Provisions that by their nature should survive termination (including Sections 11 through 17, and 19) will survive.</p>
+        </section>
+
+        <section class="content-section" id="governing-law">
+            <h2>17. Governing Law and Dispute Resolution</h2>
+            <p>These Terms are governed by the laws of the State of New York, without regard to conflict-of-law principles. Subject to any applicable arbitration agreement, you and Sutton Funding agree that any dispute arising out of or relating to these Terms or the Services will be brought exclusively in the state or federal courts located in New York County, New York, and you consent to the personal jurisdiction of those courts.</p>
+            <p>Nothing in these Terms limits any non-waivable rights you have under applicable consumer-protection or telecommunications law, including the TCPA.</p>
+        </section>
+
+        <section class="content-section" id="changes">
+            <h2>18. Changes to These Terms</h2>
+            <p>We may update these Terms from time to time. When we do, we will revise the "Effective Date" at the top of this page. Your continued use of the Services after an update constitutes your acceptance of the updated Terms. If a change is material, we may also notify you by email or SMS.</p>
+        </section>
+
+        <section class="content-section" id="contact">
+            <h2>19. Contact Information</h2>
+            <p>Questions about these Terms? Contact us:</p>
+            <div class="contact-info">
+                <h3>Sutton Funding</h3>
+                <p><strong>8CH GEE VENTURES INC</strong> d/b/a Sutton Funding</p>
+                <p>Email: <a href="mailto:henry@suttonfunding.com">henry@suttonfunding.com</a></p>
+                <p>Phone: <a href="tel:+18775788866">877-578-8866</a></p>
+                <p>Web: <a href="https://www.suttonfunding.com">www.suttonfunding.com</a></p>
+                <p>For SMS opt-out, reply <strong>STOP</strong> to any message. For SMS help, reply <strong>HELP</strong>.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile menu functionality
+        function initializeMobileMenu() {
+            const nav = document.querySelector('.nav');
+            const navLinks = document.querySelector('.nav-links');
+
+            // Create mobile menu button if it doesn't exist
+            if (!document.querySelector('.mobile-menu-btn')) {
+                const mobileMenuBtn = document.createElement('button');
+                mobileMenuBtn.className = 'mobile-menu-btn';
+                mobileMenuBtn.innerHTML = '☰';
+                mobileMenuBtn.setAttribute('aria-label', 'Toggle mobile menu');
+
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('show');
+                    if (navLinks.classList.contains('show')) {
+                        mobileMenuBtn.innerHTML = '✕';
+                    } else {
+                        mobileMenuBtn.innerHTML = '☰';
+                    }
+                });
+
+                nav.appendChild(mobileMenuBtn);
+
+                navLinks.addEventListener('click', function(e) {
+                    if (e.target.tagName === 'A') {
+                        navLinks.classList.remove('show');
+                        mobileMenuBtn.innerHTML = '☰';
+                    }
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!nav.contains(e.target)) {
+                        navLinks.classList.remove('show');
+                        mobileMenuBtn.innerHTML = '☰';
+                    }
+                });
+            }
+        }
+
+        initializeMobileMenu();
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const navLinks = document.querySelector('.nav-links');
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                if (navLinks) navLinks.classList.remove('show');
+                if (mobileMenuBtn) mobileMenuBtn.innerHTML = '☰';
+            }
+        });
+    </script>
+</body>
+</html>
