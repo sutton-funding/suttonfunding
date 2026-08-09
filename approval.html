@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Sutton Funding | Offer Calculator</title>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
   
-  <link rel="icon" href="https://i.imgur.com/MXMqYLc.png" type="image/png">
+  <link rel="icon" href="/assets/sutton-mark.webp" type="image/webp">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -176,13 +177,13 @@
       align-items: center; 
       justify-content: center; 
       padding: 20px;
-      background-image: linear-gradient(rgba(248, 250, 252, 0.92), rgba(248, 250, 252, 0.92)), url('https://i.imgur.com/MXMqYLc.png');
+      background-image: linear-gradient(rgba(248, 250, 252, 0.92), rgba(248, 250, 252, 0.92)), url('/assets/sutton-mark.webp');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
     }
     html.theme-dark .client-view {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.92)), url('https://i.imgur.com/MXMqYLc.png');
+      background-image: linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.92)), url('/assets/sutton-mark.webp');
     }
     .client-card { background: var(--bg-card); border-radius: 24px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); overflow: hidden; border: 4px solid var(--accent-color); transition: transform 0.2s; }
     .client-grid { display: grid; gap: 20px; width: 100%; max-width: 1100px; }
@@ -236,7 +237,7 @@
       <aside id="sidebar" class="sidebar w-64 sidebar-bg border-r border-primary flex flex-col fixed h-full">
         <div class="p-6 border-b border-primary flex justify-between items-center">
           <div class="flex items-center gap-3">
-            <img src="https://i.imgur.com/MXMqYLc.png" alt="Sutton Funding" class="h-10 w-auto" />
+            <img src="/assets/sutton-mark.webp" alt="Sutton Funding" class="h-10 w-auto" />
             <div><div class="font-medium text-primary">Sutton Funding</div><div class="text-[10px] text-muted uppercase tracking-wider">Funding Calculator</div></div>
           </div>
           <button onclick="toggleSidebar()" class="md:hidden text-secondary hover:text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
@@ -465,7 +466,7 @@
       <div class="p-6 border-b border-primary text-center">
         <div id="clientLogoWrapper" class="flex items-center justify-center mb-3">
           <img id="clientLogo" src="" alt="Logo" class="h-12 w-auto hidden" />
-          <img id="clientLogoPlaceholder" src="https://i.imgur.com/MXMqYLc.png" alt="Sutton Funding" class="h-12 w-auto" />
+          <img id="clientLogoPlaceholder" src="/assets/sutton-mark.webp" alt="Sutton Funding" class="h-12 w-auto" />
         </div>
         <div id="clientCompanyName" class="font-medium text-primary text-lg">Sutton Funding</div>
         <div id="clientBusinessNameDisplay" class="text-center text-sm font-medium text-primary mb-2 hidden"></div>
