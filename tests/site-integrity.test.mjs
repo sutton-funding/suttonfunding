@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { readFile, stat } from 'node:fs/promises';
+import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -31,6 +31,17 @@ async function exists(file) {
   } catch {
     return false;
   }
+}
+
+async function htmlFiles(directory) {
+  const files = [];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    if (entry.name === '.git' || entry.name === 'node_modules') continue;
+    const fullPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...await htmlFiles(fullPath));
+    if (entry.isFile() && entry.name.endsWith('.html')) files.push(fullPath);
+  }
+  return files;
 }
 
 function canonicalPathForFile(file) {
@@ -139,6 +150,13 @@ test('homepage links directly to every resource page', async () => {
   const hrefs = new Set([...homepage.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)].map((match) => match[1]));
   for (const resourcePath of resourcePaths) {
     assert.ok(hrefs.has(resourcePath), `homepage is missing direct link to ${resourcePath}`);
+  }
+});
+
+test('all public HTML identifies the company only as Sutton Funding', async () => {
+  for (const file of await htmlFiles(siteRoot)) {
+    const html = await readFile(file, 'utf8');
+    assert.doesNotMatch(html, /8\s*CH\s+GEE\s+VENTURES|GEE\s+VENTURES/i, path.relative(siteRoot, file));
   }
 });
 
