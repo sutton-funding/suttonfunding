@@ -160,7 +160,14 @@ test('all public HTML identifies the company only as Sutton Funding', async () =
   }
 });
 
-test('every canonical page sends GA a query-free page location', async () => {
+test('calculator controls cannot submit private values through a native GET', async () => {
+  const html = await readFile(path.join(siteRoot, 'resources/apr-factor-rate-total-cost/index.html'), 'utf8');
+  assert.ok(html.includes('id="calculateCost" type="button"'));
+  assert.ok(html.includes('/assets/cost-calculator.js?v=b7c75f2082ea'));
+  assert.doesNotMatch(html, /\bname="(?:fundsReceived|totalRepayment|paymentCount|paymentFrequency)"/);
+});
+
+test('every canonical page sends GA query-free location and referrer values', async () => {
   const sitemap = await readFile(path.join(siteRoot, 'sitemap.xml'), 'utf8');
   const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
   for (const location of locations) {
@@ -169,6 +176,10 @@ test('every canonical page sends GA a query-free page location', async () => {
     assert.ok(
       /page_location\s*:\s*window\.location\.origin\s*\+\s*window\.location\.pathname/.test(html),
       `${url.pathname} must override GA page_location without query parameters`,
+    );
+    assert.ok(
+      /page_referrer\s*:\s*document\.referrer\s*\?\s*new URL\(document\.referrer\)\.origin\s*\+\s*new URL\(document\.referrer\)\.pathname\s*:\s*''/.test(html),
+      `${url.pathname} must override GA page_referrer without query parameters`,
     );
   }
 });

@@ -3,6 +3,8 @@
 
   const form = document.getElementById('costCalculator');
   if (!form) return;
+  const calculateButton = document.getElementById('calculateCost');
+  if (!calculateButton) return;
 
   const fundsReceived = document.getElementById('fundsReceived');
   const totalRepayment = document.getElementById('totalRepayment');
@@ -55,6 +57,9 @@
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+  });
+
+  calculateButton.addEventListener('click', function () {
     error.textContent = '';
     results.hidden = true;
 

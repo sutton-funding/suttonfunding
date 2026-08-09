@@ -19,10 +19,16 @@ function createElement(value = '') {
 
 function loadCalculator() {
   let submitHandler;
+  let clickHandler;
   const elements = {
     costCalculator: {
       addEventListener(type, handler) {
         if (type === 'submit') submitHandler = handler;
+      },
+    },
+    calculateCost: {
+      addEventListener(type, handler) {
+        if (type === 'click') clickHandler = handler;
       },
     },
     fundsReceived: createElement(),
@@ -56,6 +62,7 @@ function loadCalculator() {
       let prevented = false;
       submitHandler({ preventDefault() { prevented = true; } });
       assert.equal(prevented, true);
+      clickHandler();
     },
   };
 }

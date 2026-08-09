@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QWR6HVG"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Y78QWR6HVG',{cookie_domain:'suttonfunding.com',page_location:window.location.origin+window.location.pathname});</script>
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-Y78QWR6HVG"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-Y78QWR6HVG',{cookie_domain:'suttonfunding.com',page_location:window.location.origin+window.location.pathname,page_referrer:document.referrer?new URL(document.referrer).origin+new URL(document.referrer).pathname:''});</script>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>APR vs. Factor Rate &amp; Total Cost Calculator | Sutton Funding</title>
   <meta name="description" content="Learn how APR, factor rates, total repayment and payment timing differ, then compare an offer with a transparent business funding cost calculator.">
@@ -10,7 +10,7 @@
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="APR, Factor Rates and Total Business Funding Cost"><meta name="twitter:description" content="Normalize an offer into proceeds, total cost, payment count and timing."><meta name="twitter:image" content="https://www.suttonfunding.com/assets/sutton-logo.webp">
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/resources.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://www.suttonfunding.com/resources/apr-factor-rate-total-cost/#article","headline":"APR, Factor Rates and Total Business Funding Cost","description":"An educational guide and transparent calculator for comparing business financing cost metrics.","datePublished":"2026-08-09","dateModified":"2026-08-09","author":{"@type":"Organization","name":"Sutton Funding Editorial Team","url":"https://www.suttonfunding.com/about/"},"publisher":{"@id":"https://www.suttonfunding.com/#organization"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.suttonfunding.com/resources/apr-factor-rate-total-cost/"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.suttonfunding.com/"},{"@type":"ListItem","position":2,"name":"Resources","item":"https://www.suttonfunding.com/resources/"},{"@type":"ListItem","position":3,"name":"APR, Factor Rates and Total Cost","item":"https://www.suttonfunding.com/resources/apr-factor-rate-total-cost/"}]}]}</script>
-  <script defer src="/assets/application-attribution.js?v=919b5be1f117"></script><script defer src="/assets/cost-calculator.js"></script>
+  <script defer src="/assets/application-attribution.js?v=919b5be1f117"></script><script defer src="/assets/cost-calculator.js?v=b7c75f2082ea"></script>
 </head>
 <body class="font-sans antialiased selection:bg-gold-500 selection:text-black">
   <header class="border-b border-white/10 bg-slate-950/95"><nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6" aria-label="Primary navigation"><a href="/" class="flex items-center gap-3" aria-label="Sutton Funding home"><img src="/assets/sutton-mark.webp" srcset="/assets/sutton-mark-96.webp 96w, /assets/sutton-mark.webp 384w" sizes="44px" alt="" width="384" height="256" class="w-11 h-11 object-contain"><span class="hidden min-[360px]:inline font-serif text-xl md:text-2xl font-bold text-white">Sutton Funding</span></a><div class="hidden lg:flex items-center gap-7 text-sm text-slate-300"><a href="/#products" class="hover:text-white">Funding Options</a><a href="/how-it-works/" class="hover:text-white">How It Works</a><a href="/resources/" class="text-white">Resources</a><a href="/about/" class="hover:text-white">About</a><a href="/contact/" class="hover:text-white">Contact</a><a href="https://suttonfunding.app/login" class="hover:text-white">Login</a></div><a href="https://apply.suttonfunding.com/apply" class="shrink-0 bg-gold-500 hover:bg-gold-400 text-black px-5 py-2.5 rounded-full text-sm font-bold">Apply Now</a></nav></header>
@@ -36,23 +36,23 @@
           <h2 id="calculator">Transparent cost and repayment calculator</h2>
           <p>Enter figures from a written offer. The calculator runs entirely in your browser and does not transmit the values. It calculates simple cost measures and an effective annualized rate from an assumed series of equal, regular payments.</p>
           <div class="calculator-grid">
-            <form id="costCalculator" class="calculator-form" novalidate>
+            <form id="costCalculator" class="calculator-form" action="/resources/apr-factor-rate-total-cost/" method="get" novalidate>
               <label for="fundsReceived">Net amount received by the business ($)</label>
-              <input id="fundsReceived" name="fundsReceived" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="50000" required>
+              <input id="fundsReceived" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="50000" required>
               <small>Use the amount available to the business after any withheld fees or known payoffs.</small>
 
               <label for="totalRepayment">Total scheduled repayment ($)</label>
-              <input id="totalRepayment" name="totalRepayment" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="62500" required>
+              <input id="totalRepayment" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="62500" required>
               <small>Include all scheduled payments and required fees that are known from the offer.</small>
 
               <label for="paymentCount">Number of equal scheduled payments</label>
-              <input id="paymentCount" name="paymentCount" type="number" inputmode="numeric" min="1" max="5000" step="1" placeholder="52" required>
+              <input id="paymentCount" type="number" inputmode="numeric" min="1" max="5000" step="1" placeholder="52" required>
 
               <label for="paymentFrequency">Payment frequency</label>
-              <select id="paymentFrequency" name="paymentFrequency"><option value="52">Weekly — 52 periods per year</option><option value="12">Monthly — 12 periods per year</option><option value="260">Business-daily — 260 periods per year</option></select>
+              <select id="paymentFrequency"><option value="52">Weekly — 52 periods per year</option><option value="12">Monthly — 12 periods per year</option><option value="260">Business-daily — 260 periods per year</option></select>
               <small>The annualized calculation assumes the first payment is one full period after funding and all payments are equal.</small>
 
-              <button class="calculator-button" type="submit">Calculate cost</button>
+              <button class="calculator-button" id="calculateCost" type="button">Calculate cost</button>
               <p id="calculatorError" class="calculator-error" role="alert"></p>
             </form>
 
