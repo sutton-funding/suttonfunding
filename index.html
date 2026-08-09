@@ -92,9 +92,10 @@
             </a>
 
             <!-- Desktop Links -->
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-400">
                 <a href="#products" class="hover:text-white transition-colors">Funding Options</a>
                 <a href="#calculator" class="hover:text-white transition-colors">Calculator</a>
+                <a href="/resources/" class="hover:text-white transition-colors">Resources</a>
                 <a href="#about" class="hover:text-white transition-colors">Why Sutton?</a>
                 <div class="h-4 w-px bg-white/10"></div>
                 <a href="https://suttonfunding.app/login" class="hover:text-white transition-colors">Login</a>
@@ -104,17 +105,18 @@
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button id="menuToggle" class="md:hidden text-white p-2" type="button" aria-label="Open navigation menu" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu()">
+            <button id="menuToggle" class="lg:hidden text-white p-2" type="button" aria-label="Open navigation menu" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu()">
                 <svg class="w-6 h-6" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="/assets/icons.svg#menu"></use></svg>
             </button>
         </div>
     </nav>
 
     <!-- MOBILE MENU -->
-    <div id="mobileMenu" class="fixed inset-0 bg-slate-950 z-[60] transform translate-x-full transition-transform duration-300 pt-24 px-6 md:hidden" aria-hidden="true" inert>
+    <div id="mobileMenu" class="fixed inset-0 bg-slate-950 z-[60] transform translate-x-full transition-transform duration-300 pt-24 px-6 lg:hidden" aria-hidden="true" inert>
         <div class="flex flex-col gap-6 text-xl font-medium text-slate-300">
             <a href="#products" onclick="toggleMenu()">Funding Options</a>
             <a href="#calculator" onclick="toggleMenu()">Calculator</a>
+            <a href="/resources/" onclick="toggleMenu()">Resources</a>
             <a href="#about" onclick="toggleMenu()">Why Sutton?</a>
             <hr class="border-white/10 my-2">
             <a href="https://suttonfunding.app/login">Portal Login</a>
@@ -538,6 +540,7 @@
                     <ul class="space-y-4 text-sm text-slate-400">
                         <li><a href="/about/" class="hover:text-gold-500 transition-colors">About Us</a></li>
                         <li><a href="/how-it-works/" class="hover:text-gold-500 transition-colors">How It Works</a></li>
+                        <li><a href="/resources/" class="hover:text-gold-500 transition-colors">Resources</a></li>
                         <li><a href="/contact/" class="hover:text-gold-500 transition-colors">Contact</a></li>
                     </ul>
                 </div>

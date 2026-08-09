@@ -2,7 +2,8 @@
   "name": "suttonfunding-site",
   "private": true,
   "scripts": {
-    "build:css": "tailwindcss -c tailwind.config.cjs -i ./styles/site.css -o ./assets/site.css --minify"
+    "build:css": "tailwindcss -c tailwind.config.cjs -i ./styles/site.css -o ./assets/site.css --minify",
+    "test": "node --test tests/*.test.mjs"
   },
   "devDependencies": {
     "tailwindcss": "3.4.19"

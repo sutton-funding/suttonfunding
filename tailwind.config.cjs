@@ -8,7 +8,8 @@ module.exports = {
     './how-it-works/index.html',
     './about/index.html',
     './contact/index.html',
-    './disclosures/index.html'
+    './disclosures/index.html',
+    './resources/**/*.html'
   ],
   theme: {
     extend: {

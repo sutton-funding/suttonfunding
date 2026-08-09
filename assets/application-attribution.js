@@ -15,6 +15,14 @@
     '/disclosures/',
     '/terms/',
     '/privacy-policy/',
+    '/resources/',
+    '/resources/working-capital-vs-line-of-credit/',
+    '/resources/term-financing-vs-line-of-credit/',
+    '/resources/sba-loans-vs-alternative-business-funding/',
+    '/resources/apr-factor-rate-total-cost/',
+    '/resources/business-funding-requirements/',
+    '/resources/business-funding-document-checklist/',
+    '/resources/direct-funder-vs-broker-marketplace/',
   ]);
 
   function safeMarketingPath(value) {
