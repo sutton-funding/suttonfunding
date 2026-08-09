@@ -6,7 +6,16 @@
   var LANDING_STORAGE_KEY = 'sf_marketing_landing_path';
   var SOURCE_STORAGE_KEY = 'sf_marketing_source';
   var MEDIUM_STORAGE_KEY = 'sf_marketing_medium';
-  var CAMPAIGN_STORAGE_KEY = 'sf_marketing_campaign';
+  var ALLOWED_ATTRIBUTION_SOURCES = new Set([
+    'direct', 'google', 'bing', 'duckduckgo', 'yahoo', 'linkedin',
+    'facebook', 'instagram', 'meta', 'newsletter', 'email', 'trustpilot',
+    'bbb', 'referral', 'bankwithhank',
+  ]);
+  var ALLOWED_ATTRIBUTION_MEDIA = new Set([
+    'none', 'organic', 'cpc', 'ppc', 'paid_search', 'paid-search',
+    'paid_social', 'paid-social', 'social', 'email', 'referral', 'display',
+    'affiliate', 'sms', 'owned_application',
+  ]);
   var ALLOWED_MARKETING_PATHS = new Set([
     '/',
     '/working-capital/',
@@ -44,17 +53,15 @@
     return currentPath;
   }
 
-  function safeAttributionToken(value, maxLength) {
-    var token = String(value || '').trim();
-    if (!token || token.length > maxLength) return '';
-    return /^[A-Za-z0-9][A-Za-z0-9._+\-/ ]*$/.test(token) ? token : '';
+  function allowlistedAttributionToken(value, allowlist) {
+    var token = String(value || '').trim().toLowerCase();
+    return allowlist.has(token) ? token : '';
   }
 
   function currentAttribution() {
     var params = new URL(window.location.href).searchParams;
-    var source = safeAttributionToken(params.get('utm_source'), 80);
-    var medium = safeAttributionToken(params.get('utm_medium'), 80);
-    var campaign = safeAttributionToken(params.get('utm_campaign'), 120);
+    var source = allowlistedAttributionToken(params.get('utm_source'), ALLOWED_ATTRIBUTION_SOURCES);
+    var medium = allowlistedAttributionToken(params.get('utm_medium'), ALLOWED_ATTRIBUTION_MEDIA);
 
     if (!source || !medium) {
       source = 'direct';
@@ -76,28 +83,26 @@
             source = 'yahoo';
             medium = 'organic';
           } else {
-            source = safeAttributionToken(host, 80) || 'referral';
+            source = 'referral';
             medium = 'referral';
           }
         }
       } catch (error) {}
     }
 
-    return { source: source, medium: medium, campaign: campaign };
+    return { source: source, medium: medium };
   }
 
   function getFirstTouchAttribution() {
     try {
-      var storedSource = safeAttributionToken(sessionStorage.getItem(SOURCE_STORAGE_KEY), 80);
-      var storedMedium = safeAttributionToken(sessionStorage.getItem(MEDIUM_STORAGE_KEY), 80);
-      var storedCampaign = safeAttributionToken(sessionStorage.getItem(CAMPAIGN_STORAGE_KEY), 120);
+      var storedSource = allowlistedAttributionToken(sessionStorage.getItem(SOURCE_STORAGE_KEY), ALLOWED_ATTRIBUTION_SOURCES);
+      var storedMedium = allowlistedAttributionToken(sessionStorage.getItem(MEDIUM_STORAGE_KEY), ALLOWED_ATTRIBUTION_MEDIA);
       if (storedSource && storedMedium) {
-        return { source: storedSource, medium: storedMedium, campaign: storedCampaign };
+        return { source: storedSource, medium: storedMedium };
       }
       var attribution = currentAttribution();
       sessionStorage.setItem(SOURCE_STORAGE_KEY, attribution.source);
       sessionStorage.setItem(MEDIUM_STORAGE_KEY, attribution.medium);
-      if (attribution.campaign) sessionStorage.setItem(CAMPAIGN_STORAGE_KEY, attribution.campaign);
       return attribution;
     } catch (error) {
       return currentAttribution();
@@ -119,7 +124,6 @@
     url.searchParams.set('sf_cta', ctaPath);
     url.searchParams.set('utm_source', attribution.source);
     url.searchParams.set('utm_medium', attribution.medium);
-    if (attribution.campaign) url.searchParams.set('utm_campaign', attribution.campaign);
     link.href = url.toString();
   }
 

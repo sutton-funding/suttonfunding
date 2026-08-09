@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const siteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const origin = 'https://www.suttonfunding.com';
-const attributionAsset = '/assets/application-attribution.js?v=cb1cda6faada';
+const attributionAsset = '/assets/application-attribution.js?v=919b5be1f117';
 const resourcePaths = [
   '/resources/',
   '/resources/working-capital-vs-line-of-credit/',
@@ -131,6 +131,27 @@ test('canonical resource paths match their file locations', async () => {
   for (const resourcePath of resourcePaths) {
     const file = fileForUrlPath(resourcePath);
     assert.equal(canonicalPathForFile(file), resourcePath);
+  }
+});
+
+test('homepage links directly to every resource page', async () => {
+  const homepage = await readFile(path.join(siteRoot, 'index.html'), 'utf8');
+  const hrefs = new Set([...homepage.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)].map((match) => match[1]));
+  for (const resourcePath of resourcePaths) {
+    assert.ok(hrefs.has(resourcePath), `homepage is missing direct link to ${resourcePath}`);
+  }
+});
+
+test('every canonical page sends GA a query-free page location', async () => {
+  const sitemap = await readFile(path.join(siteRoot, 'sitemap.xml'), 'utf8');
+  const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  for (const location of locations) {
+    const url = new URL(location);
+    const html = await readFile(fileForUrlPath(url.pathname), 'utf8');
+    assert.ok(
+      /page_location\s*:\s*window\.location\.origin\s*\+\s*window\.location\.pathname/.test(html),
+      `${url.pathname} must override GA page_location without query parameters`,
+    );
   }
 });
 

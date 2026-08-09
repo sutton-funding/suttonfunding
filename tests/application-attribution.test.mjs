@@ -92,12 +92,12 @@ test('an allowed stored landing survives navigation to another resource', () => 
   assert.equal(url.searchParams.get('sf_cta'), cta);
 });
 
-test('safe campaign attribution is carried to the application', () => {
+test('allowlisted source and medium are carried without forwarding raw campaign values', () => {
   const { link } = runAtPath('/resources/?utm_source=google&utm_medium=organic&utm_campaign=august-guide');
   const url = new URL(link.href);
   assert.equal(url.searchParams.get('utm_source'), 'google');
   assert.equal(url.searchParams.get('utm_medium'), 'organic');
-  assert.equal(url.searchParams.get('utm_campaign'), 'august-guide');
+  assert.equal(url.searchParams.has('utm_campaign'), false);
 });
 
 test('search referrers are reduced to a non-PII source and medium', () => {
@@ -116,6 +116,15 @@ test('PII-shaped campaign values are rejected', () => {
   assert.equal(url.searchParams.get('utm_source'), 'direct');
   assert.equal(url.searchParams.get('utm_medium'), 'none');
   assert.equal(url.searchParams.has('utm_campaign'), false);
+});
+
+test('punctuation-free names and phone-like UTM values never reach the application URL', () => {
+  const { link } = runAtPath('/resources/?utm_source=Jane%20Doe&utm_medium=organic&utm_campaign=5551234567');
+  const url = new URL(link.href);
+  assert.equal(url.searchParams.get('utm_source'), 'direct');
+  assert.equal(url.searchParams.get('utm_medium'), 'none');
+  assert.equal(url.searchParams.has('utm_campaign'), false);
+  assert.doesNotMatch(url.toString(), /Jane|5551234567/);
 });
 
 test('unknown paths are reduced to the safe root path', () => {
