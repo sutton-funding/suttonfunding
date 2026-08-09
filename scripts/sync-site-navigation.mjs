@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const siteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const attributionScript = '/assets/application-attribution.js?v=783f6b16216a';
+const attributionScript = '/assets/application-attribution.js?v=3e0e44411693';
 const navigationCss = '/assets/site-navigation.css?v=9582638005a9';
 const navigationScript = '/assets/site-navigation.js?v=277a68ef2c82';
 

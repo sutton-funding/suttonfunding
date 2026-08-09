@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const siteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const origin = 'https://www.suttonfunding.com';
-const attributionAsset = '/assets/application-attribution.js?v=783f6b16216a';
+const attributionAsset = '/assets/application-attribution.js?v=3e0e44411693';
 const resourcePaths = [
   '/resources/',
   '/resources/working-capital-vs-line-of-credit/',

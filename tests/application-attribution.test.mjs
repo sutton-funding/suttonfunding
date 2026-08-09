@@ -16,6 +16,12 @@ const resourcePaths = [
   '/resources/direct-funder-vs-broker-marketplace/',
 ];
 
+const trustPaths = [
+  '/editorial-policy/',
+  '/corrections-policy/',
+  '/authors/henry-gross/',
+];
+
 function runAtPath(pathname, storedLanding = null, options = {}) {
   const listeners = new Map();
   const link = {
@@ -81,6 +87,16 @@ test('every canonical resource path is an allowed landing and CTA page path', ()
     assert.equal(events[0][2].lead_type, 'business_funding');
     assert.equal(events[0][2].cta_location, 'page_bottom');
     assert.equal(events[0][2].transport_type, 'beacon');
+  }
+});
+
+test('every canonical trust path preserves its landing and CTA page path', () => {
+  for (const path of trustPaths) {
+    const { link, storage } = runAtPath(path, null, { ctaLocation: 'nav' });
+    const url = new URL(link.href);
+    assert.equal(url.searchParams.get('sf_landing'), path);
+    assert.equal(url.searchParams.get('sf_cta'), path);
+    assert.equal(storage.get('sf_marketing_landing_path'), path);
   }
 });
 
