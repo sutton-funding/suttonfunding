@@ -36,6 +36,17 @@
     '/resources/business-funding-document-checklist/',
     '/resources/direct-funder-vs-broker-marketplace/',
   ]);
+  var ALLOWED_CTA_LOCATIONS = new Set([
+    'nav',
+    'mobile_nav',
+    'hero',
+    'calculator',
+    'product',
+    'contact',
+    'page_bottom',
+    'footer',
+    'content',
+  ]);
 
   function safeMarketingPath(value) {
     var path = String(value || '');
@@ -56,6 +67,11 @@
   function allowlistedAttributionToken(value, allowlist) {
     var token = String(value || '').trim().toLowerCase();
     return allowlist.has(token) ? token : '';
+  }
+
+  function safeCtaLocation(value) {
+    var location = String(value || '').trim().toLowerCase();
+    return ALLOWED_CTA_LOCATIONS.has(location) ? location : 'content';
   }
 
   function currentAttribution() {
@@ -127,12 +143,12 @@
     link.href = url.toString();
   }
 
-  function trackApplicationCta(ctaPath) {
+  function trackApplicationCta(ctaLocation) {
     if (typeof window.gtag !== 'function') return;
     window.gtag('event', 'application_cta_click', {
       form_name: 'business_funding_application',
       lead_type: 'business_funding',
-      cta_location: ctaPath,
+      cta_location: ctaLocation,
       transport_type: 'beacon',
     });
   }
@@ -145,7 +161,7 @@
       if (!isApplicationLink(link)) return;
       addSafeAttribution(link, landingPath, ctaPath, attribution);
       link.addEventListener('click', function () {
-        trackApplicationCta(ctaPath);
+        trackApplicationCta(safeCtaLocation(link.dataset && link.dataset.ctaLocation));
       });
     });
   }

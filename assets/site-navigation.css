@@ -1,0 +1,302 @@
+.sf-skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-180%);
+  border-radius: 0.5rem;
+  background: #facc15;
+  color: #020617;
+  padding: 0.7rem 1rem;
+  font: 700 0.875rem/1.2 Manrope, sans-serif;
+  text-decoration: none;
+  transition: transform 150ms ease;
+}
+
+.sf-skip-link:focus {
+  transform: translateY(0);
+}
+
+.sf-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(2, 6, 23, 0.96);
+  color: #cbd5e1;
+  font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.sf-header--home {
+  position: fixed;
+  background: transparent;
+  border-bottom-color: transparent;
+  transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.sf-header--home.sf-header--scrolled {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: rgba(2, 6, 23, 0.9);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.sf-nav {
+  position: relative;
+  display: flex;
+  min-height: 5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.sf-brand {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.sf-brand-mark {
+  position: relative;
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  flex: 0 0 3rem;
+}
+
+.sf-brand-mark::before {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.25rem;
+  background: #eab308;
+  content: "";
+  filter: blur(12px);
+  opacity: 0.18;
+  transition: opacity 150ms ease;
+}
+
+.sf-brand:hover .sf-brand-mark::before {
+  opacity: 0.35;
+}
+
+.sf-brand-mark img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sf-brand-name {
+  color: #fff;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.sf-nav-primary,
+.sf-nav-actions {
+  display: none;
+}
+
+.sf-menu-toggle,
+.sf-menu-close {
+  display: inline-flex;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.78);
+  color: #fff;
+  cursor: pointer;
+}
+
+.sf-menu-toggle svg,
+.sf-menu-close svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.sf-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  visibility: hidden;
+  overflow-y: auto;
+  background: #020617;
+  color: #cbd5e1;
+  font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+  transition: transform 220ms ease, opacity 220ms ease, visibility 0s linear 220ms;
+}
+
+.sf-mobile-menu.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+  transition-delay: 0s;
+}
+
+.sf-menu-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+}
+
+.sf-mobile-links {
+  display: flex;
+  min-height: 100%;
+  padding: 6.5rem 1.5rem 2.5rem;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sf-mobile-links a {
+  display: block;
+  border-radius: 0.75rem;
+  color: #cbd5e1;
+  padding: 0.85rem 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.sf-mobile-links a:hover {
+  background: rgba(30, 41, 59, 0.72);
+  color: #fff;
+}
+
+.sf-mobile-links hr {
+  width: 100%;
+  margin: 1rem 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sf-mobile-links .sf-mobile-apply {
+  margin-top: 0.5rem;
+  background: #eab308;
+  color: #020617;
+  text-align: center;
+}
+
+.sf-mobile-links .sf-mobile-apply:hover {
+  background: #facc15;
+  color: #020617;
+}
+
+body.sf-menu-open {
+  overflow: hidden;
+}
+
+body .main-content {
+  margin-top: 0 !important;
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #facc15 !important;
+  outline-offset: 3px !important;
+}
+
+#main-content:focus {
+  outline: none;
+}
+
+@media (min-width: 1200px) {
+  .sf-nav-primary {
+    position: absolute;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .sf-nav-primary a,
+  .sf-nav-actions a {
+    color: #94a3b8;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .sf-nav-primary a:hover,
+  .sf-nav-actions a:hover {
+    color: #fff;
+  }
+
+  .sf-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    white-space: nowrap;
+  }
+
+  .sf-nav-divider {
+    width: 1px;
+    height: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .sf-nav-actions .sf-nav-apply {
+    border-radius: 999px;
+    background: #eab308;
+    color: #020617;
+    padding: 0.72rem 1.5rem;
+    font-weight: 800;
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.18);
+  }
+
+  .sf-nav-actions .sf-nav-apply:hover {
+    background: #facc15;
+    color: #020617;
+    box-shadow: 0 0 30px rgba(234, 179, 8, 0.28);
+  }
+
+  .sf-menu-toggle,
+  .sf-mobile-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 359px) {
+  .sf-brand-name {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-skip-link,
+  .sf-header--home,
+  .sf-mobile-menu {
+    transition-duration: 0.01ms;
+  }
+}
+
+@media print {
+  .sf-skip-link,
+  .sf-header,
+  .sf-mobile-menu {
+    display: none !important;
+  }
+}

@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const siteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const origin = 'https://www.suttonfunding.com';
-const attributionAsset = '/assets/application-attribution.js?v=919b5be1f117';
+const attributionAsset = '/assets/application-attribution.js?v=783f6b16216a';
 const resourcePaths = [
   '/resources/',
   '/resources/working-capital-vs-line-of-credit/',
@@ -153,22 +153,74 @@ test('homepage links directly to every resource page', async () => {
   }
 });
 
+test('every canonical page is reachable from the homepage through site links', async () => {
+  const sitemap = await readFile(path.join(siteRoot, 'sitemap.xml'), 'utf8');
+  const canonicalPaths = new Set(
+    [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname),
+  );
+  const visited = new Set(['/']);
+  const queue = ['/'];
+
+  while (queue.length) {
+    const currentPath = queue.shift();
+    const html = await readFile(fileForUrlPath(currentPath), 'utf8');
+    for (const match of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
+      const target = new URL(match[1], origin + currentPath);
+      if (target.origin !== origin || !canonicalPaths.has(target.pathname) || visited.has(target.pathname)) continue;
+      visited.add(target.pathname);
+      queue.push(target.pathname);
+    }
+  }
+
+  assert.deepEqual([...canonicalPaths].filter((pathname) => !visited.has(pathname)), []);
+});
+
 test('desktop primary navigation is centered independently from the actions', async () => {
   const homepage = await readFile(path.join(siteRoot, 'index.html'), 'utf8');
+  const navigationCss = await readFile(path.join(siteRoot, 'assets/site-navigation.css'), 'utf8');
   const primaryStart = homepage.indexOf('<!-- Desktop Primary Links -->');
   const actionsStart = homepage.indexOf('<!-- Desktop Actions -->');
-  const mobileStart = homepage.indexOf('<!-- Mobile Menu Toggle -->');
+  const mobileStart = homepage.indexOf('<button class="sf-menu-toggle"');
   assert.ok(primaryStart >= 0 && actionsStart > primaryStart && mobileStart > actionsStart);
 
   const primary = homepage.slice(primaryStart, actionsStart);
   const actions = homepage.slice(actionsStart, mobileStart);
-  assert.match(primary, /absolute left-1\/2 -translate-x-1\/2/);
+  assert.match(primary, /class="sf-nav-primary"/);
   for (const label of ['Funding Options', 'Calculator', 'Resources', 'Why Sutton?']) {
     assert.ok(primary.includes(`>${label}</a>`), `${label} must remain in the centered group`);
   }
   assert.doesNotMatch(primary, />Login<|>Apply Now</);
   assert.match(actions, />Login</);
   assert.match(actions, />\s*Apply Now\s*</);
+  assert.match(navigationCss, /@media \(min-width: 1200px\)[\s\S]*?\.sf-nav-primary\s*\{[\s\S]*?position:\s*absolute;[\s\S]*?left:\s*50%;[\s\S]*?transform:\s*translateX\(-50%\);/);
+});
+
+test('all canonical pages use the shared accessible responsive navigation', async () => {
+  const sitemap = await readFile(path.join(siteRoot, 'sitemap.xml'), 'utf8');
+  const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  const expectedCalculator = '/resources/apr-factor-rate-total-cost/#calculator';
+  const allowedPlacements = new Set(['nav', 'mobile_nav', 'hero', 'calculator', 'product', 'contact', 'page_bottom', 'footer', 'content']);
+
+  for (const location of locations) {
+    const url = new URL(location);
+    const html = await readFile(fileForUrlPath(url.pathname), 'utf8');
+    assert.equal((html.match(/class="sf-skip-link"/g) || []).length, 1, `${url.pathname} skip link`);
+    assert.equal((html.match(/data-site-header/g) || []).length, 1, `${url.pathname} shared header`);
+    assert.equal((html.match(/data-mobile-menu/g) || []).length, 1, `${url.pathname} mobile menu`);
+    assert.equal((html.match(/id="main-content"/g) || []).length, 1, `${url.pathname} main target`);
+    assert.match(html, /id="main-content" tabindex="-1"/);
+    assert.ok(html.includes('/assets/site-navigation.css?v=9582638005a9'));
+    assert.ok(html.includes('/assets/site-navigation.js?v=277a68ef2c82'));
+    assert.equal((html.match(new RegExp(`href="${expectedCalculator}"`, 'g')) || []).length, 2, `${url.pathname} calculator routes`);
+    assert.match(html, /aria-controls="site-mobile-menu" aria-expanded="false"/);
+    assert.match(html, /id="site-mobile-menu"[^>]*aria-hidden="true" inert data-mobile-menu/);
+
+    for (const match of html.matchAll(/<a\b([^>]*href="https:\/\/apply\.suttonfunding\.com\/apply"[^>]*)>([\s\S]*?)<\/a>/g)) {
+      const placement = match[1].match(/data-cta-location="([^"]+)"/)?.[1];
+      assert.ok(placement && allowedPlacements.has(placement), `${url.pathname} has safe CTA placement`);
+      assert.doesNotMatch(match[2], /Check Eligibility|Explore Options|Get Funded|Start an Application|Apply for Business Funding/);
+    }
+  }
 });
 
 test('all public HTML identifies the company only as Sutton Funding', async () => {

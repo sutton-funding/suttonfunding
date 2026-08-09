@@ -20,6 +20,7 @@ function runAtPath(pathname, storedLanding = null, options = {}) {
   const listeners = new Map();
   const link = {
     href: 'https://apply.suttonfunding.com/apply',
+    dataset: { ctaLocation: options.ctaLocation || 'content' },
     addEventListener(type, handler) {
       listeners.set(type, handler);
     },
@@ -63,9 +64,9 @@ function runAtPath(pathname, storedLanding = null, options = {}) {
   return { events, link, listeners, storage };
 }
 
-test('every canonical resource path is an allowed CTA and landing path', () => {
+test('every canonical resource path is an allowed landing and CTA page path', () => {
   for (const path of resourcePaths) {
-    const { link, listeners, storage, events } = runAtPath(path);
+    const { link, listeners, storage, events } = runAtPath(path, null, { ctaLocation: 'page_bottom' });
     const url = new URL(link.href);
     assert.equal(url.searchParams.get('sf_landing'), path);
     assert.equal(url.searchParams.get('sf_cta'), path);
@@ -78,7 +79,7 @@ test('every canonical resource path is an allowed CTA and landing path', () => {
     assert.equal(events[0][1], 'application_cta_click');
     assert.equal(events[0][2].form_name, 'business_funding_application');
     assert.equal(events[0][2].lead_type, 'business_funding');
-    assert.equal(events[0][2].cta_location, path);
+    assert.equal(events[0][2].cta_location, 'page_bottom');
     assert.equal(events[0][2].transport_type, 'beacon');
   }
 });
@@ -134,4 +135,15 @@ test('unknown paths are reduced to the safe root path', () => {
   assert.equal(url.searchParams.get('sf_cta'), '/');
   assert.equal(storage.get('sf_marketing_landing_path'), '/');
   assert.deepEqual([...url.searchParams.keys()].sort(), ['sf_cta', 'sf_landing', 'utm_medium', 'utm_source']);
+});
+
+test('CTA placement is allowlisted independently from the safe page path', () => {
+  const { link, listeners, events } = runAtPath('/working-capital/', null, {
+    ctaLocation: 'private-person@example.com',
+  });
+  listeners.get('click')();
+  assert.equal(events[0][2].cta_location, 'content');
+  const url = new URL(link.href);
+  assert.equal(url.searchParams.get('sf_cta'), '/working-capital/');
+  assert.doesNotMatch(url.toString(), /private-person/);
 });

@@ -27,17 +27,54 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
   <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
-  <script defer src="/assets/application-attribution.js?v=919b5be1f117"></script>
+  <link rel="stylesheet" href="/assets/site-navigation.css?v=9582638005a9">
+  <script defer src="/assets/application-attribution.js?v=783f6b16216a"></script>
+  <script defer src="/assets/site-navigation.js?v=277a68ef2c82"></script>
 </head>
 <body class="font-sans antialiased selection:bg-gold-500 selection:text-black">
-  <header class="border-b border-white/10 bg-slate-950/95">
-    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6" aria-label="Primary navigation">
-      <a href="/" class="flex items-center gap-3" aria-label="Sutton Funding home"><img src="/assets/sutton-mark.webp" alt="" width="384" height="256" class="w-11 h-11 object-contain"><span class="hidden min-[360px]:inline font-serif text-xl md:text-2xl font-bold text-white">Sutton Funding</span></a>
-      <div class="hidden lg:flex items-center gap-7 text-sm text-slate-300"><a href="/#products" class="hover:text-white">Funding Options</a><a href="/how-it-works/" class="hover:text-white">How It Works</a><a href="/resources/" class="hover:text-white">Resources</a><a href="/about/" class="hover:text-white">About</a><a href="/contact/" class="hover:text-white">Contact</a><a href="https://suttonfunding.app/login" class="hover:text-white">Login</a></div>
-      <a href="https://apply.suttonfunding.com/apply" class="shrink-0 bg-gold-500 hover:bg-gold-400 text-black px-5 py-2.5 rounded-full text-sm font-bold">Apply Now</a>
+  <!-- SITE NAVIGATION START -->
+  <a class="sf-skip-link" href="#main-content">Skip to main content</a>
+  <header id="navbar" class="sf-header" data-site-header>
+    <nav class="sf-nav" aria-label="Primary navigation">
+      <a href="/" class="sf-brand" aria-label="Sutton Funding home">
+        <span class="sf-brand-mark"><img src="/assets/sutton-mark.webp" srcset="/assets/sutton-mark-96.webp 96w, /assets/sutton-mark.webp 384w" sizes="48px" alt="" width="384" height="256"></span>
+        <span class="sf-brand-name">Sutton Funding</span>
+      </a>
+      <!-- Desktop Primary Links -->
+      <div class="sf-nav-primary">
+        <a href="/#products">Funding Options</a>
+        <a href="/resources/apr-factor-rate-total-cost/#calculator">Calculator</a>
+        <a href="/resources/">Resources</a>
+        <a href="/about/">Why Sutton?</a>
+      </div>
+      <!-- Desktop Actions -->
+      <div class="sf-nav-actions">
+        <span class="sf-nav-divider" aria-hidden="true"></span>
+        <a href="https://suttonfunding.app/login">Login</a>
+        <a href="https://apply.suttonfunding.com/apply" class="sf-nav-apply" data-cta-location="nav">Apply Now</a>
+      </div>
+      <button class="sf-menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="site-mobile-menu" aria-expanded="false" data-menu-toggle>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="/assets/icons.svg#menu"></use></svg>
+      </button>
     </nav>
   </header>
-  <main>
+  <div id="site-mobile-menu" class="sf-mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu" aria-hidden="true" inert data-mobile-menu>
+    <button class="sf-menu-close" type="button" aria-label="Close navigation menu" data-menu-close>
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="/assets/icons.svg#x"></use></svg>
+    </button>
+    <nav class="sf-mobile-links" aria-label="Mobile navigation">
+      <a href="/#products">Funding Options</a>
+      <a href="/resources/apr-factor-rate-total-cost/#calculator">Calculator</a>
+      <a href="/resources/">Resources</a>
+      <a href="/about/">Why Sutton?</a>
+      <hr>
+      <a href="https://suttonfunding.app/login">Portal Login</a>
+      <a href="https://apply.suttonfunding.com/apply" class="sf-mobile-apply" data-cta-location="mobile_nav">Apply Now</a>
+    </nav>
+  </div>
+  <!-- SITE NAVIGATION END -->
+
+  <main id="main-content" tabindex="-1">
     <section class="relative overflow-hidden border-b border-white/5">
       <div class="absolute inset-0 bg-grid opacity-20 pointer-events-none"></div>
       <div class="max-w-5xl mx-auto px-6 py-20 md:py-28 relative">
@@ -45,7 +82,7 @@
         <p class="text-gold-500 font-bold text-xs tracking-[0.2em] uppercase mb-4">Business Funding Option</p>
         <h1 class="text-4xl md:text-6xl text-white font-serif font-bold leading-tight text-balance">Business term financing for planned investments</h1>
         <p class="mt-7 text-lg md:text-xl text-slate-400 max-w-3xl leading-relaxed">A term financing structure may provide a lump sum with a defined payment schedule for business needs such as equipment, renovations or expansion. The exact provider and terms depend on the offer.</p>
-        <div class="mt-9 flex flex-col sm:flex-row gap-4"><a href="https://apply.suttonfunding.com/apply" class="text-center bg-gold-500 hover:bg-gold-400 text-black px-7 py-3.5 rounded-full font-bold">Start an Application</a><a href="/how-it-works/" class="text-center border border-white/20 hover:bg-slate-900 text-white px-7 py-3.5 rounded-full font-semibold">See How It Works</a></div>
+        <div class="mt-9 flex flex-col sm:flex-row gap-4"><a href="https://apply.suttonfunding.com/apply" class="text-center bg-gold-500 hover:bg-gold-400 text-black px-7 py-3.5 rounded-full font-bold" data-cta-location="hero">Start Application</a><a href="/how-it-works/" class="text-center border border-white/20 hover:bg-slate-900 text-white px-7 py-3.5 rounded-full font-semibold">See How It Works</a></div>
       </div>
     </section>
     <section class="max-w-6xl mx-auto px-6 py-16 md:py-24 grid lg:grid-cols-[minmax(0,1fr)_320px] gap-12">
@@ -76,7 +113,7 @@
         <a href="/disclosures/" class="inline-block mt-5 text-gold-400 hover:text-white font-semibold">Read funding disclosures</a>
       </aside>
     </section>
-    <section class="border-y border-white/5 bg-slate-900/30"><div class="max-w-4xl mx-auto px-6 py-16 text-center"><h2 class="text-3xl md:text-4xl text-white font-serif font-bold">Explore available business funding</h2><p class="mt-4 text-slate-400">Application submission is not a guarantee of approval or funding.</p><a href="https://apply.suttonfunding.com/apply" class="inline-block mt-7 bg-white hover:bg-slate-200 text-black px-7 py-3.5 rounded-full font-bold">Apply for Business Funding</a></div></section>
+    <section class="border-y border-white/5 bg-slate-900/30"><div class="max-w-4xl mx-auto px-6 py-16 text-center"><h2 class="text-3xl md:text-4xl text-white font-serif font-bold">Explore available business funding</h2><p class="mt-4 text-slate-400">Application submission is not a guarantee of approval or funding.</p><a href="https://apply.suttonfunding.com/apply" class="inline-block mt-7 bg-white hover:bg-slate-200 text-black px-7 py-3.5 rounded-full font-bold" data-cta-location="page_bottom">Start Application</a></div></section>
   </main>
   <footer class="border-t border-white/5 bg-slate-950"><div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between text-sm text-slate-400"><p>&copy; 2026 Sutton Funding.</p><nav class="flex flex-wrap gap-5" aria-label="Footer navigation"><a href="/resources/" class="hover:text-white">Resources</a><a href="/about/" class="hover:text-white">About</a><a href="/contact/" class="hover:text-white">Contact</a><a href="/disclosures/" class="hover:text-white">Disclosures</a><a href="/terms/" class="hover:text-white">Terms</a><a href="/privacy-policy/" class="hover:text-white">Privacy</a></nav></div></footer>
 </body>
