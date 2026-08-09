@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const siteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const origin = 'https://www.suttonfunding.com';
+const attributionAsset = '/assets/application-attribution.js?v=cb1cda6faada';
 const resourcePaths = [
   '/resources/',
   '/resources/working-capital-vs-line-of-credit/',
@@ -64,7 +65,7 @@ test('resource pages have canonical metadata, dates, organizational authorship a
     assert.match(html, /<meta name="description" content="[^"]+">/);
     assert.ok(html.includes(`<link rel="canonical" href="${origin}${resourcePath}">`));
     assert.ok(html.includes('G-Y78QWR6HVG'));
-    assert.ok(html.includes('/assets/application-attribution.js'));
+    assert.ok(html.includes(attributionAsset));
     assert.ok(html.includes('/assets/resources.css'));
 
     const schemaBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
