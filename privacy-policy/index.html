@@ -759,85 +759,14 @@
     </main>
 
     <script>
-        // Smooth scrolling for table of contents links
+        // Smooth scrolling for table-of-contents links.
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+            anchor.addEventListener('click', function (event) {
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                if (!target) return;
+                event.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = '#ffffff';
-                header.style.backdropFilter = 'none';
-            }
-        });
-
-        // Mobile menu functionality
-        function initializeMobileMenu() {
-            const nav = document.querySelector('.nav-right');
-            const navLinks = document.querySelector('.nav-links');
-            
-            // Check if mobile menu button already exists
-            if (document.querySelector('.mobile-menu-btn')) return;
-            
-            const mobileMenuBtn = document.createElement('button');
-            mobileMenuBtn.className = 'mobile-menu-btn';
-            mobileMenuBtn.innerHTML = '☰';
-            mobileMenuBtn.setAttribute('aria-label', 'Toggle mobile menu');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('show');
-                // Change icon
-                if (navLinks.classList.contains('show')) {
-                    mobileMenuBtn.innerHTML = '✕';
-                } else {
-                    mobileMenuBtn.innerHTML = '☰';
-                }
-            });
-            
-            nav.appendChild(mobileMenuBtn);
-            
-            // Close mobile menu when a link is clicked
-            navLinks.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    navLinks.classList.remove('show');
-                    mobileMenuBtn.innerHTML = '☰';
-                }
-            });
-            
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!nav.contains(e.target)) {
-                    navLinks.classList.remove('show');
-                    mobileMenuBtn.innerHTML = '☰';
-                }
-            });
-        }
-
-        // Initialize mobile menu on load
-        initializeMobileMenu();
-        
-        // Reinitialize on window resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                const navLinks = document.querySelector('.nav-links');
-                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-                if (navLinks) navLinks.classList.remove('show');
-                if (mobileMenuBtn) mobileMenuBtn.innerHTML = '☰';
-            }
         });
     </script>
 </body>

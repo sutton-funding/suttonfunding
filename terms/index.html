@@ -618,56 +618,5 @@
         </section>
     </main>
 
-    <script>
-        // Mobile menu functionality
-        function initializeMobileMenu() {
-            const nav = document.querySelector('.nav');
-            const navLinks = document.querySelector('.nav-links');
-
-            // Create mobile menu button if it doesn't exist
-            if (!document.querySelector('.mobile-menu-btn')) {
-                const mobileMenuBtn = document.createElement('button');
-                mobileMenuBtn.className = 'mobile-menu-btn';
-                mobileMenuBtn.innerHTML = '☰';
-                mobileMenuBtn.setAttribute('aria-label', 'Toggle mobile menu');
-
-                mobileMenuBtn.addEventListener('click', function() {
-                    navLinks.classList.toggle('show');
-                    if (navLinks.classList.contains('show')) {
-                        mobileMenuBtn.innerHTML = '✕';
-                    } else {
-                        mobileMenuBtn.innerHTML = '☰';
-                    }
-                });
-
-                nav.appendChild(mobileMenuBtn);
-
-                navLinks.addEventListener('click', function(e) {
-                    if (e.target.tagName === 'A') {
-                        navLinks.classList.remove('show');
-                        mobileMenuBtn.innerHTML = '☰';
-                    }
-                });
-
-                document.addEventListener('click', function(e) {
-                    if (!nav.contains(e.target)) {
-                        navLinks.classList.remove('show');
-                        mobileMenuBtn.innerHTML = '☰';
-                    }
-                });
-            }
-        }
-
-        initializeMobileMenu();
-
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                const navLinks = document.querySelector('.nav-links');
-                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-                if (navLinks) navLinks.classList.remove('show');
-                if (mobileMenuBtn) mobileMenuBtn.innerHTML = '☰';
-            }
-        });
-    </script>
 </body>
 </html>

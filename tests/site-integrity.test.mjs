@@ -94,7 +94,7 @@ test('resource pages have canonical metadata, dates, named authorship and valid 
     if (resourcePath === '/resources/') {
       assert.ok(types.has('CollectionPage'));
       assert.ok(types.has('ItemList'));
-      assert.ok(html.includes('Maintained by:</strong> <a href="/authors/henry-gross/">Henry Gross, CEO</a>'));
+      assert.ok(html.includes('Author:</strong> <a href="/authors/henry-gross/">Henry Gross, CEO</a>'));
       assert.ok(html.includes('/editorial-policy/'));
       assert.ok(html.includes('/corrections-policy/'));
     } else {
@@ -303,6 +303,7 @@ test('all canonical pages use the shared accessible responsive navigation', asyn
     assert.equal((html.match(new RegExp(`href="${expectedCalculator}"`, 'g')) || []).length, 2, `${url.pathname} calculator routes`);
     assert.match(html, /aria-controls="site-mobile-menu" aria-expanded="false"/);
     assert.match(html, /id="site-mobile-menu"[^>]*aria-hidden="true" inert data-mobile-menu/);
+    assert.doesNotMatch(html, /initializeMobileMenu/, `${url.pathname} must not run an obsolete menu initializer`);
 
     for (const match of html.matchAll(/<a\b([^>]*href="https:\/\/apply\.suttonfunding\.com\/apply"[^>]*)>([\s\S]*?)<\/a>/g)) {
       const placement = match[1].match(/data-cta-location="([^"]+)"/)?.[1];
