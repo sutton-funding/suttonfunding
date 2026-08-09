@@ -17,6 +17,11 @@ const resourcePaths = [
   '/resources/business-funding-document-checklist/',
   '/resources/direct-funder-vs-broker-marketplace/',
 ];
+const trustPaths = [
+  '/editorial-policy/',
+  '/corrections-policy/',
+  '/authors/henry-gross/',
+];
 
 function fileForUrlPath(urlPath) {
   const decoded = decodeURIComponent(urlPath);
@@ -55,11 +60,12 @@ function graphTypes(data) {
   return new Set(nodes.flatMap((node) => Array.isArray(node['@type']) ? node['@type'] : [node['@type']]).filter(Boolean));
 }
 
-test('sitemap lists every canonical resource and every URL maps to a public file', async () => {
+test('sitemap lists every canonical resource and trust page, and every URL maps to a public file', async () => {
   const sitemap = await readFile(path.join(siteRoot, 'sitemap.xml'), 'utf8');
   const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
   assert.equal(new Set(locations).size, locations.length, 'sitemap must not contain duplicate URLs');
   for (const resourcePath of resourcePaths) assert.ok(locations.includes(origin + resourcePath), `missing ${resourcePath}`);
+  for (const trustPath of trustPaths) assert.ok(locations.includes(origin + trustPath));
   for (const location of locations) {
     const url = new URL(location);
     assert.equal(url.origin, origin);
@@ -67,7 +73,7 @@ test('sitemap lists every canonical resource and every URL maps to a public file
   }
 });
 
-test('resource pages have canonical metadata, dates, organizational authorship and valid JSON-LD', async () => {
+test('resource pages have canonical metadata, dates, named authorship and valid JSON-LD', async () => {
   for (const resourcePath of resourcePaths) {
     const file = fileForUrlPath(resourcePath);
     const html = await readFile(file, 'utf8');
@@ -88,20 +94,103 @@ test('resource pages have canonical metadata, dates, organizational authorship a
     if (resourcePath === '/resources/') {
       assert.ok(types.has('CollectionPage'));
       assert.ok(types.has('ItemList'));
-      assert.ok(html.includes('Maintained by:</strong> Sutton Funding Editorial Team'));
+      assert.ok(html.includes('Maintained by:</strong> <a href="/authors/henry-gross/">Henry Gross, CEO</a>'));
+      assert.ok(html.includes('/editorial-policy/'));
+      assert.ok(html.includes('/corrections-policy/'));
     } else {
       assert.ok(types.has('Article'), `${resourcePath} needs Article schema`);
       const article = schemas.flatMap((schema) => schema['@graph'] ?? [schema]).find((node) => node['@type'] === 'Article');
-      assert.equal(article.author.name, 'Sutton Funding Editorial Team');
+      assert.equal(article.author['@type'], 'Person');
+      assert.equal(article.author.name, 'Henry Gross');
+      assert.equal(article.author.url, origin + '/authors/henry-gross/');
       assert.equal(article.datePublished, '2026-08-09');
       assert.equal(article.dateModified, '2026-08-09');
+      assert.ok(html.includes('<strong>By:</strong> <a href="/authors/henry-gross/">Henry Gross, CEO</a>'));
       assert.ok(html.includes('<strong>Published:</strong> August 9, 2026'));
       assert.ok(html.includes('<strong>Updated:</strong> August 9, 2026'));
+      assert.ok(html.includes('General educational content reviewed under our <a href="/editorial-policy/">editorial policy</a>'));
       assert.ok((html.match(/<li><a href="https:\/\//g) || []).length >= 2, `${resourcePath} needs primary-source links`);
     }
 
+    assert.doesNotMatch(html, /Sutton Funding Editorial Team/);
     assert.doesNotMatch(html, /\b(guaranteed approval|rates? as low as|same-day funding|funding up to \$)\b/i);
   }
+});
+
+test('Henry Gross author profile is limited to verified identity and role facts', async () => {
+  const html = await readFile(fileForUrlPath('/authors/henry-gross/'), 'utf8');
+  assert.ok(html.includes('<h1 class="resource-title">Henry Gross</h1>'));
+  assert.ok(html.includes('<p class="resource-deck">CEO, Sutton Funding</p>'));
+  assert.doesNotMatch(html, /\b(years? of experience|expert|licensed|certified|credential|graduated|linkedin|headshot)\b/i);
+
+  const schemaBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+  const nodes = schemaBlocks.flatMap((match) => {
+    const schema = JSON.parse(match[1]);
+    return schema['@graph'] ?? [schema];
+  });
+  const profile = nodes.find((node) => node['@type'] === 'ProfilePage');
+  const person = nodes.find((node) => node['@type'] === 'Person');
+  assert.ok(profile);
+  assert.ok(person);
+  assert.deepEqual(
+    Object.keys(person).sort(),
+    ['@id', '@type', 'jobTitle', 'name', 'worksFor'].sort(),
+  );
+  assert.equal(person.name, 'Henry Gross');
+  assert.equal(person.jobTitle, 'CEO');
+  assert.equal(person.worksFor.name, 'Sutton Funding');
+});
+
+test('core company and service pages use fact-safe page, service and breadcrumb schema', async () => {
+  const expectations = new Map([
+    ['/about/', ['AboutPage', 'BreadcrumbList']],
+    ['/contact/', ['ContactPage', 'BreadcrumbList']],
+    ['/how-it-works/', ['WebPage', 'BreadcrumbList']],
+    ['/working-capital/', ['WebPage', 'Service', 'BreadcrumbList']],
+    ['/term-loans/', ['WebPage', 'Service', 'BreadcrumbList']],
+    ['/business-line-of-credit/', ['WebPage', 'Service', 'BreadcrumbList']],
+  ]);
+
+  for (const [urlPath, requiredTypes] of expectations) {
+    const html = await readFile(fileForUrlPath(urlPath), 'utf8');
+    const schemaBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+    const schemas = schemaBlocks.map((match) => JSON.parse(match[1]));
+    const types = new Set(schemas.flatMap((schema) => [...graphTypes(schema)]));
+    for (const requiredType of requiredTypes) {
+      assert.ok(types.has(requiredType), urlPath + ' needs ' + requiredType + ' schema');
+    }
+    for (const schema of schemas) {
+      for (const node of schema['@graph'] ?? [schema]) {
+        if (node['@type'] === 'Service') {
+          assert.deepEqual(node.provider, { '@id': origin + '/#organization' });
+          assert.doesNotMatch(JSON.stringify(node), /\b(guaranteed|minimum|maximum|licensed|certified)\b/i);
+        }
+      }
+    }
+  }
+});
+
+test('editorial and corrections policies are public, dated and mutually linked', async () => {
+  for (const trustPath of ['/editorial-policy/', '/corrections-policy/']) {
+    const html = await readFile(fileForUrlPath(trustPath), 'utf8');
+    assert.ok(html.includes('<link rel="canonical" href="' + origin + trustPath + '">'));
+    assert.ok(html.includes('<strong>Effective:</strong> August 9, 2026'));
+    assert.ok(html.includes('<strong>Last updated:</strong> August 9, 2026'));
+    assert.ok(html.includes('/editorial-policy/'));
+    assert.ok(html.includes('/corrections-policy/'));
+    assert.ok(html.includes('info@suttonfunding.com'));
+  }
+});
+
+test('privacy policy has visible dates and no unverified operational security promises', async () => {
+  const html = await readFile(fileForUrlPath('/privacy-policy/'), 'utf8');
+  assert.ok(html.includes('<strong>Effective:</strong> August 9, 2026'));
+  assert.ok(html.includes('<strong>Last updated:</strong> August 9, 2026'));
+  assert.doesNotMatch(
+    html,
+    /encryption at rest|multi-factor authentication|penetration testing|intrusion detection|background checks|surveillance systems|security personnel/i,
+  );
+  assert.ok(html.includes('No method of transmission or storage is completely secure'));
 });
 
 test('all internal anchor links resolve, including local fragments', async () => {
