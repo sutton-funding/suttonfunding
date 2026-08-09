@@ -153,6 +153,24 @@ test('homepage links directly to every resource page', async () => {
   }
 });
 
+test('desktop primary navigation is centered independently from the actions', async () => {
+  const homepage = await readFile(path.join(siteRoot, 'index.html'), 'utf8');
+  const primaryStart = homepage.indexOf('<!-- Desktop Primary Links -->');
+  const actionsStart = homepage.indexOf('<!-- Desktop Actions -->');
+  const mobileStart = homepage.indexOf('<!-- Mobile Menu Toggle -->');
+  assert.ok(primaryStart >= 0 && actionsStart > primaryStart && mobileStart > actionsStart);
+
+  const primary = homepage.slice(primaryStart, actionsStart);
+  const actions = homepage.slice(actionsStart, mobileStart);
+  assert.match(primary, /absolute left-1\/2 -translate-x-1\/2/);
+  for (const label of ['Funding Options', 'Calculator', 'Resources', 'Why Sutton?']) {
+    assert.ok(primary.includes(`>${label}</a>`), `${label} must remain in the centered group`);
+  }
+  assert.doesNotMatch(primary, />Login<|>Apply Now</);
+  assert.match(actions, />Login</);
+  assert.match(actions, />\s*Apply Now\s*</);
+});
+
 test('all public HTML identifies the company only as Sutton Funding', async () => {
   for (const file of await htmlFiles(siteRoot)) {
     const html = await readFile(file, 'utf8');
