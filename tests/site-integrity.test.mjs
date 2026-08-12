@@ -242,6 +242,13 @@ test('homepage links directly to every resource page', async () => {
   }
 });
 
+test('homepage visibly features Lender List', async () => {
+  const html = await readFile(path.join(siteRoot, 'index.html'), 'utf8');
+  assert.ok(html.includes('id="lender-list-home-title"'));
+  assert.ok(html.includes('href="https://lender-list.com/"'));
+  assert.ok(html.includes('src="/assets/lender-list-mark.svg"'));
+});
+
 test('every canonical page is reachable from the homepage through site links', async () => {
   const sitemap = await readFile(path.join(siteRoot, 'sitemap.xml'), 'utf8');
   const canonicalPaths = new Set(
